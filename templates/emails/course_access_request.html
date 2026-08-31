@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Eka LMS - Course Access Request</title>
+</head>
+
+<body style="margin:0; padding:0; background:#f4f6fb; font-family: Arial, sans-serif;">
+
+<table width="100%" cellpadding="0" cellspacing="0" style="padding:30px 0;">
+<tr>
+<td align="center">
+
+<!-- MAIN CARD -->
+<table width="650" cellpadding="0" cellspacing="0"
+       style="background:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.08);">
+
+<!-- HEADER -->
+<tr>
+<td style="background:#0d47a1; padding:30px; text-align:center; color:#ffffff;">
+    
+    <h1 style="margin:0; font-size:26px;">🎓 Eka LMS</h1>
+    
+    <!-- NEW LINE -->
+    <p style="margin-top:6px; font-size:14px; opacity:0.9;">
+        Powered by <strong>TalentLearn</strong>
+    </p>
+
+</td>
+</tr>
+
+<!-- BODY -->
+<tr>
+<td style="padding:30px; color:#333;">
+
+<h2 style="margin-bottom:15px; font-size:22px; color:#0d47a1;">
+    🔐 Course Access Request
+</h2>
+
+<p style="font-size:15px; color:#555; margin-bottom:25px; line-height:1.6;">
+    A user has requested access to a course. Please review the details below:
+</p>
+
+<!-- USER -->
+<div style="margin-bottom:20px;">
+    <div style="font-weight:bold; margin-bottom:8px; color:#0d47a1;">👤 User Details</div>
+
+    <div style="background:#f1f5ff; padding:15px; border-radius:8px; font-size:15px; line-height:1.8;">
+        <div><strong>Name:</strong> {{ user.get_full_name }}</div>
+        <div><strong>Username:</strong> {{ user.username }}</div>
+        <div><strong>Email:</strong> {{ user.email|default:"N/A" }}</div>
+    </div>
+</div>
+
+<!-- COURSE -->
+<div style="margin-bottom:20px;">
+    <div style="font-weight:bold; margin-bottom:8px; color:#0d47a1;">📘 Course Details</div>
+
+    <div style="background:#f9fafc; padding:15px; border-radius:8px; font-size:15px; line-height:1.8;">
+        <div><strong>Course:</strong> {{ course.title }}</div>
+        <div><strong>Program:</strong> {{ course.program.title }}</div>
+        <div><strong>Requested At:</strong> {{ now|date:"M d, Y | h:i A" }}</div>
+    </div>
+</div>
+
+<!-- BUTTON -->
+<div style="text-align:center; margin-top:30px;">
+    <a href="{{ admin_link }}"
+       style="background:#1976d2; color:#ffffff; padding:12px 26px; text-decoration:none; border-radius:6px; font-size:15px; font-weight:bold;">
+        🔍 Review Request
+    </a>
+</div>
+
+<p style="margin-top:30px; font-size:14px; color:#555;">
+    Please review and take necessary action from the admin panel.
+</p>
+
+<p style="margin-top:15px; font-size:14px;">
+    Regards,<br>
+    <strong style="color:#0d47a1;">Eka LMS Team</strong>
+</p>
+
+</td>
+</tr>
+
+<!-- FOOTER -->
+<tr>
+<td style="background:#f1f4f8; padding:15px; text-align:center; font-size:12px; color:#777;">
+    © Eka LMS | Powered by TalentLearn <br>
+    ⚠️ This is an automated email. Please do not reply.
+</td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>

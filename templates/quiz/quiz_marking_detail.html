@@ -1,0 +1,586 @@
+{% extends 'includes/base.html' %}
+{% load i18n %}
+
+{% block title %}
+{{ sitting.quiz.title }} | {% trans "Quiz Result" %}
+{% endblock %}
+
+{% block content %}
+
+{% include 'includes/messages.html' %}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+
+    <!-- ====================================== -->
+    <!-- BREADCRUMB -->
+    <!-- ====================================== -->
+
+    <nav aria-label="breadcrumb" class="mb-4">
+
+        <ol class="breadcrumb">
+
+            <li class="breadcrumb-item">
+                <a href="/">
+                    <i class="bx bx-home-alt"></i>
+                    {% trans "Home" %}
+                </a>
+            </li>
+
+            <li class="breadcrumb-item">
+                <a href="{% url 'quiz_marking' %}">
+                    {% trans "Completed Exams" %}
+                </a>
+            </li>
+
+            <li class="breadcrumb-item active">
+                {% trans "Quiz Result" %}
+            </li>
+
+        </ol>
+
+    </nav>
+
+    <!-- ====================================== -->
+    <!-- QUIZ HEADER -->
+    <!-- ====================================== -->
+
+    <div class="card border-0 shadow-lg overflow-hidden mb-4">
+
+        <div class="quiz-header p-5">
+
+            <div class="row align-items-center">
+
+                <div class="col-lg-8">
+
+                    <h1 class="fw-bold text-white mb-2">
+                        {{ sitting.quiz.title }}
+                    </h1>
+
+                    <p class="text-white opacity-75 mb-4">
+                        {{ sitting.quiz.description }}
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-2">
+
+                        <span class="badge bg-light text-dark px-3 py-2">
+                            <i class="bx bx-user me-1"></i>
+                            {{ sitting.employee.get_full_name }}
+                        </span>
+
+                        <span class="badge bg-light text-dark px-3 py-2">
+                            <i class="bx bx-calendar me-1"></i>
+                            {{ sitting.end|date:"SHORT_DATETIME_FORMAT" }}
+                        </span>
+
+                        <span class="badge bg-light text-dark px-3 py-2">
+                            <i class="bx bx-category me-1"></i>
+                            {{ sitting.quiz.category }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4 text-center mt-4 mt-lg-0">
+
+                    <div class="score-circle
+                        {% if sitting.get_percent_correct >= 80 %}
+                            border-success text-success
+                        {% elif sitting.get_percent_correct >= 60 %}
+                            border-info text-info
+                        {% elif sitting.get_percent_correct >= 40 %}
+                            border-warning text-warning
+                        {% else %}
+                            border-danger text-danger
+                        {% endif %}
+                    ">
+
+                        <div>
+
+                            <h1 class="fw-bold mb-0">
+                                {{ sitting.get_percent_correct }}%
+                            </h1>
+
+                            <small class="text-muted">
+                                {% trans "Final Score" %}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ====================================== -->
+        <!-- STATS -->
+        <!-- ====================================== -->
+
+        <div class="card-body p-4">
+
+            <div class="row g-4">
+
+                <div class="col-md-3">
+
+                    <div class="stats-card">
+
+                        <div class="stats-icon bg-primary">
+                            <i class="bx bx-list-ul"></i>
+                        </div>
+
+                        <h2 class="fw-bold mt-3">
+                            {{ total_questions }}
+                        </h2>
+
+                        <p class="text-muted mb-0">
+                            {% trans "Total Questions" %}
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="stats-card">
+
+                        <div class="stats-icon bg-success">
+                            <i class="bx bx-check-circle"></i>
+                        </div>
+
+                        <h2 class="fw-bold text-success mt-3">
+                            {{ correct_count }}
+                        </h2>
+
+                        <p class="text-muted mb-0">
+                            {% trans "Correct Answers" %}
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="stats-card">
+
+                        <div class="stats-icon bg-danger">
+                            <i class="bx bx-x-circle"></i>
+                        </div>
+
+                        <h2 class="fw-bold text-danger mt-3">
+                            {{ wrong_count }}
+                        </h2>
+
+                        <p class="text-muted mb-0">
+                            {% trans "Wrong Answers" %}
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="stats-card">
+
+                        <div class="stats-icon bg-info">
+                            <i class="bx bx-trophy"></i>
+                        </div>
+
+                        <h2 class="fw-bold text-info mt-3">
+                            {{ sitting.get_percent_correct }}%
+                        </h2>
+
+                        <p class="text-muted mb-0">
+                            {% trans "Performance" %}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ====================================== -->
+    <!-- QUESTION REVIEW -->
+    <!-- ====================================== -->
+
+    <div class="card border-0 shadow-lg">
+
+        <div class="card-header bg-white py-3">
+
+            <h4 class="fw-bold mb-0">
+
+                <i class="bx bx-task text-primary me-2"></i>
+
+                {% trans "Question Review" %}
+
+            </h4>
+
+        </div>
+
+        <div class="card-body p-4">
+
+            {% for q in questions %}
+
+            <div class="question-card mb-5">
+
+                <!-- QUESTION HEADER -->
+
+                <div class="d-flex justify-content-between align-items-start flex-wrap mb-4">
+
+                    <div class="d-flex align-items-start">
+
+                        <div class="question-number me-3">
+                            {{ forloop.counter }}
+                        </div>
+
+                        <div>
+
+                            <h5 class="fw-bold mb-2">
+                                {{ q.question.content|safe }}
+                            </h5>
+
+                        </div>
+
+                    </div>
+
+                    {% if q.is_correct %}
+
+                    <span class="badge bg-success px-3 py-2 fs-6">
+
+                        <i class="bx bx-check-circle me-1"></i>
+
+                        {% trans "Correct" %}
+
+                    </span>
+
+                    {% else %}
+
+                    <span class="badge bg-danger px-3 py-2 fs-6">
+
+                        <i class="bx bx-x-circle me-1"></i>
+
+                        {% trans "Incorrect" %}
+
+                    </span>
+
+                    {% endif %}
+
+                </div>
+
+                <!-- QUESTION IMAGE -->
+
+                {% if q.question.figure %}
+
+                <div class="text-center mb-4">
+
+                    <img src="{{ q.question.figure.url }}"
+                         class="img-fluid rounded-4 shadow-sm border question-image">
+
+                </div>
+
+                {% endif %}
+
+                <!-- ANSWERS -->
+
+                <div class="row g-4">
+
+                    <!-- USER ANSWER -->
+
+                    <div class="{% if request.user.is_superuser %}col-lg-6{% else %}col-lg-12{% endif %}">
+
+                        <div class="answer-box user-answer">
+
+                            <div class="d-flex align-items-center mb-3">
+
+                                <div class="answer-icon bg-primary">
+
+                                    <i class="bx bx-user"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <h6 class="fw-bold mb-0">
+                                        {% trans "User Answer" %}
+                                    </h6>
+
+                                    <small class="text-muted">
+                                        {% trans "Submitted Response" %}
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                            <div class="
+                                {% if q.is_correct %}
+                                    text-success
+                                {% else %}
+                                    text-danger
+                                {% endif %}
+                                fw-semibold fs-5
+                            ">
+
+  {% if q.user_answer %}
+
+    {% if q.user_answer.text %}
+
+        {{ q.user_answer.text }}
+
+    {% elif q.user_answer.choice_text %}
+
+        {{ q.user_answer.choice_text }}
+
+    {% else %}
+
+        {{ q.user_answer }}
+
+    {% endif %}
+
+{% else %}
+
+    {% trans "No Answer Submitted" %}
+
+{% endif %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- CORRECT ANSWER ONLY FOR SUPERUSER -->
+
+                    {% if request.user.is_superuser %}
+
+                    <div class="col-lg-6">
+
+                        <div class="answer-box correct-answer">
+
+                            <div class="d-flex align-items-center mb-3">
+
+                                <div class="answer-icon bg-success">
+
+                                    <i class="bx bx-check-shield"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <h6 class="fw-bold mb-0">
+                                        {% trans "Correct Answer" %}
+                                    </h6>
+
+                                    <small class="text-muted">
+                                        {% trans "Expected Response" %}
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                            <div class="text-success fw-bold fs-5">
+
+                                {{ q.correct_answer }}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+                <!-- EXPLANATION -->
+
+                {% if request.user.is_superuser and q.question.explanation %}
+
+                <div class="explanation-box mt-4">
+
+                    <div class="d-flex align-items-center mb-2">
+
+                        <i class="bx bx-info-circle text-info fs-3 me-2"></i>
+
+                        <h6 class="fw-bold mb-0">
+                            {% trans "Explanation" %}
+                        </h6>
+
+                    </div>
+
+                    <div class="text-muted">
+
+                        {{ q.question.explanation|safe }}
+
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+            {% empty %}
+
+            <div class="text-center py-5">
+
+                <i class="bx bx-error-circle display-1 text-muted"></i>
+
+                <h4 class="mt-3 text-muted">
+                    {% trans "No Questions Found" %}
+                </h4>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+.quiz-header{
+    background:linear-gradient(135deg,#696cff,#5f61e6);
+}
+
+.score-circle{
+    width:170px;
+    height:170px;
+    border-radius:50%;
+    border:10px solid;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto;
+}
+
+.stats-card{
+    background:#fff;
+    border-radius:24px;
+    padding:30px;
+    text-align:center;
+    border:1px solid #ebeef5;
+    transition:.3s;
+    height:100%;
+}
+
+.stats-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.stats-icon{
+    width:70px;
+    height:70px;
+    border-radius:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto;
+    color:#fff;
+    font-size:32px;
+}
+
+.question-card{
+    background:#fff;
+    border-radius:28px;
+    border:1px solid #ebeef5;
+    padding:30px;
+    transition:.3s;
+}
+
+.question-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.question-number{
+    width:60px;
+    height:60px;
+    border-radius:18px;
+    background:linear-gradient(135deg,#696cff,#5f61e6);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    font-weight:700;
+}
+
+.question-image{
+    max-height:300px;
+}
+
+.answer-box{
+    border-radius:24px;
+    padding:25px;
+    border:1px solid #ebeef5;
+    height:100%;
+}
+
+.user-answer{
+    background:rgba(105,108,255,.05);
+}
+
+.correct-answer{
+    background:rgba(40,199,111,.08);
+}
+
+.answer-icon{
+    width:55px;
+    height:55px;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:26px;
+    margin-right:15px;
+}
+
+.explanation-box{
+    background:rgba(0,207,232,.08);
+    border-left:5px solid #00cfe8;
+    padding:25px;
+    border-radius:20px;
+}
+
+@media print{
+
+    .btn,
+    .navbar,
+    .menu,
+    footer,
+    .breadcrumb{
+        display:none !important;
+    }
+
+    body{
+        background:#fff !important;
+    }
+
+    .card,
+    .question-card{
+        box-shadow:none !important;
+    }
+
+}
+
+</style>
+
+{% endblock %}

@@ -1,0 +1,716 @@
+{% extends 'includes/base.html' %}
+{% load i18n %}
+
+{% block title %}
+{% trans "All Quizzes" %} | {% trans 'Learning Management System' %}
+{% endblock %}
+
+{% block content %}
+
+{% include 'includes/messages.html' %}
+
+<!-- ======================= -->
+<!-- BREADCRUMB -->
+<!-- ======================= -->
+<nav style="--bs-breadcrumb-divider: '›';" aria-label="breadcrumb">
+
+    <ol class="breadcrumb mb-4">
+
+        <li class="breadcrumb-item">
+
+            <a href="/" class="text-decoration-none fw-semibold">
+
+                <i class="bx bx-home-alt"></i>
+                {% trans 'Home' %}
+
+            </a>
+
+        </li>
+
+        <li class="breadcrumb-item active fw-bold">
+
+            {% trans 'Complete Exams' %}
+
+        </li>
+
+    </ol>
+
+</nav>
+
+<!-- ======================= -->
+<!-- HERO SECTION -->
+<!-- ======================= -->
+<div class="card border-0 shadow-lg mb-4"
+     style="border-radius:32px;
+            overflow:hidden;
+            background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);">
+
+    <div class="card-body p-5 position-relative">
+
+        <!-- GLOW EFFECT -->
+        <div style="position:absolute;
+                    width:350px;
+                    height:350px;
+                    border-radius:50%;
+                    background:rgba(255,255,255,0.06);
+                    top:-140px;
+                    right:-120px;">
+        </div>
+
+        <div style="position:absolute;
+                    width:220px;
+                    height:220px;
+                    border-radius:50%;
+                    background:rgba(255,255,255,0.05);
+                    bottom:-100px;
+                    left:-70px;">
+        </div>
+
+        <div class="row align-items-center position-relative">
+
+            <!-- LEFT CONTENT -->
+            <div class="col-lg-8">
+
+                <div class="d-inline-flex align-items-center px-4 py-2 mb-4"
+                     style="background:rgba(255,255,255,0.12);
+                            backdrop-filter:blur(10px);
+                            border-radius:50px;
+                            color:#fff;
+                            font-size:13px;
+                            font-weight:700;
+                            letter-spacing:1px;">
+
+                    <i class="bx bx-pulse me-2"></i>
+                    ADVANCED LMS ANALYTICS
+
+                </div>
+
+                <h1 class="fw-bold text-white mb-3"
+                    style="font-size:50px;
+                           line-height:1.2;">
+
+                    Employee Exam <br>
+                    Intelligence Dashboard
+
+                </h1>
+
+                <p style="color:rgba(255,255,255,0.82);
+                          font-size:17px;
+                          max-width:700px;">
+
+                    Smart employee learning intelligence system for monitoring
+                    exam completion, quiz performance, score analytics &
+                    LMS engagement statistics.
+
+                </p>
+
+            </div>
+
+            <!-- RIGHT CARD -->
+            <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+
+                <div class="d-inline-block px-5 py-4 shadow-lg"
+                     style="border-radius:28px;
+                            background:rgba(255,255,255,0.12);
+                            backdrop-filter:blur(14px);
+                            border:1px solid rgba(255,255,255,0.14);">
+
+                    <div class="text-uppercase text-white mb-2"
+                         style="font-size:13px;
+                                letter-spacing:2px;">
+
+                        Total Records
+
+                    </div>
+
+                    <h1 class="fw-bold text-white mb-0"
+                        style="font-size:60px;">
+
+                        {{ sitting_list.count }}
+
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ======================= -->
+<!-- TOP STATS -->
+<!-- ======================= -->
+<div class="row mb-4">
+
+    <!-- CARD 1 -->
+    <div class="col-xl-4 col-md-6 mb-3">
+
+        <div class="card border-0 shadow-lg h-100"
+             style="border-radius:28px;
+                    overflow:hidden;
+                    background:linear-gradient(135deg,#fc466b,#3f5efb);">
+
+            <div class="card-body p-4 position-relative text-white">
+
+                <div style="position:absolute;
+                            top:-15px;
+                            right:-10px;
+                            font-size:100px;
+                            opacity:0.12;">
+
+                    <i class="bx bx-user-circle"></i>
+
+                </div>
+
+                <div class="text-uppercase fw-bold mb-2"
+                     style="font-size:13px;
+                            letter-spacing:1px;">
+
+                    Exam Participants
+
+                </div>
+
+                <h1 class="fw-bold mb-1">
+                    {{ sitting_list.count }}
+                </h1>
+
+                <div>
+                    Employees attended assessments
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="col-xl-4 col-md-6 mb-3">
+
+        <div class="card border-0 shadow-lg h-100"
+             style="border-radius:28px;
+                    overflow:hidden;
+                    background:linear-gradient(135deg,#00c9ff,#92fe9d);">
+
+            <div class="card-body p-4 position-relative text-dark">
+
+                <div style="position:absolute;
+                            top:-15px;
+                            right:-10px;
+                            font-size:100px;
+                            opacity:0.12;">
+
+                    <i class="bx bx-brain"></i>
+
+                </div>
+
+                <div class="text-uppercase fw-bold mb-2"
+                     style="font-size:13px;
+                            letter-spacing:1px;">
+
+                    Smart Intelligence
+
+                </div>
+
+                <h1 class="fw-bold mb-1">
+                    LMS
+                </h1>
+
+                <div>
+                    Employee performance insights
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="col-xl-4 col-md-6 mb-3">
+
+        <div class="card border-0 shadow-lg h-100"
+             style="border-radius:28px;
+                    overflow:hidden;
+                    background:linear-gradient(135deg,#f7971e,#ffd200);">
+
+            <div class="card-body p-4 position-relative text-dark">
+
+                <div style="position:absolute;
+                            top:-15px;
+                            right:-10px;
+                            font-size:100px;
+                            opacity:0.12;">
+
+                    <i class="bx bx-trophy"></i>
+
+                </div>
+
+                <div class="text-uppercase fw-bold mb-2"
+                     style="font-size:13px;
+                            letter-spacing:1px;">
+
+                    High Performers
+
+                </div>
+
+                <h1 class="fw-bold mb-1">
+                    90%+
+                </h1>
+
+                <div>
+                    Top scoring employees
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ======================= -->
+<!-- FILTER SECTION -->
+<!-- ======================= -->
+<div class="card border-0 shadow-lg mb-4"
+     style="border-radius:30px;">
+
+    <!-- HEADER -->
+    <div class="p-4 text-white"
+         style="background:linear-gradient(135deg,#141e30,#243b55);">
+
+        <h3 class="fw-bold mb-1 text-white">
+
+            <i class="bx bx-slider-alt me-2 "></i>
+            Advanced Search Filters
+
+        </h3>
+
+        <div style="opacity:0.8;">
+
+            Search employees, usernames & quizzes instantly
+
+        </div>
+
+    </div>
+
+    <!-- BODY -->
+    <div class="card-body p-4">
+
+        <form action="" method="GET">
+
+            <div class="row g-4 align-items-end">
+
+                <!-- USER -->
+                <div class="col-lg-5">
+
+                    <label class="form-label fw-bold">
+
+                        {% trans 'Employee Username' %}
+
+                    </label>
+
+                    <div class="input-group">
+
+                        <span class="input-group-text border-0 bg-light">
+
+                            <i class="bx bx-user"></i>
+
+                        </span>
+
+                        <input type="text"
+                               name="user_filter"
+                               value="{{ request.GET.user_filter }}"
+                               class="form-control border-0 bg-light py-3"
+                               placeholder="{% trans 'Search username...' %}"
+                               style="border-radius:0 16px 16px 0;">
+
+                    </div>
+
+                </div>
+
+                <!-- QUIZ -->
+                <div class="col-lg-5">
+
+                    <label class="form-label fw-bold">
+
+                        {% trans 'Quiz Title' %}
+
+                    </label>
+
+                    <div class="input-group">
+
+                        <span class="input-group-text border-0 bg-light">
+
+                            <i class="bx bx-book-content"></i>
+
+                        </span>
+
+                        <input type="text"
+                               name="quiz_filter"
+                               value="{{ request.GET.quiz_filter }}"
+                               class="form-control border-0 bg-light py-3"
+                               placeholder="{% trans 'Search quiz title...' %}"
+                               style="border-radius:0 16px 16px 0;">
+
+                    </div>
+
+                </div>
+
+                <!-- BUTTON -->
+                <div class="col-lg-2 d-grid">
+
+                    <button type="submit"
+                            class="btn text-white fw-bold py-3 shadow-lg"
+                            style="border:none;
+                                   border-radius:16px;
+                                   background:linear-gradient(135deg,#8e2de2,#ff0080);">
+
+                        <i class="bx bx-search-alt me-1"></i>
+                        {% trans "Filter" %}
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- ======================= -->
+<!-- TABLE SECTION -->
+<!-- ======================= -->
+<div class="card border-0 shadow-lg"
+     style="border-radius:30px;
+            overflow:hidden;">
+
+    {% if sitting_list %}
+
+    <!-- TABLE HEADER -->
+    <div class="position-relative overflow-hidden p-4 text-white"
+         style="background:linear-gradient(135deg,#232526,#414345);">
+
+        <div style="position:absolute;
+                    width:260px;
+                    height:260px;
+                    border-radius:50%;
+                    background:rgba(255,255,255,0.05);
+                    top:-120px;
+                    right:-100px;">
+        </div>
+
+        <div class="position-relative d-flex justify-content-between align-items-center flex-wrap">
+
+            <div>
+
+                <h2 class="fw-bold mb-2 text-white">
+
+                    <i class="bx bx-medal me-2"></i>
+                    Smart Employee Exam Analytics
+
+                </h2>
+
+                <div style="opacity:0.82; font-size:15px;">
+
+                    Real-time employee exam performance monitoring dashboard
+
+                </div>
+
+            </div>
+
+            <div class="mt-3 mt-md-0">
+
+                <span class="badge px-4 py-3 shadow-lg"
+                      style="background:rgba(255,255,255,0.12);
+                             border-radius:50px;
+                             font-size:14px;
+                             backdrop-filter:blur(10px);">
+
+                    {{ sitting_list.count }} Active Records
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-responsive">
+
+        <table class="table align-middle text-center mb-0"
+               style="white-space:nowrap;">
+
+            <!-- TABLE HEAD -->
+            <thead style="background:#0f172a;">
+
+                <tr>
+
+                    <th class="text-white py-4">#</th>
+
+                    <th class="text-white py-4">
+
+                        <i class="bx bx-user-circle me-1"></i>
+                        Username
+
+                    </th>
+
+                    <th class="text-white py-4">
+
+                        <i class="bx bx-id-card me-1"></i>
+                        Employee Full Name
+
+                    </th>
+
+                    <th class="text-white py-4">
+
+                        <i class="bx bx-book-open me-1"></i>
+                        Course
+
+                    </th>
+
+                    <th class="text-white py-4">
+
+                        <i class="bx bx-notepad me-1"></i>
+                        Quiz
+
+                    </th>
+
+                    <th class="text-white py-4">
+
+                        <i class="bx bx-calendar-check me-1"></i>
+                        Completed
+
+                    </th>
+
+                    <th class="text-white py-4">
+
+                        <i class="bx bx-bar-chart-alt-2 me-1"></i>
+                        Score
+
+                    </th>
+
+                    <th class="text-white py-4">
+
+                        <i class="bx bx-cog me-1"></i>
+                        Actions
+
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <!-- TABLE BODY -->
+            <tbody>
+
+                {% for sitting in sitting_list %}
+
+                <tr style="border-bottom:1px solid #eef2f7;
+                           transition:0.3s;">
+
+                    <!-- NUMBER -->
+                    <td class="fw-bold">
+
+                        {{ forloop.counter }}
+
+                    </td>
+
+                    <!-- USERNAME -->
+                    <td>
+
+                        <span class="badge px-3 py-2 shadow-sm text-white"
+                              style="border-radius:50px;
+                                     background:linear-gradient(135deg,#fc466b,#3f5efb);
+                                     font-size:13px;">
+
+                            <i class="bx bx-user me-1"></i>
+
+                            {{ sitting.employee.username }}
+
+                        </span>
+
+                    </td>
+
+                    <!-- FULL NAME -->
+                    <td class="text-start">
+
+                        <div class="d-flex align-items-center">
+
+                            <!-- AVATAR -->
+                            <div class="me-3 d-flex align-items-center justify-content-center shadow-sm"
+                                 style="width:46px;
+                                        height:46px;
+                                        border-radius:50%;
+                                        background:linear-gradient(135deg,#00c6ff,#0072ff);
+                                        color:white;
+                                        font-weight:700;
+                                        font-size:15px;">
+
+                                {{ sitting.employee.first_name|slice:":1" }}
+                                {{ sitting.employee.last_name|slice:":1" }}
+
+                            </div>
+
+                            <!-- NAME -->
+                            <div>
+
+                                <div class="fw-bold text-dark">
+
+                                    {{ sitting.employee.first_name }}
+                                    {{ sitting.employee.last_name }}
+
+                                </div>
+
+                                <div style="font-size:12px;
+                                            color:#64748b;">
+
+                                    LMS Employee
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+                    <!-- COURSE -->
+                    <td>
+
+                        <span class="badge px-3 py-2"
+                              style="border-radius:50px;
+                                     background:#eef4ff;
+                                     color:#1e3a8a;">
+
+                            {{ sitting.quiz.course }}
+
+                        </span>
+
+                    </td>
+
+                    <!-- QUIZ -->
+                    <td>
+
+                        <div class="fw-bold text-dark">
+
+                            {{ sitting.quiz.title }}
+
+                        </div>
+
+                    </td>
+
+                    <!-- COMPLETED -->
+                    <td>
+
+                        <span class="badge px-3 py-2"
+                              style="border-radius:50px;
+                                     background:#f8fafc;
+                                     color:#334155;">
+
+                            {{ sitting.end|date:"SHORT_DATETIME_FORMAT" }}
+
+                        </span>
+
+                    </td>
+
+                    <!-- SCORE -->
+                    <td>
+
+                        {% if sitting.get_percent_correct >= 90 %}
+
+                            <span class="badge px-4 py-2 text-white shadow-sm"
+                                  style="border-radius:50px;
+                                         background:linear-gradient(135deg,#00b09b,#96c93d);">
+
+                                {{ sitting.get_percent_correct }}%
+
+                            </span>
+
+                        {% elif sitting.get_percent_correct >= 60 %}
+
+                            <span class="badge px-4 py-2 text-dark shadow-sm"
+                                  style="border-radius:50px;
+                                         background:linear-gradient(135deg,#f7971e,#ffd200);">
+
+                                {{ sitting.get_percent_correct }}%
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge px-4 py-2 text-white shadow-sm"
+                                  style="border-radius:50px;
+                                         background:linear-gradient(135deg,#ff416c,#ff4b2b);">
+
+                                {{ sitting.get_percent_correct }}%
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <!-- ACTION -->
+                    <td>
+
+                        <a href="{% url 'quiz_marking_detail' pk=sitting.id %}"
+                           class="btn btn-sm text-white fw-semibold shadow-lg px-4 py-2"
+                           style="border:none;
+                                  border-radius:14px;
+                                  background:linear-gradient(135deg,#4776e6,#8e54e9);">
+
+                            <i class="bx bx-show me-1"></i>
+                            {% trans "View Details" %}
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <!-- EMPTY STATE -->
+    <div class="text-center py-5">
+
+        <i class="bx bx-folder-open"
+           style="font-size:90px;
+                  color:#cbd5e1;"></i>
+
+        <h2 class="fw-bold mt-3">
+
+            {% trans "No completed exams found." %}
+
+        </h2>
+
+        <p class="text-muted">
+
+            No employee exam records are currently available.
+
+        </p>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

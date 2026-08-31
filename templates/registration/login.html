@@ -1,0 +1,264 @@
+{% load static %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{% trans "Login" %}</title>
+
+  {% include "includes/css.html" %}
+
+  <!-- jQuery (only once, correct version) -->
+  <script src="{% static 'assets/vendor/libs/jquery/jquery.js' %}"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #eef2f7, #ffffff);
+    }
+
+    .main-wrapper {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* LEFT IMAGE */
+    .login-image {
+      flex: 1;
+      background: #f4f6fb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .login-image img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    /* RIGHT FORM */
+    .login-section {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 380px;
+      padding: 2.5rem;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .login-logo img {
+      width: 100%;
+      max-width: 180px;
+      margin: 0 auto 15px;
+      display: block;
+    }
+
+    .sub-text {
+      text-align: center;
+      color: #6c757d;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-control {
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+
+    .form-control:focus {
+      box-shadow: 0 0 0 0.2rem rgba(13,110,253,.25);
+    }
+
+    .input-group-text {
+      background: #f1f3f5;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      border-radius: 8px;
+      font-weight: 600;
+      padding: 10px;
+    }
+
+    #message-wrapper span {
+      font-size: 0.85rem;
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 6px;
+    }
+
+    .text-success {
+      background: #e6f4ea;
+      color: #2e7d32;
+    }
+
+    .text-danger {
+      background: #fdecea;
+      color: #c62828;
+    }
+
+    /* MOBILE */
+    @media (max-width: 992px) {
+      .login-image {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+    {% include 'includes/messages.html' %}
+
+<div class="main-wrapper">
+
+  <!-- LEFT SIDE -->
+  <div class="login-image">
+    <img src="{% static 'img/colleagues-reading-using-laptop-study-session(2).jpg' %}" alt="Login">
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="login-section">
+    <div class="login-card">
+
+      <!-- LOGO -->
+      <div class="login-logo">
+        <img src="{% static 'img/eka_logo.png' %}" alt="Logo">
+      </div>
+
+      <p class="sub-text">{% trans "Sign in to continue" %}</p>
+
+      <!-- FORM -->
+      <form method="POST" id="login-form">
+        {% csrf_token %}
+
+        <!-- USERNAME -->
+        <div class="mb-3">
+          <input 
+            type="text"
+            name="username"
+            id="username_id"
+            class="form-control"
+            placeholder="{% trans 'Employee ID' %}"
+            required>
+        </div>
+
+        <!-- AJAX VALIDATION -->
+        <div id="message-wrapper" class="mb-2"></div>
+
+        <!-- PASSWORD -->
+        <div class="mb-3">
+          <div class="input-group">
+            <input 
+              type="password"
+              name="password"
+              id="password_id"
+              class="form-control"
+              placeholder="{% trans 'Password' %}"
+              required>
+
+            <span class="input-group-text" id="togglePassword">
+              <i class="bx bx-hide"></i>
+            </span>
+          </div>
+        </div>
+
+        <!-- ERROR -->
+        {% if form.errors %}
+        <div class="text-danger small mb-2 text-center">
+          {% trans "Invalid username or password" %}
+        </div>
+        {% endif %}
+
+        <!-- BUTTON -->
+        <button id="login-btn" class="btn btn-primary w-100 mb-2">
+          {% trans "Sign In" %}
+        </button>
+
+        <!-- FORGOT -->
+        <div class="text-center">
+          <a href="{% url 'password_reset' %}" class="small text-decoration-none">
+            {% trans "Forgot Password?" %}
+          </a>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ================= JS ================= -->
+<script>
+
+$(document).ready(function () {
+
+  // 🔄 Button loading
+  $('#login-form').submit(function () {
+    $('#login-btn').prop('disabled', true).text('Signing in...');
+  });
+
+  // 👁 Toggle password
+  $('#togglePassword').click(function () {
+    let input = $('#password_id');
+    let icon = $(this).find('i');
+
+    if (input.attr('type') === 'password') {
+      input.attr('type', 'text');
+      icon.removeClass('bx-hide').addClass('bx-show');
+    } else {
+      input.attr('type', 'password');
+      icon.removeClass('bx-show').addClass('bx-hide');
+    }
+  });
+
+  // ⚡ AJAX username check
+  $("#username_id").on("input", function () {
+    let username = $(this).val();
+
+    if (username.length < 2) {
+      $('#message-wrapper').html('');
+      return;
+    }
+
+    $.ajax({
+      url: "{% url 'validate_username_email' %}",
+      data: { username: username },
+      dataType: "json",
+
+      success: function (data) {
+        $('#message-wrapper').html(
+          data.is_taken
+          ? `<span class="text-success">${username} ✔</span>`
+          : `<span class="text-danger">${username} ✖</span>`
+        );
+      },
+
+      error: function () {
+        $('#message-wrapper').html('');
+      }
+    });
+  });
+
+});
+
+</script>
+
+</body>
+</html>

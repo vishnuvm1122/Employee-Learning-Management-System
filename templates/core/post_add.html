@@ -1,0 +1,66 @@
+{% extends 'includes/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+    {{ title }} | {% trans 'Learning Management System' %}
+{% endblock title %}
+
+{% block content %}
+
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1 mb-4">
+        <li class="breadcrumb-item">
+            <a href="/"><i class="bx bx-home-alt"></i> {% trans "Home" %}</a>
+        </li>
+        <li class="breadcrumb-item active">{% trans "Post Form" %}</li>
+    </ol>
+</nav>
+
+{% include 'includes/messages.html' %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+
+        <!-- Card -->
+        <div class="card shadow-sm border-0">
+            
+            <!-- Header -->
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="mb-0 fw-semibold">
+                    <i class="bx bx-edit-alt me-2 text-primary"></i>
+                    {% trans 'Create or Edit Post' %}
+                </h5>
+            </div>
+
+            <!-- Body -->
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        {{ form|crispy }}
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+                            <i class="bx bx-arrow-back me-1"></i>
+                            {% trans 'Cancel' %}
+                        </a>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bx bx-save me-1"></i>
+                            {% trans 'Save Post' %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

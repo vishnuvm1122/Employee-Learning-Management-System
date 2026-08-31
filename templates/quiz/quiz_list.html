@@ -1,0 +1,119 @@
+{% extends 'includes/base.html' %}
+{% load i18n static %}
+
+{% block title %}{{ title }} | Learning Management System{% endblock title %}
+
+{% block content %}
+
+<!-- Messages -->
+{% include 'includes/messages.html' %}
+
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+        {% if request.user.is_student %}
+            <li class="breadcrumb-item"><a href="{% url 'user_course_list' %}">{% trans 'My Courses' %}</a></li>
+        {% else %}
+            <li class="breadcrumb-item"><a href="{% url 'programs' %}">{% trans 'Programs' %}</a></li>
+        {% endif %}
+        <li class="breadcrumb-item"><a href="{% url 'program_detail' pk=course.program.pk %}">{{ course.program }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ course.get_absolute_url }}">{{ course }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'Quizzes' %}</li>
+    </ol>
+</nav>
+
+<!-- Add Quiz Button (Superuser only) -->
+{% if request.user.is_superuser %}
+<div class="d-flex justify-content-end gap-2 mb-3">
+    <!-- Advance Quiz Options -->
+    <a class="btn btn-primary" href="/admin/quiz/quiz/">
+        <i class="bx bx-plus me-1"></i>{% trans 'Advance Quiz Options' %}
+    </a>
+
+    <!-- Add Quiz -->
+    <a class="btn btn-primary" href="{% url 'quiz_create' course.pk %}">
+        <i class="bx bx-plus me-1"></i>{% trans 'Add Quiz' %}
+    </a>
+</div>
+{% endif %}
+
+<!-- Page Title -->
+<div class="mb-4">
+    <h4 class="fw-bold"><i class="bx bx-task me-2"></i>{% trans 'Quizzes' %} [{{ course|truncatechars:25 }}]</h4>
+</div>
+
+<div class="row g-3">
+    {% for quiz in quizzes %}
+    <div class="col-md-4">
+        <div class="card shadow-sm p-3 quiz-wrapper">
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <em class="text-success">{{ quiz.category|title }} {% trans 'Quiz' %}</em>
+                <span class="badge bg-danger">{{ quiz.get_questions.count }} {% trans 'Questions' %}</span>
+            </div>
+
+            <!-- Title & Description -->
+            <h6 class="mb-2">{{ quiz.title|title }}</h6>
+            <p class="text-muted small mb-2">
+                {{ quiz.description|default:_("No description set.") }}
+            </p>
+
+            <!-- Single Attempt Note -->
+            {% if quiz.single_attempt %}
+            <p class="p-2 bg-warning bg-opacity-10 rounded small">
+                {% trans "You will only get one attempt at this quiz." %}
+            </p>
+            {% endif %}
+
+            <!-- Action Buttons -->
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <a class="btn btn-sm btn-secondary w-100" href="{% url 'quiz_take' course_id=course.pk quiz_id=quiz.pk %}">
+                    {% trans 'Start Quiz' %} &raquo;
+                </a>
+
+                {% if request.user.is_superuser %}
+                <div class="dropdown ms-2">
+                    <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="dropdown">
+                        <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="{% url 'quiz_update' course_id=course.pk pk=quiz.id %}">
+                                <i class="bx bx-edit-alt me-1"></i>{% trans 'Edit' %}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item text-danger" href="{% url 'quiz_delete' course_id=course.pk pk=quiz.id %}">
+                                <i class="bx bx-trash-alt me-1"></i>{% trans 'Delete' %}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="text-center py-5 text-muted">
+            <i class="bx bx-folder-open mb-2" style="font-size: 2rem;"></i>
+            <h5>{% trans 'No quizzes available for this course.' %}</h5>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}
+
+{% block js %}
+<script>
+    // Loader simulation
+    setTimeout(function() {
+        const progressCard = document.getElementById('progress-card');
+        const progressMain = document.getElementById('progress-main');
+        if(progressCard) progressCard.style.display = 'none';
+        if(progressMain) progressMain.style.display = 'block';
+    }, 3000);
+</script>
+{% endblock js %}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Eka LMS - Account Notification</title>
+<style>
+    body {margin:0; padding:0; background-color:#f4f6fb; font-family: Arial, sans-serif;}
+    .container {width:100%; padding:30px 10px; background-color:#f4f6fb;}
+    .card {width:90%; max-width:800px; margin:auto; background-color:#ffffff; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.05); border-collapse:collapse;}
+    .header {background-color:#0d47a1; color:#ffffff; text-align:center; padding:35px; border-top-left-radius:8px; border-top-right-radius:8px;}
+    .header h1 {margin:0; font-size:28px;}
+    .header p {margin:8px 0 0 0; font-size:14px; opacity:0.9;}
+    .body {padding:30px; color:#333333;}
+    .body h2 {margin-bottom:20px; font-size:22px; color:#0d47a1;}
+    .body p {font-size:15px; color:#555555; margin-bottom:20px; line-height:22px;}
+    .credential-box {background-color:#e3f2fd; padding:20px; font-size:15px; line-height:22px; margin-bottom:20px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.05);}
+    .changes {background-color:#fff3e0; padding:20px; font-size:15px; line-height:22px; margin-bottom:20px; border-left:6px solid #ff9800; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.05);}
+    .login-button a {background-color:#1976d2; color:#ffffff; padding:14px 30px; text-decoration:none; font-size:15px; font-weight:bold; display:inline-block; border-radius:6px; transition:0.3s;}
+    .login-button a:hover {background-color:#1565c0;}
+    .footer {background-color:#f1f4f8; text-align:center; padding:20px; font-size:12px; color:#777777; border-bottom-left-radius:8px; border-bottom-right-radius:8px;}
+    .icon {font-size:18px; margin-right:6px;}
+    @media only screen and (max-width:600px){
+        .card {width:100% !important;}
+        .header h1 {font-size:22px !important;}
+        .body h2 {font-size:20px !important;}
+        .body p, .credential-box, .changes {font-size:14px !important;}
+        .login-button a {font-size:14px !important; padding:12px 24px !important;}
+    }
+</style>
+</head>
+<body>
+<center>
+<div class="container">
+    <table class="card" cellpadding="0" cellspacing="0">
+        <!-- HEADER -->
+        <tr>
+            <td class="header">
+                <h1>Eka LMS</h1>
+                <p>Welcome to our learning platform</p>
+            </td>
+        </tr>
+
+        <!-- BODY -->
+        <tr>
+            <td class="body">
+                <h2>
+                    {% if action == "created" %}
+                        🆕 Your Account Has Been Created
+                    {% else %}
+                        ✏️ Your Account Has Been Updated
+                    {% endif %}
+                </h2>
+
+                <p>Hello <strong>{{ user.first_name|default:user.username }}</strong>,</p>
+
+                {% if action == "created" %}
+                    <p>Your account has been successfully created. You can log in using the credentials below:</p>
+                    <div class="credential-box">
+                        <div><strong>Username:</strong> {{ user.username }}</div>
+                        {% if password %}
+                        <div><strong>Temporary Password:</strong> {{ password }}</div>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <p>Your account has been updated. Here are the details of changes:</p>
+                    {% if changes %}
+                        <div class="changes">
+                            <ul>
+                                {% for change in changes %}
+                                    <li>{{ change }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% else %}
+                        <p>No changes detected.</p>
+                    {% endif %}
+                {% endif %}
+
+                {% if login_link %}
+                <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:25px;">
+                    <tr>
+                        <td align="center" class="login-button">
+                            <a href="{{ login_link }}" target="_blank">
+                                Login to Eka LMS
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+
+                <p style="margin-top:15px; font-size:12px; color:#777777; text-align:center;">
+                    If the button doesn't work, copy this link:<br>
+                    <a href="{{ login_link }}" style="color:#1976d2;">{{ login_link }}</a>
+                </p>
+                {% endif %}
+
+                <p style="margin-top:25px; font-size:13px; color:#555555;">
+                    For security reasons, please change your password after your first login.
+                </p>
+
+                <p style="margin-top:20px; font-size:13px;">
+                    Regards,<br>
+                    <strong style="color:#0d47a1;">Eka LMS Team</strong>
+                </p>
+            </td>
+        </tr>
+
+        <!-- FOOTER -->
+        <tr>
+            <td class="footer">
+                © Eka LMS | Powered by TalentLearn<br>
+                This is an automated email. Please do not reply.
+            </td>
+        </tr>
+    </table>
+</div>
+</center>
+</body>
+</html>

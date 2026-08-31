@@ -1,0 +1,73 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+
+{% block title %}{{ item.title }} | Details{% endblock title %}
+
+{% block content %}
+
+{% include 'includes/messages.html' %}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+
+    <!-- Back Button -->
+    <div class="mb-3">
+        <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+            <i class="bx bx-arrow-back me-1"></i> Back
+        </a>
+    </div>
+
+    <!-- Card -->
+    <div class="card shadow-sm border-0">
+        
+        <!-- Header -->
+        <div class="card-body">
+            
+            <!-- Title -->
+            <div class="d-flex justify-content-between align-items-start flex-wrap">
+                <h3 class="fw-semibold mb-2">
+                    <i class="bx bx-detail text-primary me-2"></i>
+                    {{ item.title }}
+                </h3>
+                <!-- Badge -->
+                <div>
+                    {% if item.posted_as == 'News' %}
+                        <span class="badge bg-label-primary">
+                            Training Announcement
+                        </span>
+                    {% elif item.posted_as == 'Events' %}
+                        <span class="badge bg-label-warning">
+                            Employee Appreciation
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Date -->
+            <div class="text-muted mb-3">
+                <i class="bx bx-calendar me-1"></i>
+                {{ item.updated_date }}
+            </div>
+
+            <!-- Image -->
+            {% if item.photo %}
+                <div class="mb-4 text-center">
+                    <img src="{{ item.photo.url }}" 
+                         alt="{{ item.title }}" 
+                         class="img-fluid rounded shadow-sm"
+                         style="max-height: 400px; object-fit: cover;">
+                </div>
+            {% endif %}
+
+            <hr>
+
+            <!-- Content -->
+            <div class="fs-6 lh-lg">
+                {{ item.summary|linebreaks }}
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

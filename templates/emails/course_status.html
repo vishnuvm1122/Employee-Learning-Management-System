@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Eka LMS Notification
+    </title>
+
+</head>
+
+<body style="
+    margin:0;
+    padding:0;
+    background-color:#edf1f7;
+    font-family:Arial,Helvetica,sans-serif;
+">
+
+    <!-- OUTER TABLE -->
+    <table
+        width="100%"
+        border="0"
+        cellspacing="0"
+        cellpadding="0"
+        bgcolor="#edf1f7"
+        style="
+            padding:30px 15px;
+        "
+    >
+
+        <tr>
+
+            <td align="center">
+
+                <!-- MAIN CONTAINER -->
+                <table
+                    width="100%"
+                    border="0"
+                    cellspacing="0"
+                    cellpadding="0"
+                    bgcolor="#ffffff"
+                    style="
+                        max-width:680px;
+                        border-collapse:collapse;
+                    "
+                >
+
+                    <!-- HEADER -->
+                    <tr>
+
+                        <td
+                            align="center"
+                            bgcolor="#0d47a1"
+                            style="
+                                padding:40px 20px;
+                                color:#ffffff;
+                            "
+                        >
+
+                            <h1 style="
+                                margin:0;
+                                font-size:34px;
+                                font-weight:bold;
+                                color:#ffffff;
+                                line-height:40px;
+                            ">
+                                Eka LMS
+                            </h1>
+
+                            <p style="
+                                margin:10px 0 0;
+                                font-size:14px;
+                                color:#dfe9ff;
+                                line-height:22px;
+                            ">
+                                Learning Management System
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+                    <!-- BODY -->
+                    <tr>
+
+                        <td style="
+                            padding:40px 35px;
+                            color:#333333;
+                        ">
+
+                            <!-- TITLE -->
+                            <h2 style="
+                                margin:0 0 25px;
+                                font-size:28px;
+                                color:#0d47a1;
+                                line-height:36px;
+                            ">
+
+                                {% if status == "APPROVED" %}
+
+                                    Course Request Approved
+
+                                {% elif status == "REJECTED" %}
+
+                                    Course Request Rejected
+
+                                {% else %}
+
+                                    Course Request Pending
+
+                                {% endif %}
+
+                            </h2>
+
+                            <!-- USER -->
+                            <p style="
+                                margin:0 0 20px;
+                                font-size:15px;
+                                line-height:26px;
+                                color:#555555;
+                            ">
+
+                                Hello
+                                <strong>
+                                    {{ user.get_full_name|default:user.username }}
+                                </strong>,
+
+                            </p>
+
+                            <!-- DESCRIPTION -->
+                            <p style="
+                                margin:0 0 25px;
+                                font-size:15px;
+                                line-height:26px;
+                                color:#555555;
+                            ">
+
+                                Your course access request
+                                has been updated by the administrator.
+
+                            </p>
+
+                            <!-- STATUS BOX -->
+                            <table
+                                width="100%"
+                                border="0"
+                                cellspacing="0"
+                                cellpadding="0"
+                                bgcolor="#f7f9fc"
+                                style="
+                                    border:1px solid #dce6f7;
+                                    margin-bottom:25px;
+                                "
+                            >
+
+                                <tr>
+
+                                    <td style="
+                                        padding:22px;
+                                    ">
+
+                                        <p style="
+                                            margin:0 0 12px;
+                                            font-size:15px;
+                                            line-height:24px;
+                                            color:#444444;
+                                        ">
+
+                                            <strong>
+                                                Request Status:
+                                            </strong>
+
+                                        </p>
+
+                                        {% if status == "APPROVED" %}
+
+                                        <span style="
+                                            background:#2e7d32;
+                                            color:#ffffff;
+                                            padding:7px 16px;
+                                            font-size:13px;
+                                            font-weight:bold;
+                                            display:inline-block;
+                                        ">
+                                            APPROVED
+                                        </span>
+
+                                        {% elif status == "REJECTED" %}
+
+                                        <span style="
+                                            background:#d32f2f;
+                                            color:#ffffff;
+                                            padding:7px 16px;
+                                            font-size:13px;
+                                            font-weight:bold;
+                                            display:inline-block;
+                                        ">
+                                            REJECTED
+                                        </span>
+
+                                        {% else %}
+
+                                        <span style="
+                                            background:#f39c12;
+                                            color:#ffffff;
+                                            padding:7px 16px;
+                                            font-size:13px;
+                                            font-weight:bold;
+                                            display:inline-block;
+                                        ">
+                                            PENDING
+                                        </span>
+
+                                        {% endif %}
+
+                                        <p style="
+                                            margin:18px 0 0;
+                                            font-size:13px;
+                                            color:#777777;
+                                            line-height:22px;
+                                        ">
+
+                                            Updated on
+                                            {{ now|date:"M d, Y h:i A" }}
+
+                                        </p>
+
+                                    </td>
+
+                                </tr>
+
+                            </table>
+
+                            <!-- COURSE DETAILS -->
+                            <table
+                                width="100%"
+                                border="0"
+                                cellspacing="0"
+                                cellpadding="0"
+                                style="
+                                    border:1px solid #e5e5e5;
+                                    margin-bottom:30px;
+                                "
+                            >
+
+                                <tr>
+
+                                    <td
+                                        bgcolor="#f8f9fb"
+                                        style="
+                                            padding:18px 22px;
+                                            border-bottom:1px solid #e5e5e5;
+                                        "
+                                    >
+
+                                        <h3 style="
+                                            margin:0;
+                                            color:#0d47a1;
+                                            font-size:18px;
+                                        ">
+                                            Course Details
+                                        </h3>
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td style="
+                                        padding:22px;
+                                    ">
+
+                                        <table
+                                            width="100%"
+                                            border="0"
+                                            cellspacing="0"
+                                            cellpadding="0"
+                                        >
+
+                                            <tr>
+
+                                                <td style="
+                                                    padding:8px 0;
+                                                    font-size:14px;
+                                                    color:#666666;
+                                                    width:140px;
+                                                ">
+                                                    Course
+                                                </td>
+
+                                                <td style="
+                                                    padding:8px 0;
+                                                    font-size:14px;
+                                                    color:#222222;
+                                                    font-weight:bold;
+                                                ">
+                                                    {{ course.title }}
+                                                </td>
+
+                                            </tr>
+
+                                            <tr>
+
+                                                <td style="
+                                                    padding:8px 0;
+                                                    font-size:14px;
+                                                    color:#666666;
+                                                ">
+                                                    Requested On
+                                                </td>
+
+                                                <td style="
+                                                    padding:8px 0;
+                                                    font-size:14px;
+                                                    color:#222222;
+                                                ">
+                                                    {{ requested_on }}
+                                                </td>
+
+                                            </tr>
+
+                                            {% if approved_on %}
+
+                                            <tr>
+
+                                                <td style="
+                                                    padding:8px 0;
+                                                    font-size:14px;
+                                                    color:#666666;
+                                                ">
+                                                    Approved On
+                                                </td>
+
+                                                <td style="
+                                                    padding:8px 0;
+                                                    font-size:14px;
+                                                    color:#222222;
+                                                ">
+                                                    {{ approved_on }}
+                                                </td>
+
+                                            </tr>
+
+                                            {% endif %}
+
+                                            <tr>
+
+                                                <td style="
+                                                    padding:8px 0;
+                                                    font-size:14px;
+                                                    color:#666666;
+                                                ">
+                                                    Approved By
+                                                </td>
+
+                                                <td style="
+                                                    padding:8px 0;
+                                                    font-size:14px;
+                                                    color:#222222;
+                                                ">
+                                                    {{ approved_by.username }}
+                                                </td>
+
+                                            </tr>
+
+                                        </table>
+
+                                    </td>
+
+                                </tr>
+
+                            </table>
+
+                            <!-- MESSAGE -->
+                            {% if status == "APPROVED" %}
+
+                            <table
+                                width="100%"
+                                border="0"
+                                cellspacing="0"
+                                cellpadding="0"
+                                bgcolor="#edf7ed"
+                                style="
+                                    border-left:5px solid #2e7d32;
+                                    margin-bottom:30px;
+                                "
+                            >
+
+                                <tr>
+
+                                    <td style="
+                                        padding:18px;
+                                        font-size:14px;
+                                        line-height:24px;
+                                        color:#2e7d32;
+                                    ">
+
+                                        Your request has been approved.
+                                        You can now access your course
+                                        from the LMS dashboard.
+
+                                    </td>
+
+                                </tr>
+
+                            </table>
+
+                            {% elif status == "REJECTED" %}
+
+                            <table
+                                width="100%"
+                                border="0"
+                                cellspacing="0"
+                                cellpadding="0"
+                                bgcolor="#fff2f2"
+                                style="
+                                    border-left:5px solid #d32f2f;
+                                    margin-bottom:30px;
+                                "
+                            >
+
+                                <tr>
+
+                                    <td style="
+                                        padding:18px;
+                                        font-size:14px;
+                                        line-height:24px;
+                                        color:#d32f2f;
+                                    ">
+
+                                        Your request was not approved
+                                        at this time. Please contact the
+                                        administrator for more information.
+
+                                    </td>
+
+                                </tr>
+
+                            </table>
+
+                            {% endif %}
+
+                            <!-- BUTTON -->
+                            <table
+                                border="0"
+                                cellspacing="0"
+                                cellpadding="0"
+                                align="center"
+                                style="
+                                    margin:auto;
+                                "
+                            >
+
+                                <tr>
+
+                                    <td
+                                        align="center"
+                                        bgcolor="#0d47a1"
+                                    >
+
+                                        <a
+                                            href=""
+                                            style="
+                                                color:#ffffff;
+                                                text-decoration:none;
+                                                padding:14px 28px;
+                                                display:inline-block;
+                                                font-size:15px;
+                                                font-weight:bold;
+                                            "
+                                        >
+
+                                            Open LMS Portal
+
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                            </table>
+
+                            <!-- FOOTER MESSAGE -->
+                            <p style="
+                                margin:40px 0 0;
+                                font-size:14px;
+                                line-height:24px;
+                                color:#666666;
+                            ">
+
+                                Regards,<br>
+
+                                <strong style="
+                                    color:#0d47a1;
+                                ">
+                                    Eka LMS Team
+                                </strong>
+
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+                    <!-- FOOTER -->
+                    <tr>
+
+                        <td
+                            align="center"
+                            bgcolor="#f4f6f9"
+                            style="
+                                padding:24px;
+                                font-size:12px;
+                                line-height:22px;
+                                color:#777777;
+                            "
+                        >
+
+                            © {{ now|date:"Y" }} Eka LMS |
+                            Powered by TalentLearn
+
+                            <br>
+
+                            This is an automated email.
+                            Please do not reply.
+
+                        </td>
+
+                    </tr>
+
+                </table>
+
+            </td>
+
+        </tr>
+
+    </table>
+
+</body>
+
+</html>

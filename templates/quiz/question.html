@@ -1,0 +1,96 @@
+{% extends 'includes/base.html' %}
+{% load i18n %}
+
+{% block content %}
+
+{% include 'includes/messages.html' %}
+
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb bg-white p-2 border rounded">
+        <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'programs' %}">Programs</a></li>
+        <li class="breadcrumb-item">
+            <a href="{% url 'program_detail' course.program.id %}">
+                {{ course.program }}
+            </a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{{ course.get_absolute_url }}">{{ course }}</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{% url 'quiz_index' course.id %}">
+                {% trans 'Quizzes' %}
+            </a>
+        </li>
+        <li class="breadcrumb-item active">{{ quiz.title }}</li>
+    </ol>
+</nav>
+
+<!-- Title -->
+<div class="mb-3">
+    <h4 class="fw-bold">{{ quiz.title|truncatechars:30 }}</h4>
+    <small class="text-muted">
+        {% trans "Category" %}: {{ quiz.category }}
+    </small>
+</div>
+
+<!-- Question -->
+{% if question %}
+
+<!-- Progress -->
+{% if progress %}
+<div class="d-flex justify-content-end mb-2">
+    <span class="badge bg-primary">
+        {% trans "Question" %} {{ progress.answered|add:1 }} / {{ progress.total }}
+    </span>
+</div>
+{% endif %}
+
+<div class="card">
+    <div class="card-body">
+
+        <h5 class="mb-3">{{ question.content }}</h5>
+
+        {% if question.figure %}
+        <div class="text-center mb-3">
+            <img src="{{ question.figure.url }}" class="img-fluid rounded">
+        </div>
+        {% endif %}
+
+        <!-- ✅ FIXED FORM -->
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="mb-3">
+
+                {% for radio in form.answers %}
+                    <div class="form-check mb-2">
+                        {{ radio.tag }}
+                        <label class="form-check-label">
+                            {{ radio.choice_label }}
+                        </label>
+                    </div>
+                {% empty %}
+                    <p class="text-danger">No options available</p>
+                {% endfor %}
+
+            </div>
+
+            <div class="text-end">
+                <button type="submit" class="btn btn-primary">
+                    {% trans "Submit Answer" %}
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% else %}
+<div class="alert alert-warning">
+    No question found.
+</div>
+{% endif %}
+
+{% endblock %}

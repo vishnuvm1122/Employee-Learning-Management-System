@@ -1,0 +1,310 @@
+{% load static %}
+{% load i18n %}
+
+<nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme py-2.5 shadow-sm sticky-top premium-nav">
+
+  <div class="layout-menu-toggle navbar-nav align-items-xl-center me-2 me-sm-3 me-xl-0 d-xl-none">
+    <a class="nav-item nav-link px-2 rounded-circle toggle-btn-glow" href="javascript:void(0)">
+      <i class="bx bx-menu icon-md fs-2 align-middle text-secondary"></i>
+    </a>
+  </div>
+
+  <div class="navbar-nav-right d-flex align-items-center justify-content-between w-100" id="navbar-collapse">
+
+    <div class="flex-grow-1 me-2 me-sm-4 search-wrapper">
+      <form class="d-flex align-items-center form-search-custom" action="{% url 'search' %}" method="GET">
+        <div class="input-group input-group-merge input-group-premium border rounded-pill bg-white px-2.5 py-1 align-items-center w-100">
+          <span class="input-group-text bg-transparent border-0 py-0 pe-2">
+            <i class="bx bx-search text-muted fs-5"></i>
+          </span>
+          <input type="text"
+                 name="q"
+                 class="form-control bg-transparent border-0 py-0 shadow-none fs-7 navbar-search-input"
+                 placeholder="{% trans 'Search anything...' %}"
+                 aria-label="{% trans 'Search' %}">
+          <button type="submit" class="btn btn-primary btn-sm rounded-pill px-3.5 py-1.5 navbar-search-btn fw-semibold d-flex align-items-center gap-1">
+            <span class="d-none d-sm-inline">{% trans "Search" %}</span>
+            <i class="bx bx-search d-sm-none fs-6"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <ul class="navbar-nav flex-row align-items-center gap-2 ms-auto">
+
+      <li class="nav-item dropdown me-1">
+        <a class="nav-link position-relative p-2 rounded-circle custom-action-btn" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bx bx-bell fs-4 text-secondary align-middle"></i>
+          <span id="notification-count"
+                class="position-absolute top-10 start-75 translate-middle badge rounded-pill bg-danger border border-2 border-white animated-pulse"
+                style="font-size:10px; display:none; padding: 0.35em 0.5em; min-width: 18px;">
+            0
+          </span>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-end p-2 border-light shadow-lg mt-3 custom-notification-panel" id="notification-dropdown">
+          <li class="text-center text-muted py-4">
+            <i class="bx bx-notification-off d-block fs-2 mb-2 text-muted opacity-50"></i>
+            <span class="small fw-medium">{% trans "No notifications found" %}</span>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item dropdown dropdown-user">
+        <a class="nav-link dropdown-toggle hide-arrow p-0 d-block avatar-border-glow rounded-circle" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
+          <div class="avatar avatar-online">
+            <img src="{% if request.user.picture %}{{ request.user.picture.url }}{% else %}{% static 'img/default.png' %}{% endif %}"
+                 alt="{% trans 'Profile' %}"
+                 class="w-px-35 h-px-35 rounded-circle object-fit-cover align-middle">
+          </div>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-end border-light shadow-lg mt-3 py-2.5 user-dropdown-width">
+          <li>
+            <div class="dropdown-item d-flex align-items-center py-2.5 px-3 rounded-3 mx-1 profile-header-card">
+              <div class="flex-shrink-0 me-3">
+                <div class="avatar avatar-online">
+                  <img src="{% if request.user.picture %}{{ request.user.picture.url }}{% else %}{% static 'img/eka_logo.png' %}{% endif %}"
+                       alt="{% trans 'Profile' %}"
+                       class="w-px-40 h-px-40 rounded-circle object-fit-cover shadow-xs border border-white border-2">
+                </div>
+              </div>
+              <div class="flex-grow-1 min-w-0">
+                <h6 class="mb-0 fw-bold text-dark text-truncate fs-7">
+                  {{ request.user.get_full_name|default:request.user.username }}
+                </h6>
+                <span class="badge bg-primary bg-opacity-10 text-primary fs-9 mt-1 px-2 py-0.5 rounded-pill fw-semibold">
+                  {% if request.user.is_superuser %}
+                    {% trans "Admin" %}
+                  {% elif request.user.is_staff %}
+                    {% trans "Staff" %}
+                  {% else %}
+                    {% trans "User" %}
+                  {% endif %}
+                </span>
+              </div>
+            </div>
+          </li>
+
+          <li><hr class="dropdown-divider my-2.5 opacity-50"></li>
+
+          {% if request.user.is_superuser %}
+          <li class="px-1">
+            <a class="dropdown-item d-flex align-items-center py-2 rounded-2" href="{% url 'admin_panel' %}">
+              <i class="bx bx-shield-quarter me-2.5 fs-5 text-primary"></i>
+              <span class="fw-medium text-secondary">{% trans "Admin Panel" %}</span>
+            </a>
+          </li>
+          {% endif %}
+
+          <li class="px-1">
+            <a class="dropdown-item d-flex align-items-center py-2 rounded-2" href="{% url 'profile' %}">
+              <i class="bx bx-user me-2.5 fs-5 text-secondary"></i>
+              <span class="fw-medium text-secondary">{% trans "My Profile" %}</span>
+            </a>
+          </li>
+
+          <li class="px-1">
+            <a class="dropdown-item d-flex align-items-center py-2 rounded-2" href="{% url 'edit_profile' %}">
+              <i class="bx bx-cog me-2.5 fs-5 text-secondary"></i>
+              <span class="fw-medium text-secondary">{% trans "Settings" %}</span>
+            </a>
+          </li>
+
+          <li><hr class="dropdown-divider my-2.5 opacity-50"></li>
+
+          <li class="px-2">
+            <form method="post" action="{% url 'logout' %}" class="m-0 p-0">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-sm btn-danger w-100 d-flex align-items-center justify-content-center gap-2 py-2 rounded-3 border-0 btn-logout-premium shadow-xs">
+                <i class="bx bx-power-off fs-5"></i>
+                <span class="fw-bold">{% trans "Log Out" %}</span>
+              </button>
+            </form>
+          </li>
+        </ul>
+      </li>
+
+    </ul>
+  </div>
+</nav>
+
+<style>
+  .py-2\.5 { padding-top: 0.65rem !important; padding-bottom: 0.65rem !important; }
+  .fs-7 { font-size: 0.875rem !important; }
+  .fs-8 { font-size: 0.75rem !important; }
+  .fs-9 { font-size: 0.685rem !important; }
+  .w-px-35 { width: 35px !important; height: 35px !important; }
+  .h-px-35 { height: 35px !important; }
+  
+  .premium-nav {
+      background: rgba(255, 255, 255, 0.85) !important;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.6) !important;
+      box-shadow: 0 4px 18px rgba(15, 23, 42, 0.03) !important;
+  }
+
+  .input-group-premium {
+      border: 1px solid #e2e8f0 !important;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .input-group-premium:focus-within {
+      border-color: #696cff !important;
+      box-shadow: 0 0 0 3px rgba(105, 108, 255, 0.12) !important;
+  }
+
+  .toggle-btn-glow {
+      transition: background-color 0.2s ease;
+  }
+  .toggle-btn-glow:hover {
+      background-color: rgba(15, 23, 42, 0.05);
+  }
+
+  .custom-action-btn {
+      transition: background-color 0.2s, transform 0.2s;
+  }
+  .custom-action-btn:hover {
+      background-color: rgba(15, 23, 42, 0.04);
+      transform: scale(1.02);
+  }
+
+  .avatar-border-glow {
+      border: 2px solid rgba(105, 108, 255, 0.2);
+      padding: 2px;
+      transition: border-color 0.25s ease;
+  }
+  .avatar-border-glow:hover {
+      border-color: rgba(105, 108, 255, 0.6);
+  }
+
+  .profile-header-card {
+      background: linear-gradient(135deg, #f8f9fa 0%, #f1f3f5 100%);
+  }
+
+  .custom-notification-panel, .user-dropdown-width {
+      background: rgba(255, 255, 255, 0.96) !important;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(0, 0, 0, 0.06) !important;
+      transform-origin: top right;
+      animation: dropdownEntry 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .btn-logout-premium {
+      background-color: #ff4d4f !important;
+      transition: background-color 0.2s, transform 0.2s;
+  }
+  .btn-logout-premium:hover {
+      background-color: #ff7875 !important;
+      transform: translateY(-1px);
+  }
+
+  .animated-pulse {
+      animation: pulseGlow 2s infinite;
+  }
+
+  .notification-item {
+      transition: background-color 0.15s ease;
+      border-radius: 8px;
+      margin-bottom: 2px;
+      border: 0 !important;
+  }
+  .notification-item:hover {
+      background-color: rgba(105, 108, 255, 0.05) !important;
+  }
+
+  @keyframes dropdownEntry {
+      from { opacity: 0; transform: scale(0.95) translateY(-8px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 rgba(255, 77, 79, 0.5); }
+      70% { box-shadow: 0 0 0 6px rgba(255, 77, 79, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 77, 79, 0); }
+  }
+  
+  .form-search-custom { width: 100%; max-width: 400px; }
+  
+  /* Responsive Dropdown Scaling Matrix */
+  @media (max-width: 575.98px) {
+    .custom-notification-panel {
+      width: calc(100vw - 24px) !important;
+      position: absolute !important;
+      right: -45px !important;
+    }
+    .user-dropdown-width {
+      width: calc(100vw - 24px) !important;
+      right: -10px !important;
+    }
+    .form-search-custom { max-width: 100%; }
+  }
+  @media (min-width: 576px) {
+    .custom-notification-panel { width: 360px !important; }
+    .user-dropdown-width { width: 250px !important; }
+  }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const wsScheme = window.location.protocol === "https:" ? "wss" : "ws";
+    const socketUrl = `${wsScheme}://${window.location.host}/ws/notifications/`;
+    const notificationSocket = new WebSocket(socketUrl);
+
+    const badge = document.getElementById('notification-count');
+    const dropdown = document.getElementById('notification-dropdown');
+
+    const renderNotifications = (notifications) => {
+        dropdown.innerHTML = '';
+
+        // Only unread notifications
+        const unreadNotifications = notifications.filter(n => !n.is_read);
+
+        if (!unreadNotifications.length) {
+            dropdown.innerHTML = `<li class="text-center text-muted py-3"><i class="bx bx-notification-off d-block fs-3 mb-1 text-muted opacity-50"></i><span class="small fw-medium">{% trans "No notifications" %}</span></li>`;
+            badge.style.display = 'none';
+            return;
+        }
+
+        badge.innerText = unreadNotifications.length;
+        badge.style.display = 'inline-block';
+
+        unreadNotifications.forEach(n => {
+            const li = document.createElement('li');
+            li.classList.add('notification-item', 'p-2.5');
+
+            li.innerHTML = `
+                <a href="/notifications/mark-read/${n.id}/" class="text-decoration-none text-dark d-flex justify-content-between align-items-start w-100">
+                    <div class="pe-2">
+                        <strong class="d-block fs-7 text-dark">${n.sender || 'System'}</strong>
+                        <small class="text-secondary d-block mt-0.5" style="line-height:1.3;">${n.message}</small>
+                        <div class="mt-1"><small class="text-muted opacity-75" style="font-size:11px;">${n.time_since || ''}</small></div>
+                    </div>
+                    <span class="badge bg-success bg-opacity-10 p-1 rounded-circle"><i class="bx bx-check text-success fs-6"></i></span>
+                </a>
+            `;
+            dropdown.appendChild(li);
+        });
+    };
+
+    notificationSocket.onopen = () => console.log('WebSocket connected for notifications.');
+
+    notificationSocket.onclose = (e) => {
+        console.warn('WebSocket closed. Reconnecting in 3s...', e.reason);
+        setTimeout(() => location.reload(), 3000);
+    };
+
+    notificationSocket.onerror = (error) => console.error('WebSocket error:', error);
+
+    notificationSocket.onmessage = (e) => {
+        try {
+            const data = JSON.parse(e.data);
+            renderNotifications(data.notifications);
+        } catch (err) {
+            console.error('Failed to parse WebSocket message:', err);
+        }
+    };
+});
+</script>

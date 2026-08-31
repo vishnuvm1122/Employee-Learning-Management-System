@@ -1,0 +1,127 @@
+{% extends 'registration/registration_base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans 'Verify OTP | LMS' %}{% endblock %}
+
+{% block content %}
+{% include 'includes/messages.html' %}
+
+<div class="d-flex justify-content-center align-items-center min-vh-100 bg-light px-3">
+
+<div class="card border-0 shadow-lg rounded-4 p-4 text-center w-100"
+style="max-width:420px;">
+
+<!-- ICON -->
+<div class="mb-3">
+<i class="fas fa-shield-alt text-success" style="font-size:55px;"></i>
+</div>
+
+<!-- TITLE -->
+<h3 class="fw-bold text-success mb-2">
+{% trans "OTP Verification" %}
+</h3>
+
+<p class="text-muted mb-3 small">
+{% trans "Enter the OTP sent to your registered email address." %}
+</p>
+
+<!-- TIMER -->
+<div class="alert alert-warning py-2 small fw-semibold mb-3">
+ OTP expires in <span id="timer">120</span> seconds
+</div>
+
+<form method="post" id="otpForm">
+{% csrf_token %}
+
+<!-- OTP INPUT -->
+<div class="mb-3 text-start">
+
+<label class="form-label fw-semibold">
+{% trans "Verification Code" %}
+</label>
+
+<input
+type="text"
+name="otp"
+class="form-control form-control-lg text-center"
+placeholder="{% trans 'Enter 6-digit OTP' %}"
+maxlength="6"
+required
+autocomplete="off"
+inputmode="numeric"
+style="letter-spacing:6px; font-weight:bold;"
+>
+
+</div>
+
+<!-- VERIFY BUTTON -->
+<button type="submit"
+class="btn btn-success w-100 py-2 fw-semibold shadow-sm">
+
+<i class="fas fa-check-circle me-1"></i>
+{% trans "Verify & Login" %}
+</button>
+
+<!-- RESEND BUTTON -->
+<button
+type="submit"
+name="resend"
+value="1"
+id="resendBtn"
+class="btn btn-outline-primary w-100 mt-3 fw-semibold"
+>
+
+ {% trans "Resend OTP" %}
+</button>
+
+<p class="small text-muted mt-2 mb-0">
+{% trans "Maximum 3 attempts allowed" %}
+</p>
+
+</form>
+
+<hr class="my-3">
+
+<a href="{% url 'login' %}"
+class="text-decoration-none small text-muted">
+
+<i class="fas fa-arrow-left me-1"></i>
+{% trans "Back to Login" %}
+</a>
+
+<p class="small text-muted mt-3 mb-0">
+ {% trans "Never share your OTP with anyone." %}
+</p>
+
+</div>
+</div>
+
+<script>
+let timeLeft = 120;
+let timerEl = document.getElementById("timer");
+let resendBtn = document.getElementById("resendBtn");
+
+resendBtn.disabled = true;
+resendBtn.innerHTML = " Wait 120s";
+
+let countdown = setInterval(function () {
+
+    timeLeft--;
+    timerEl.textContent = timeLeft;
+
+    resendBtn.innerHTML = " Wait " + timeLeft + "s";
+
+    if (timeLeft <= 0) {
+        clearInterval(countdown);
+
+        timerEl.textContent = "Expired";
+        timerEl.style.color = "red";
+
+        resendBtn.disabled = false;
+        resendBtn.innerHTML = " Resend OTP";
+    }
+
+}, 1000);
+</script>
+
+{% endblock %}

@@ -1,0 +1,206 @@
+{% extends 'includes/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+    {{ title }} | {% trans 'Learning Management System' %}
+{% endblock title %}
+
+{% block extra_css %}
+<style>
+/* Apply blur styling to the backdrop if forced update is enabled */
+.modal-backdrop.show {
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    background-color: rgba(15, 23, 42, 0.75) !important; /* Premium Dark Navy Slate */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Force layout constraints on critical content wrappers */
+#ekaAppModal {
+    z-index: 999999 !important; /* Ensure visibility over all system fragments */
+}
+
+#ekaAppModal .modal-content {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    background: #ffffff;
+}
+
+/* Pulse animation on primary CTA to gently drive conversion */
+#modalDownloadBtn {
+    animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(13, 110, 253, 0.4); }
+    70% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(13, 110, 253, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(13, 110, 253, 0); }
+}
+
+</style>
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container my-3">
+    {% if request.user.is_superuser %}
+    <div class="text-end mb-4">
+        <a class="btn btn-primary shadow-sm" href="{% url 'post_add' %}">
+            <i class="fas fa-plus me-2"></i> {% trans 'Add New Post' %}
+        </a>
+    </div>
+    {% endif %}
+
+    <h3 class="text-primary fw-bold mb-4">{% trans 'Welcome to Eka' %}</h3>
+
+    {% include 'includes/messages.html' %}
+
+    {% if items %}
+    <div class="row g-3">
+        {% for item in items %}
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100 border-0 rounded-4 overflow-hidden">
+                {% if item.photo %}
+                <img src="{{ item.photo.url }}" class="card-img-top" alt="{{ item.title }}" style="height: 200px; width: 100%; object-fit: cover;">
+                {% else %}
+                <div class="bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                    <i class="fa-solid fa-image fa-3x text-muted"></i>
+                </div>
+                {% endif %}
+
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="mb-1">
+                            <small class="text-muted small text-truncate fw-bold">
+                                {% if item.posted_as == 'News' %}
+                                    {% trans 'Training Announcement' %}
+                                {% elif item.posted_as == 'Events' %}
+                                    {% trans 'Employee Appreciation' %}
+                                {% endif %}
+                            </small>
+                        </div>
+                        <h5 class="card-title text-capitalize fw-semibold">{{ item.title }}</h5>
+                        <p class="card-text text-muted small text-truncate" style="max-height: 4.5em; overflow: hidden;">{{ item.summary }}</p>
+                        <a href="{% url 'post_detail' item.pk %}" class="small text-primary text-decoration-none">{% trans "Read More" %} →</a>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <small class="text-muted">
+                            <i class="fa fa-calendar-alt me-1"></i>
+                            {{ item.updated_date }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+document.addEventListener("DOMContentLoaded", async function () {
+    const updateUrl = "{% url 'latest_version' %}";
+    const ua = navigator.userAgent || "";
+    const isAndroid = /Android/i.test(ua);
+
+    if (!isAndroid) return;
+
+    // Detect if running inside an Android WebView
+    const isWebView = ua.indexOf("wv") !== -1 || ua.indexOf("; wv)") !== -1 || ua.indexOf("Version/") !== -1;
+    
+    // Detect if running inside a standard mobile Chrome Browser (and not a WebView)
+    const isChromeBrowser = /Chrome/i.test(ua) && !isWebView;
+
+    const modalEl = document.getElementById("ekaAppModal");
+    if (!modalEl) return;
+
+    // Initialize Bootstrap Modal with static backdrop if forced update is active later
+    let modalOptions = {};
+    
+    const message = document.getElementById("ekaModalMessage");
+    const downloadBtn = document.getElementById("modalDownloadBtn");
+    const cancelBtn = document.getElementById("modalCancelBtn");
+    const closeBtn = document.getElementById("modalCloseX");
+
+    try {
+        const response = await fetch(updateUrl, {
+            method: "GET",
+            headers: { "Accept": "application/json" }
+        });
+
+        if (!response.ok) return;
+
+        const data = await response.json();
+        if (!data.status || data.update_available === false) return;
+
+        // Default layout for regular mobile browsers
+        message.innerHTML = "<strong>Eka Mobile Application</strong><br><br>Install the official Android application for a faster and better experience.";
+        downloadBtn.innerHTML = "Download App";
+        cancelBtn.style.display = "inline-block";
+        closeBtn.style.display = "block";
+
+        // Layout tweaks if running in an Android WebView
+        if (isWebView) {
+            message.innerHTML = "<strong>Version " + data.version_name + " Available</strong><br><br>" + data.release_notes;
+            downloadBtn.innerHTML = "Update";
+
+            if (data.force_update) {
+                cancelBtn.style.display = "none";
+                closeBtn.style.display = "none";
+                message.innerHTML = "<strong>Mandatory Update</strong><br><br>A new version (" + data.version_name + ") is required.<br><br>" + data.release_notes;
+            }
+        } 
+        
+        // Force update logic specifically targeting the Chrome Browser
+        if (data.force_update && isChromeBrowser) {
+            cancelBtn.style.display = "none";
+            closeBtn.style.display = "none";
+            message.innerHTML = "<strong>Mandatory Download</strong><br><br>You must download the official Android application to continue.";
+        }
+
+        // Advanced Feature: Lock down the modal backdrop if forced update is true
+        if (data.force_update && (isWebView || isChromeBrowser)) {
+            // Prevents closing via clicking outside the modal or pressing the ESC key
+            modalOptions = {
+                backdrop: 'static',
+                keyboard: false
+            };
+        }
+
+        const modal = new bootstrap.Modal(modalEl, modalOptions);
+
+        downloadBtn.onclick = function () {
+            window.open(data.download_url, "_blank");
+        };
+
+        modal.show();
+    } catch (error) {
+        console.error(error);
+    }
+});
+</script>
+
+<div class="modal fade" id="ekaAppModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ekaAppModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow rounded-4">
+            <div class="modal-header border-0 bg-light rounded-top-4 py-3">
+                <h5 class="modal-title fw-bold text-primary" id="ekaAppModalLabel">
+                    <i class="fa-solid fa-mobile-screen-button me-2"></i> {% trans 'Eka Mobile Application' %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="modalCloseX"></button>
+            </div>
+            <div class="modal-body py-4">
+                <p id="ekaModalMessage" class="fs-6 text-secondary mb-0">{% trans 'Processing application update check...' %}</p>
+            </div>
+            <div class="modal-footer border-0 pt-0">
+                <button type="button" class="btn btn-light px-4 rounded-3" data-bs-dismiss="modal" id="modalCancelBtn">{% trans 'Cancel' %}</button>
+                <button type="button" class="btn btn-primary px-4 rounded-3 fw-semibold shadow-sm" id="modalDownloadBtn">{% trans 'Download App' %}</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock extra_js %}

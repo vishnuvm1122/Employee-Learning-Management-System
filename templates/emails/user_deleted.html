@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Eka LMS - Account Deleted</title>
+</head>
+
+<body style="margin:0; padding:0; background-color:#f4f6fb; font-family: Arial, sans-serif;">
+
+<center>
+<table width="100%" cellpadding="0" cellspacing="0" style="padding:30px 10px; background-color:#f4f6fb;">
+<tr>
+<td align="center">
+
+<!-- MAIN CONTAINER -->
+<table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border-collapse:collapse;">
+  
+  <!-- HEADER -->
+  <tr>
+    <td bgcolor="#c62828" align="center" style="padding:25px; color:#ffffff;">
+      <h1 style="margin:0; font-size:24px;">Eka LMS</h1>
+      <p style="margin:6px 0 0 0; font-size:13px; color:#ffffff;">
+        Account Notification
+      </p>
+    </td>
+  </tr>
+
+  <!-- BODY -->
+  <tr>
+    <td style="padding:30px; color:#333333;">
+
+      <h2 style="margin-bottom:15px; font-size:20px; color:#c62828;">
+        Your Account Has Been Deleted
+      </h2>
+
+      <p style="font-size:14px; color:#555555; line-height:20px;">
+        Hello <strong>{{ username }}</strong>,<br><br>
+        We would like to inform you that your account on <strong>Eka LMS</strong> has been successfully removed from our system.
+      </p>
+
+      <!-- INFO BOX -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin:20px 0; border-collapse:collapse;">
+        <tr>
+          <td bgcolor="#fff3f3" style="padding:18px; font-size:14px;">
+            <strong>Account:</strong> {{ username }}<br>
+            <strong>Status:</strong> Deleted<br>
+            <strong>Date:</strong> {{ now }}
+          </td>
+        </tr>
+      </table>
+
+      <p style="font-size:14px; color:#555555; line-height:20px;">
+        If you believe this action was taken in error, please contact the administrator immediately.
+      </p>
+
+      <p style="margin-top:20px; font-size:13px;">
+        Regards,<br>
+        <strong style="color:#c62828;">Eka LMS Team</strong>
+      </p>
+
+    </td>
+  </tr>
+
+  <!-- FOOTER -->
+  <tr>
+    <td bgcolor="#f1f4f8" align="center" style="padding:15px; font-size:11px; color:#777777;">
+      © Eka LMS | Powered by TalentLearn<br>
+      This is an automated email. Please do not reply.
+    </td>
+  </tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+</center>
+
+</body>
+</html>

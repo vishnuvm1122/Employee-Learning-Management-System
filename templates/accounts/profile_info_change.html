@@ -1,0 +1,64 @@
+{% extends 'includes/base.html' %}
+{% load i18n static crispy_forms_tags %}
+
+{% block title %}{{ title }} | {% trans 'Learning Management System' %}{% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumb -->
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'Account Settings' %}</li>
+    </ol>
+</nav>
+
+<!-- Page Title -->
+<p class="title-1 mb-4"><i class="fas fa-user-edit me-2"></i>{% trans 'Account Settings' %}</p>
+
+{% include 'includes/messages.html' %}
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row g-4">
+
+        <!-- Left Card: Email, Name, Phone -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header fw-bold bg-light">
+                    {% trans 'Email & Personal Info' %}
+                </div>
+                <div class="card-body">
+                    {% for field in form %}
+                        {% if field.name in "email first_name last_name phone" %}
+                            {{ field|as_crispy_field }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Card: Others (Picture, etc.) -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header fw-bold bg-light">
+                    {% trans 'Others' %}
+                </div>
+                <div class="card-body">
+                    {% for field in form %}
+                        {% if field.name not in "email first_name last_name phone" %}
+                            {{ field|as_crispy_field }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="mt-4 text-center">
+        <button type="submit" class="btn btn-primary btn-lg">{% trans 'Update Profile' %}</button>
+    </div>
+</form>
+
+{% endblock content %}

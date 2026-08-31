@@ -1,0 +1,570 @@
+{% extends 'includes/base.html' %}
+{% load i18n %}
+
+{% block title %}
+{{ title }} | {% trans 'Learning Management System' %}
+{% endblock title %}
+
+{% block content %}
+
+{% include 'includes/messages.html' %}
+
+<!-- HERO SECTION -->
+<div class="card border-0 shadow-lg rounded-4 overflow-hidden mb-4">
+    <div class="card-body p-0">
+        <div class="p-5 text-white position-relative"
+             style="background:linear-gradient(135deg,#696cff 0%,#5a54d1 50%,#8f94fb 100%);">
+
+            <div class="position-absolute top-0 end-0 opacity-10">
+                <i class="bx bx-book-content" style="font-size:180px;"></i>
+            </div>
+
+            <div class="row align-items-center position-relative">
+                <div class="col-lg-8">
+
+                    <div class="d-flex align-items-center mb-4">
+
+                        <div class="rounded-4 bg-white bg-opacity-25
+                                    d-flex align-items-center justify-content-center me-4 shadow-lg"
+                             style="width:85px;height:85px;backdrop-filter:blur(10px);">
+                            <i class="bx bx-book-reader text-black"
+                               style="font-size:42px;"></i>
+                        </div>
+
+                        <div>
+                            <h2 class="fw-bold mb-2 text-white">
+                                {% trans 'Course Allocation Dashboard' %}
+                            </h2>
+
+                            <p class="mb-0 text-white-50 fs-6">
+                                {% trans 'Track employee learning progress, training analytics and performance.' %}
+                            </p>
+                        </div>
+
+                    </div>
+
+                    {% if request.user.is_superuser %}
+                    <div class="d-flex flex-wrap gap-3">
+
+                        <a href="/admin/courseallocations/pendingcourseallocation/"
+                           class="btn btn-light rounded-pill px-4 py-2 fw-semibold shadow">
+                            <i class="bx bx-plus-circle me-1"></i>
+                            {% trans 'Allocate Course' %}
+                        </a>
+
+                        <a href="/admin/courseallocations/courseallocation/"
+                           class="btn btn-outline-light rounded-pill px-4 py-2">
+                            <i class="bx bx-cog me-1"></i>
+                            {% trans 'Manage Allocations' %}
+                        </a>
+
+                    </div>
+                    {% endif %}
+
+                </div>
+
+                <div class="col-lg-4 text-center d-none d-lg-block">
+                    <i class="bx bx-task text-white"
+                       style="font-size:170px;opacity:.12;"></i>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- STATS -->
+{% if request.user.is_superuser %}
+<div class="row g-4 mb-4">
+
+    <!-- TOTAL -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-body p-4">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+                        <small class="text-muted fw-semibold d-block mb-2">
+                            {% trans 'Total Allocations' %}
+                        </small>
+
+                        <h2 class="fw-bold mb-0">
+                            {{ allocation_data|length }}
+                        </h2>
+                    </div>
+
+                    <div class="rounded-4 d-flex align-items-center justify-content-center"
+                         style="width:70px;
+                                height:70px;
+                                background:rgba(105,108,255,.12);">
+
+                        <i class="bx bx-book-open text-primary"
+                           style="font-size:34px;"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- APPROVED -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-body p-4">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+                        <small class="text-muted fw-semibold d-block mb-2">
+                            {% trans 'Approved' %}
+                        </small>
+
+                        <h2 class="fw-bold text-success mb-0">
+                            {{ approved_count|default:"0" }}
+                        </h2>
+                    </div>
+
+                    <div class="rounded-4 d-flex align-items-center justify-content-center"
+                         style="width:70px;
+                                height:70px;
+                                background:rgba(40,199,111,.12);">
+
+                        <i class="bx bx-check-circle text-success"
+                           style="font-size:34px;"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- PENDING -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-body p-4">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+                        <small class="text-muted fw-semibold d-block mb-2">
+                            {% trans 'Pending' %}
+                        </small>
+
+                        <h2 class="fw-bold text-warning mb-0">
+                            {{ pending_count|default:"0" }}
+                        </h2>
+                    </div>
+
+                    <div class="rounded-4 d-flex align-items-center justify-content-center"
+                         style="width:70px;
+                                height:70px;
+                                background:rgba(255,159,67,.12);">
+
+                        <i class="bx bx-loader-circle text-warning"
+                           style="font-size:34px;"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- REJECTED -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-body p-4">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+                        <small class="text-muted fw-semibold d-block mb-2">
+                            {% trans 'Rejected' %}
+                        </small>
+
+                        <h2 class="fw-bold text-danger mb-0">
+                            {{ rejected_count|default:"0" }}
+                        </h2>
+                    </div>
+
+                    <div class="rounded-4 d-flex align-items-center justify-content-center"
+                         style="width:70px;
+                                height:70px;
+                                background:rgba(234,84,85,.12);">
+
+                        <i class="bx bx-x-circle text-danger"
+                           style="font-size:34px;"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endif %}
+
+<!-- FILTER -->
+{% include 'includes/filter_form.html' %}
+
+<!-- MAIN TABLE -->
+<div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+    <!-- HEADER -->
+    <div class="card-header bg-white border-0 p-4">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+            <div>
+                <h4 class="fw-bold mb-1">
+                    {% trans 'Employee Learning Progress' %}
+                </h4>
+
+                <small class="text-muted">
+                    {% trans 'Training and course completion overview.' %}
+                </small>
+            </div>
+
+            <span class="badge bg-primary rounded-pill px-4 py-2 fs-6 shadow-sm">
+                {{ allocation_data|length }} {% trans 'Records' %}
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle mb-0">
+
+            <thead style="background:#f8f9fc;">
+
+                <tr>
+
+                    <th class="px-4 py-3">#</th>
+                    <th>{% trans 'Employee' %}</th>
+                    <th>{% trans 'Department' %}</th>
+                    <th>{% trans 'Division' %}</th>
+                    <th>{% trans 'Status' %}</th>
+                    <th>{% trans 'Requested' %}</th>
+                    <th>{% trans 'Approved By' %}</th>
+                    <th>{% trans 'Approved On' %}</th>
+                    <th>{% trans 'Course' %}</th>
+                    <th>{% trans 'Duration' %}</th>
+                    <th>{% trans 'Watched' %}</th>
+                    <th>{% trans 'Progress' %}</th>
+
+                    {% if request.user.is_superuser %}
+                    <th class="text-center">
+                        {% trans 'Actions' %}
+                    </th>
+                    {% endif %}
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for item in allocation_data %}
+                <tr>
+
+                    <!-- SERIAL -->
+                    <td class="px-4 fw-bold text-primary">
+                        #{{ forloop.counter }}
+                    </td>
+
+                    <!-- EMPLOYEE -->
+                    <td>
+
+                        <div class="d-flex align-items-center">
+
+                            {% if item.allocation.employee.picture %}
+                            <img src="{{ item.allocation.employee.picture.url }}"
+                                 alt="{{ item.allocation.employee.get_full_name }}"
+                                 class="rounded-circle shadow-sm me-3"
+                                 style="width:58px;
+                                        height:58px;
+                                        object-fit:cover;
+                                        border:3px solid #f4f5ff;">
+                            {% else %}
+                            <div class="rounded-circle d-flex align-items-center
+                                        justify-content-center text-white fw-bold me-3 shadow-sm"
+                                 style="width:58px;
+                                        height:58px;
+                                        background:linear-gradient(135deg,#696cff,#5a54d1);">
+
+                                {{ item.allocation.employee.first_name|slice:":1" }}
+
+                            </div>
+                            {% endif %}
+
+                            <div>
+                                <h6 class="mb-0 fw-bold">
+                                    {{ item.allocation.employee.get_full_name }}
+                                </h6>
+
+                                <small class="text-muted">
+                                    {{ item.allocation.employee.username }}
+                                </small>
+                            </div>
+
+                        </div>
+
+                    </td>
+
+                    <!-- DEPARTMENT -->
+                    <td>
+                        <span class="badge rounded-pill px-3 py-2"
+                              style="background:#f4f5ff;color:#696cff;">
+                            {{ item.allocation.employee.department|default:"-" }}
+                        </span>
+                    </td>
+
+                    <!-- DIVISION -->
+                    <td>
+                        <span class="badge rounded-pill px-3 py-2"
+                              style="background:#eefbf3;color:#28c76f;">
+                            {{ item.allocation.employee.division|default:"-" }}
+                        </span>
+                    </td>
+
+                    <!-- STATUS -->
+                    <td>
+
+                        {% if item.allocation.status == "APPROVED" %}
+
+                        <span class="badge rounded-pill px-3 py-2"
+                              style="background:#e8fff3;color:#28c76f;">
+
+                            <i class="bx bx-check-circle me-1"></i>
+                            {% trans 'Approved' %}
+
+                        </span>
+
+                        {% elif item.allocation.status == "PENDING" %}
+
+                        <span class="badge rounded-pill px-3 py-2"
+                              style="background:#fff4e5;color:#ff9f43;">
+
+                            <i class="bx bx-loader-circle me-1"></i>
+                            {% trans 'Pending' %}
+
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge rounded-pill px-3 py-2"
+                              style="background:#ffe9ea;color:#ea5455;">
+
+                            <i class="bx bx-x-circle me-1"></i>
+                            {% trans 'Rejected' %}
+
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <!-- REQUEST DATE -->
+                    <td>
+                        <span class="fw-semibold text-muted">
+                            {{ item.allocation.created_on|date:"d M Y"|default:"-" }}
+                        </span>
+                    </td>
+
+                    <!-- APPROVED BY -->
+                    <td>
+                        <span class="fw-semibold">
+                            {{ item.allocation.approved_by|default:"-" }}
+                        </span>
+                    </td>
+
+                    <!-- APPROVED DATE -->
+                    <td>
+                        <span class="fw-semibold text-muted">
+                            {{ item.allocation.approved_on|date:"d M Y"|default:"-" }}
+                        </span>
+                    </td>
+
+                    <!-- COURSE -->
+                    <td>
+
+                        {% if request.user.is_superuser or item.allocation.status == "APPROVED" %}
+
+                        <a href="{{ item.course.get_absolute_url }}"
+                           class="btn btn-sm rounded-pill px-3 py-2 fw-semibold border-0 shadow-sm"
+                           style="background:#f4f5ff;color:#696cff;">
+
+                            <i class="bx bx-book me-1"></i>
+                            {{ item.course.title }}
+
+                        </a>
+
+                        {% elif item.allocation.status == "PENDING" %}
+
+                        <span class="btn btn-sm rounded-pill px-3 py-2 fw-semibold border-0"
+                              style="background:#fff4e5;
+                                     color:#ff9f43;
+                                     cursor:not-allowed;">
+
+                            <i class="bx bx-time-five me-1"></i>
+                            {{ item.course.title }}
+
+                        </span>
+
+                        {% else %}
+
+                        <span class="btn btn-sm rounded-pill px-3 py-2 fw-semibold border-0"
+                              style="background:#ffe9ea;
+                                     color:#ea5455;
+                                     cursor:not-allowed;">
+
+                            <i class="bx bx-x-circle me-1"></i>
+                            {{ item.course.title }}
+
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <!-- DURATION -->
+                    <td>
+                        <span class="fw-bold text-dark">
+                            {{ item.total_hours }} hrs
+                        </span>
+                    </td>
+
+                    <!-- WATCHED -->
+                    <td>
+                        <span class="fw-bold text-success">
+                            {{ item.watched_hours }} hrs
+                        </span>
+                    </td>
+
+                    <!-- PROGRESS -->
+                    <td style="min-width:230px;">
+
+                        <div class="d-flex justify-content-between mb-2">
+
+                            <small class="fw-semibold">
+                                {% trans 'Completion' %}
+                            </small>
+
+                            <small class="fw-bold text-success">
+                                {{ item.progress_percent }}%
+                            </small>
+
+                        </div>
+
+                        <div class="progress rounded-pill"
+                             style="height:12px;background:#edf1f7;">
+
+                            <div class="progress-bar rounded-pill"
+                                 role="progressbar"
+                                 style="width:{{ item.progress_percent }}%;
+                                        background:linear-gradient(90deg,#00cfe8,#1ce1ac);">
+                            </div>
+
+                        </div>
+
+                    </td>
+
+                    <!-- ACTIONS -->
+                    {% if request.user.is_superuser %}
+                    <td class="text-center">
+
+                        <div class="dropdown">
+
+                            <button class="btn btn-light border rounded-3 shadow-sm"
+                                    data-bs-toggle="dropdown">
+
+                                <i class="bx bx-dots-vertical-rounded"></i>
+
+                            </button>
+
+                            <ul class="dropdown-menu dropdown-menu-end border-0 shadow rounded-4 p-2">
+
+                                <li>
+                                    <a class="dropdown-item rounded-3 py-2"
+                                       href="/admin/courseallocations/pendingcourseallocation/">
+
+                                        <i class="bx bx-edit me-2"></i>
+                                        {% trans 'Edit Allocation' %}
+
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item rounded-3 py-2 text-danger"
+                                       href="/admin/courseallocations/pendingcourseallocation/">
+
+                                        <i class="bx bx-trash me-2"></i>
+                                        {% trans 'Delete Allocation' %}
+
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                    </td>
+                    {% endif %}
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+
+                    <td colspan="13" class="text-center py-5">
+
+                        <div class="mb-4">
+                            <i class="bx bx-folder-open text-muted"
+                               style="font-size:90px;"></i>
+                        </div>
+
+                        <h4 class="fw-bold text-danger">
+                            {% trans 'No Allocations Found' %}
+                        </h4>
+
+                        <p class="text-muted mb-4">
+                            {% trans 'There are currently no allocated courses available.' %}
+                        </p>
+
+                        {% if request.user.is_superuser %}
+                        <a href="/admin/courseallocations/pendingcourseallocation/"
+                           class="btn btn-primary rounded-pill px-4 py-2 shadow-sm">
+
+                            <i class="bx bx-plus me-1"></i>
+                            {% trans 'Allocate New Course' %}
+
+                        </a>
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock content %}

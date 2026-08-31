@@ -1,0 +1,171 @@
+{% extends 'includes/base.html' %}
+{% load i18n %}
+
+{% block content %}
+
+{% include 'includes/messages.html' %}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+
+  <!-- ================= RESULT ================= -->
+
+  <div class="card mb-4">
+    <div class="card-body text-center">
+
+```
+  <h4>{% trans "Quiz Result" %}</h4>
+
+  <p class="text-muted">{{ quiz.title }}</p>
+
+  <h2 class="fw-bold">{{ percent }}%</h2>
+
+  <p>
+    {% trans "You answered" %}
+    <strong>{{ score }}</strong>
+    {% trans "out of" %}
+    <strong>{{ max_score }}</strong>
+  </p>
+
+  <div class="progress mb-3" style="height: 20px;">
+    <div class="progress-bar
+      {% if percent >= 60 %} bg-success
+      {% elif percent >= 50 %} bg-warning
+      {% else %} bg-danger
+      {% endif %}"
+      style="width: {{ percent }}%;">
+    </div>
+  </div>
+
+</div>
+```
+
+  </div>
+
+  <!-- ================= PREVIOUS QUESTION ================= -->
+
+{% if previous.answers %}
+
+  <div class="card mb-4">
+    <div class="card-body">
+
+```
+  <h6>{% trans "Previous Question" %}</h6>
+  <p>{{ previous.previous_question }}</p>
+
+  <div class="alert {% if previous.previous_outcome %}alert-success{% else %}alert-danger{% endif %}">
+    {% trans "Your answer was" %}
+    <strong>{{ previous.previous_outcome|yesno:"Correct,Incorrect" }}</strong>
+  </div>
+
+  <table class="table table-bordered">
+    <tbody>
+      {% for answer in previous.answers %}
+      <tr>
+        <td>{{ answer }}</td>
+        <td>
+          {% if answer.correct %}
+            <span class="text-success">{% trans "Correct" %}</span>
+          {% elif answer.id|add:"0" == previous.previous_answer|add:"0" %}
+            <span class="text-danger">{% trans "Your Answer" %}</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="bg-light p-2 rounded">
+    <strong>{% trans "Explanation" %}:</strong><br>
+    {{ previous.previous_question.explanation|default:"No explanation" }}
+  </div>
+
+</div>
+```
+
+  </div>
+  {% endif %}
+
+  <!-- ================= OVERVIEW ================= -->
+
+{% if questions %}
+
+  <div class="card">
+    <div class="card-body">
+
+
+  <h5>{% trans "Overview" %}</h5>
+
+  {% for question in questions %}
+  <div class="mb-4">
+
+    <h6>{{ forloop.counter }}. {{ question.content }}</h6>
+
+    {% if question.explanation %}
+      <div class="alert alert-info">
+        {{ question.explanation|safe }}
+      </div>
+    {% else %}
+      <div class="alert alert-warning">
+        {% trans "No explanation available." %}
+      </div>
+    {% endif %}
+
+    <!-- ================= ANSWERS ================= -->
+    <p><strong>{% trans "Answers" %}:</strong></p>
+    <ul>
+      {% for choice in question.mcquestion.choice_set.all %}
+        <li>
+
+          <!-- ✔ CORRECT -->
+          {% if choice.correct %}
+            <span class="text-success fw-bold">
+              ✔ {{ choice.choice_text }}
+            </span>
+
+          <!-- ❌ WRONG USER ANSWER -->
+          {% elif choice.id|stringformat:"s" == question.user_answer|stringformat:"s" %}
+            <span class="text-danger fw-bold">
+              ✖ {{ choice.choice_text }} ({% trans "Your Answer" %})
+            </span>
+
+          <!-- NORMAL -->
+          {% else %}
+            {{ choice.choice_text }}
+          {% endif %}
+
+        </li>
+      {% endfor %}
+    </ul>
+
+    <!-- ================= RESULT MESSAGE ================= -->
+    {% if question.user_answer %}
+      {% for choice in question.mcquestion.choice_set.all %}
+        {% if choice.id|stringformat:"s" == question.user_answer|stringformat:"s" %}
+
+          {% if choice.correct %}
+            <div class="alert alert-success mt-2">
+              ✅ {% trans "You answered correctly" %}
+            </div>
+          {% else %}
+            <div class="alert alert-danger mt-2">
+              ❌ {% trans "You answered incorrectly" %}
+            </div>
+          {% endif %}
+
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+  </div>
+  <hr>
+  {% endfor %}
+
+</div>
+
+
+  </div>
+  {% endif %}
+
+</div>
+
+{% endblock %}

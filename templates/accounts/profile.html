@@ -1,0 +1,88 @@
+{% extends 'includes/base.html' %}
+{% load i18n static %}
+
+{% block title %}{{ title }} | {% trans 'Learning Management System' %}{% endblock title %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<!-- Breadcrumb -->
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+            {{ user.get_full_name|default:user.username }}
+        </li>
+    </ol>
+</nav>
+
+{% include 'includes/messages.html' %}
+
+<div class="row">
+
+    <!-- Profile Sidebar -->
+    <div class="col-md-3 mx-auto mb-3">
+        <div class="card p-3 text-center">
+            {% if user.picture %}
+                <img src="{{ user.picture.url }}" class="img-fluid rounded mb-3" alt="Profile Picture">
+            {% else %}
+                <img src="{% static 'images/default_profile.png' %}" class="img-fluid rounded mb-3" alt="Default Profile Picture">
+            {% endif %}
+            
+            <ul class="list-unstyled mb-0">
+                <li class="fw-bold">{{ user.get_full_name|default:user.username|title }}</li>
+                <li><strong>{% trans 'Last login:' %}</strong> {{ user.last_login|date:"SHORT_DATETIME_FORMAT" }}</li>
+                <li><strong>{% trans 'Role:' %}</strong> {{ user.get_user_role|default:"-" }}</li>
+            </ul>
+            
+            <hr>
+            <a class="d-block mb-2" href="{% url 'edit_profile' %}">
+                <i class="fas fa-user-edit me-1"></i> {% trans 'Edit Profile' %}
+            </a>
+            <a class="d-block" href="{% url 'change_password' %}">
+                <i class="fas fa-lock me-1"></i> {% trans 'Change Password' %}
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-9 mx-auto mb-3">
+        <div class="card">
+            <div class="card-body">
+
+                <!-- Personal Info -->
+                <p class="fw-bold mb-2"><i class="me-2 fas fa-user"></i>{% trans 'Personal Info' %}</p>
+                <div class="dashboard-description mb-3">
+                    <p><strong>{% trans 'First Name:' %}</strong> {{ user.first_name|title|default:"-" }}</p>
+                    <p><strong>{% trans 'Last Name:' %}</strong> {{ user.last_name|title|default:"-" }}</p>
+                    <p><strong>{% trans 'ID No.:' %}</strong> {{ user.username }}</p>
+                </div>
+
+                <hr>
+
+                <!-- Contact Info -->
+                <p class="fw-bold mb-2"><i class="me-2 fas fa-phone-square-alt"></i>{% trans 'Contact Info' %}</p>
+                <div class="dashboard-description mb-3">
+                    <p><strong>{% trans 'Email:' %}</strong> {{ user.email|default:"-" }}</p>
+                    <p><strong>{% trans 'Tel No.:' %}</strong> {{ user.phone|default:"-" }}</p>
+                    <p><strong>{% trans 'Address/City:' %}</strong> {{ user.address|default:"-" }}</p>
+                </div>
+
+                <hr>
+
+                <!-- Important Dates -->
+                <p class="fw-bold mb-2"><i class="me-2 fa fa-calendar-day"></i>{% trans 'Important Dates' %}</p>
+                <div class="dashboard-description">
+                    <p><strong>{% trans 'Last login:' %}</strong> {{ user.last_login|date:"SHORT_DATETIME_FORMAT" }}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endif %}
+
+{% endblock content %}

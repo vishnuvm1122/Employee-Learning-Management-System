@@ -1,0 +1,443 @@
+{% extends 'includes/base.html' %}
+{% load i18n static %}
+
+{% block title %}{{ video.title }} | LMS{% endblock %}
+
+{% block content %}
+{% include 'includes/messages.html' %}
+
+{% csrf_token %}
+
+<script type="module" src="https://cdn.jsdelivr.net/npm/player.style/notflix/+esm"></script>
+
+<style>
+body {
+    background: linear-gradient(135deg, #f5f7fb, #eef2ff);
+    min-height: 100vh;
+}
+
+/* MAIN CARD */
+.card {
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+}
+
+/* TITLE */
+.video-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-bottom: 15px;
+}
+@media (min-width: 768px) {
+    .video-title { font-size: 1.5rem; }
+}
+
+/* SIDEBAR CONTAINER */
+.sidebar-card {
+    max-height: 70vh;
+    overflow-y: auto;
+    border-radius: 16px;
+}
+@media (min-width: 992px) {
+    .sidebar-card { max-height: 80vh; }
+}
+
+/* HEADER */
+.card-header {
+    background: linear-gradient(90deg, #1e3a8a, #4f46e5);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 16px 16px 0 0 !important;
+}
+
+/* VIDEO ITEM */
+.video-item {
+    transition: all 0.25s ease;
+    border-radius: 12px;
+    margin: 4px 8px;
+    border: 1px solid transparent;
+}
+
+.video-item:hover {
+    background: #eef2ff;
+    transform: translateX(2px);
+}
+
+.video-item.active {
+    background: #e0e7ff;
+    border-left: 4px solid #4f46e5;
+}
+
+.locked {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* THUMB CONSTRAINT */
+.thumb-container {
+    width: 80px;
+    height: 50px;
+    aspect-ratio: 16/10;
+    flex-shrink: 0;
+}
+.thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* PROGRESS ARCS */
+.circular-chart {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+}
+
+.circle-bg {
+    fill: none;
+    stroke: #e5e7eb;
+    stroke-width: 3.5;
+}
+
+.circle {
+    fill: none;
+    stroke-width: 3.5;
+    stroke: #4f46e5;
+    transform: rotate(-90deg);
+    transform-origin: center;
+    transition: stroke-dasharray 0.3s ease;
+}
+
+.percentage {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-anchor: middle;
+    fill: #1f2937;
+}
+
+/* BUTTONS */
+.btn-warning, .btn-secondary {
+    border-radius: 12px;
+    font-weight: 600;
+    padding: 12px;
+}
+</style>
+
+<div class="container-fluid py-3 px-2 px-md-4">
+<div class="row g-3">
+
+<div class="col-lg-8">
+
+  <div class="card mb-3">
+    <div class="card-body p-3 p-md-4">
+
+      <div class="video-title text-wrap text-break">
+        {{ video.title }}
+      </div>
+
+      <div class="rounded overflow-hidden shadow-sm bg-black">
+        <media-theme-notflix style="--media-primary-color: #9a9996; --media-secondary-color: #000000; --media-accent-color: #c01c28; width:100%;">
+          <video
+            id="course-video"
+            slot="media"
+            class="w-100"
+            preload="metadata"
+            playsinline
+            crossorigin="anonymous"
+            data-video-id="{{ video.id }}"
+            data-resume="{{ resume_time }}">
+            <source src="{{ video.video.url }}" type="video/mp4">
+          </video>
+        </media-theme-notflix>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body p-3 p-md-4">
+      <h5 class="fw-bold text-dark mb-2">Description</h5>
+      {% if video.description %}
+        <p class="text-muted mb-0 small-responsive" style="line-height: 1.6; font-size: 0.95rem;">
+          {{ video.description }}
+        </p>
+      {% else %}
+        <p class="text-muted mb-0 small">No description available.</p>
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+
+<div class="col-lg-4">
+
+  <div class="card sidebar-card mb-3">
+    <div class="card-header py-3">
+       Course Videos
+    </div>
+
+    <div class="list-group list-group-flush py-2">
+      {% for item in video_data %}
+      {% with v=item.video %}
+
+      <div class="d-flex align-items-center justify-content-between video-item p-2 
+           {% if v.id == video.id %}active{% endif %}
+           {% if item.locked and not request.user.is_superuser %}locked{% endif %}">
+
+        <a href="{% url 'video_single' course_id=course.id video_id=v.id %}"
+           class="d-flex align-items-center gap-2 text-decoration-none text-dark flex-grow-1 min-w-0">
+
+          <div class="thumb-container">
+            {% if v.thumbnail %}
+              <img src="{{ v.thumbnail.url }}" class="thumb shadow-sm" alt="Thumbnail">
+            {% else %}
+              <div class="thumb bg-secondary-subtle d-flex align-items-center justify-content-center text-muted fw-bold" style="font-size: 10px;">
+                No Img
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="flex-grow-1 min-w-0">
+            <div class="fw-semibold text-truncate small" style="font-size: 0.875rem;">
+              {{ v.no }}. {{ v.title }}
+            </div>
+
+            <small class="text-muted d-block" style="font-size: 0.75rem;">
+              {{ v.get_duration_display }}
+            </small>
+
+            <div class="mt-1 d-flex gap-1 flex-wrap">
+              {% if v.id == video.id %}
+                <span class="badge bg-primary px-2" style="font-size:0.65rem;">Playing</span>
+              {% endif %}
+              {% if item.completed %}
+                <span class="badge bg-success px-2" style="font-size:0.65rem;">Done</span>
+              {% endif %}
+            </div>
+          </div>
+
+        </a>
+
+        <svg viewBox="0 0 36 36" class="circular-chart ms-2" data-video-id="{{ v.id }}">
+          <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831"/>
+          <path id="circle-progress-{{ v.id }}" class="circle"
+                stroke-dasharray="{{ item.percent|floatformat:0 }},100"
+                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831"/>
+          <text x="18" y="20.5" id="circle-text-{{ v.id }}" class="percentage">
+              {{ item.percent|floatformat:0 }}%
+          </text>
+        </svg>
+
+      </div>
+
+      {% endwith %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-header bg-dark text-white py-3">
+       Course Resources
+    </div>
+    <div class="card-body p-2">
+      {% if files %}
+        <div class="list-group list-group-flush">
+          {% for file in files %}
+          <div class="list-group-item d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2 py-2 border-light">
+            <div class="text-wrap text-break min-w-0 small fw-medium">
+              <i class="bx bx-file me-1 text-primary fs-5 vertical-middle"></i>
+              {{ file.title }}
+            </div>
+            <a href="{{ file.file.url }}" target="_blank" class="btn btn-sm btn-outline-primary w-100 w-sm-auto px-3">
+              Download
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="text-muted text-center small p-3">No reference files available.</div>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if request.user.is_superuser or all_completed %}
+    <a href="{% url 'quiz_index' course_id=course.id %}" class="btn btn-warning w-100 shadow-sm">
+       Take Module Quiz
+    </a>
+  {% else %}
+    <button id="quiz-btn" class="btn btn-secondary w-100" disabled>
+       Complete all videos to unlock quiz
+    </button>
+  {% endif %}
+
+</div>
+
+</div>
+</div>
+
+<script>
+(function () {
+    const video = document.getElementById('course-video');
+    if (!video) return;
+
+    let lastSent = 0;
+    let maxWatched = parseFloat(video.dataset.resume || 0);
+    let nextTriggered = false;
+    let promptShown = false;
+    let lastTime = 0;
+
+    const url = "{% url 'video_played' course_id=course.id video_id=video.id %}";
+
+    function getCSRF() {
+        return document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+    }
+
+    function showRightMessage(text, bg = "#16a34a") {
+        const msg = document.createElement('div');
+        msg.innerHTML = text;
+        msg.style = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${bg};
+            color: white;
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            z-index: 99999;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transition: opacity 0.3s ease;
+        `;
+        document.body.appendChild(msg);
+
+        setTimeout(() => {
+            msg.style.opacity = "0";
+            setTimeout(() => msg.remove(), 300);
+        }, 2500);
+    }
+
+    function askNextVideo(nextItem) {
+        if (promptShown) return;
+        promptShown = true;
+
+        const box = document.createElement('div');
+        box.style = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #1e3a8a;
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            z-index: 99999;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            min-width: 260px;
+        `;
+
+        box.innerHTML = `
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                <span style="font-weight:600; font-size:14px;"> Lesson Completed</span>
+                <button id="closeNextPopup" style="background:transparent;border:none;color:white;font-size:16px;cursor:pointer;"></button>
+            </div>
+            <div>
+                <button id="playNextBtn" style="padding:8px;border:none;background:#22c55e;color:white;font-weight:600;border-radius:8px;cursor:pointer;width:100%;font-size:13px;">
+                    Play Next Video
+                </button>
+            </div>
+        `;
+        document.body.appendChild(box);
+
+        document.getElementById("closeNextPopup").onclick = () => {
+            box.remove();
+            promptShown = false;
+        };
+
+        document.getElementById("playNextBtn").onclick = () => {
+            const link = nextItem?.querySelector('a');
+            if (link) window.location.href = link.href;
+        };
+    }
+
+    // RESUME CONFIGURATION
+    video.addEventListener('loadedmetadata', () => {
+        if (maxWatched > 0 && maxWatched < video.duration) {
+            video.currentTime = maxWatched;
+        }
+    });
+
+    // SCRUB / SEEK PROTECTION 
+    video.addEventListener('seeking', () => {
+        const diff = video.currentTime - lastTime;
+        if (diff > 5) {
+            video.currentTime = lastTime;
+            showRightMessage("Skipping ahead is locked!", "#dc2626");
+        }
+    }); 
+
+    video.addEventListener('timeupdate', () => {
+        lastTime = video.currentTime;
+    });
+
+    // PERFORMANCE TRACKING PIPELINE
+    video.addEventListener('timeupdate', () => {
+        const current = Math.floor(video.currentTime);
+        if (current > maxWatched) {
+            maxWatched = current;
+        }
+
+        if (current - lastSent < 2) return;
+        lastSent = current;
+
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCSRF()
+            },
+            body: JSON.stringify({ watched_seconds: maxWatched })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (!data || data.status !== "success") return;
+
+            const percent = Math.floor(data.watched_percent);
+            const activeVideoId = data.video_id;
+
+            // Live Update UI Elements
+            const targetedCircle = document.getElementById(`circle-progress-${activeVideoId}`);
+            const targetedText = document.getElementById(`circle-text-${activeVideoId}`);
+            
+            if (targetedCircle) targetedCircle.setAttribute("stroke-dasharray", `${percent},100`);
+            if (targetedText) targetedText.textContent = `${percent}%`;
+
+            // Auto Unlock Next Video logic
+            if (percent >= 90 && !nextTriggered) {
+                nextTriggered = true;
+
+                const items = [...document.querySelectorAll('.video-item')];
+                const currentItem = document.querySelector('.video-item.active');
+                const index = items.indexOf(currentItem);
+                const nextItem = items[index + 1];
+
+                if (nextItem) {
+                    nextItem.classList.remove('locked');
+                    showRightMessage("Next Video Unlocked!", "#2563eb");
+                    setTimeout(() => { askNextVideo(nextItem); }, 600);
+                }
+                
+                if (data.all_completed) {
+                    const quizBtn = document.getElementById('quiz-btn');
+                    if (quizBtn) {
+                        // Refresh to clean structural state or swap node
+                        window.location.reload();
+                    }
+                }
+            }
+        }).catch(err => console.error("Tracking pipeline sync breakdown: ", err));
+    });
+})();
+</script>
+{% endblock %}

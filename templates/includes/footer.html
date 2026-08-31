@@ -1,0 +1,109 @@
+{% load i18n %}
+
+<footer class="content-footer footer bg-footer-theme mt-auto border-top shadow-sm border-light-subtle w-100">
+    <div class="container-xxl d-flex flex-column flex-md-row justify-content-between align-items-center py-3 px-4 gap-3">
+
+        <div class="text-center text-md-start order-2 order-md-1">
+            <span class="footer-text fw-bold text-dark fs-7">
+                &copy; {% now "Y" %} <span class="brand-highlight text-primary">{% trans "TalentLearn" %}</span>
+            </span>
+            <small class="d-block text-muted mt-1 fs-8">
+                {% trans "All rights reserved." %}
+            </small>
+        </div>
+
+        <div class="d-flex align-items-center justify-content-center gap-2 gap-sm-4 order-1 order-md-2 py-1 py-md-0 footer-links-container">
+            <a href="#"
+               class="footer-link text-decoration-none text-secondary fw-semibold fs-7 px-3 py-1.5 rounded-2">
+                {% trans "Privacy" %}
+            </a>
+
+            <a href="#"
+               class="footer-link text-decoration-none text-secondary fw-semibold fs-7 px-3 py-1.5 rounded-2">
+                {% trans "Terms of Use" %}
+            </a>
+        </div>
+
+    </div>
+</footer>
+
+<style>
+/* CSS Utility Variables & Clean Layout Fixes */
+.fs-7 { font-size: 0.875rem !important; }
+.fs-8 { font-size: 0.75rem !important; }
+
+.content-footer {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(0, 0, 0, 0.06) !important;
+    position: relative;
+    z-index: 10;
+}
+
+/* Subtle accent background gradient on top of the footer edge */
+.content-footer::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(105, 108, 255, 0.25), transparent);
+}
+
+.brand-highlight {
+    letter-spacing: 0.5px;
+    font-weight: 800;
+}
+
+/* Link Actions & Dynamic Micro-interactions */
+.footer-link {
+    position: relative;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-block;
+}
+
+.footer-link:hover {
+    color: #696cff !important;
+    background-color: rgba(105, 108, 255, 0.06);
+}
+
+/* Slide line transition element */
+.footer-link::after {
+    content: "";
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 2px;
+    height: 2px;
+    background: #696cff;
+    border-radius: 2px;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.footer-text {
+    letter-spacing: 0.2px;
+}
+
+/* Responsive Fluid Rules */
+@media (max-width: 767.98px) {
+    .footer-links-container {
+        width: 100% !important;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        padding-bottom: 0.75rem !important;
+        gap: 1.5rem !important;
+    }
+    
+    .footer-link::after {
+        bottom: -2px; /* Fix line offset on touch-expanded targets */
+    }
+}
+</style>

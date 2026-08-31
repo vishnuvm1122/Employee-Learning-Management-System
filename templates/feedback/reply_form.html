@@ -1,0 +1,50 @@
+{% extends 'includes/base.html' %}
+{% load static i18n %}
+
+{% block title %}Reply to Feedback | LMS{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h3 class="mb-4 text-primary"> Reply to Feedback</h3>
+
+    {% include 'includes/messages.html' %}
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="card-title">
+                Feedback from {{ feedback.user.get_full_name|default:feedback.user.username }} 
+                on <strong>{{ feedback.course.title }}</strong>
+            </h5>
+            <p class="card-text">{{ feedback.comment|default:"No comment" }}</p>
+            <div class="mb-2">
+                {% for i in "12345"|make_list %}
+                    {% if forloop.counter <= feedback.rating %}
+                        <i class="bx bxs-star text-warning"></i>
+                    {% else %}
+                        <i class="bx bx-star text-muted"></i>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="reply" class="form-label">Your Reply</label>
+            <textarea 
+                name="reply" 
+                id="reply" 
+                rows="4" 
+                class="form-control" 
+                placeholder="Write your reply here...">{{ feedback.reply }}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            <i class="bx bx-send"></i> Submit Reply
+        </button>
+        <a href="{% url 'feedback_list' %}" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+</div>
+{% endblock %}

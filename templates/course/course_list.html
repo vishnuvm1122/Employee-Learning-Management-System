@@ -1,0 +1,622 @@
+{% extends "includes/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+    {{ title }} | {% trans 'Learning Management System' %}
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .course-card{
+        border:none;
+        border-radius:18px;
+        overflow:hidden;
+        transition:all .3s ease;
+        background:#fff;
+    }
+
+    .course-card:hover{
+        transform:translateY(-6px);
+        box-shadow:0 14px 35px rgba(0,0,0,.08);
+    }
+
+    .course-image{
+        height:220px;
+        width:100%;
+        object-fit:cover;
+    }
+
+    .course-placeholder{
+        height:220px;
+        background:linear-gradient(135deg,#f5f7fa,#e4e8eb);
+    }
+
+    .progress{
+        height:8px;
+        border-radius:30px;
+        background:#edf1f5;
+    }
+
+    .progress-bar{
+        border-radius:30px;
+    }
+
+    .status-box{
+        border-radius:12px;
+        padding:12px;
+        background:#f8f9fa;
+        border:1px solid #ebeef0;
+    }
+
+    .course-meta li{
+        display:flex;
+        justify-content:space-between;
+        margin-bottom:8px;
+    }
+
+    .course-meta strong{
+        color:#566a7f;
+    }
+
+    .btn-course{
+        border-radius:12px;
+        padding:.7rem 1rem;
+        font-weight:600;
+    }
+
+    .request-btn{
+        border:2px dashed #696cff;
+        transition:.3s;
+    }
+
+    .request-btn:hover{
+        background:#696cff;
+        color:#fff;
+    }
+
+    .lock-icon{
+        width:42px;
+        height:42px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        border-radius:50%;
+        background:rgba(105,108,255,.12);
+        color:#696cff;
+        font-size:20px;
+    }
+
+</style>
+<div class="container-xxl flex-grow-1 container-p-y">
+
+    <!-- BREADCRUMB -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-style1 mb-4">
+
+            <li class="breadcrumb-item">
+                <a href="/">
+                    <i class="bx bx-home-alt"></i>
+                    {% trans 'Home' %}
+                </a>
+            </li>
+
+            <li class="breadcrumb-item active">
+                {{ program.title }}
+            </li>
+
+        </ol>
+    </nav>
+
+    {% include 'includes/messages.html' %}
+
+    <!-- HEADER -->
+    <div class="card border-0 shadow-sm mb-4">
+
+        <div class="card-body p-4">
+
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+                <div>
+
+                    <h3 class="fw-bold mb-1">
+
+                        <i class="bx bx-book-reader text-primary me-2"></i>
+                        {{ program.title }}
+
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        {{ program.summary }}
+                    </p>
+
+                </div>
+
+                {% if request.user.is_superuser %}
+
+                <div class="d-flex gap-2">
+
+                    <a href="/admin/course/course/"
+                       class="btn btn-outline-primary btn-course">
+
+                        <i class="bx bx-cog me-1"></i>
+                        Admin
+
+                    </a>
+
+                    <a href="{% url 'course_add' program.pk %}"
+                       class="btn btn-primary btn-course">
+
+                        <i class="bx bx-plus me-1"></i>
+                        Add Course
+
+                    </a>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- COURSE GRID -->
+    {% if courses %}
+
+    <div class="row g-4">
+
+        {% for course in courses %}
+
+        <div class="col-xl-4 col-lg-6 col-md-6">
+
+            <div class="card h-100 shadow-sm course-card">
+
+                <!-- IMAGE -->
+                <div class="position-relative">
+
+                    {% if course.photo %}
+
+                        <img src="{{ course.photo.url }}"
+                             class="course-image">
+
+                    {% else %}
+
+                        <div class="course-placeholder d-flex align-items-center justify-content-center">
+
+                            <i class="bx bx-book-open fs-1 text-muted"></i>
+
+                        </div>
+
+                    {% endif %}
+
+                    <!-- LOCK ICON -->
+                    {% if course.id not in allocated_course_ids and not request.user.is_superuser %}
+
+                    <div class="position-absolute top-0 end-0 m-3">
+
+                        <div class="lock-icon">
+
+                            <i class="bx bx-lock-alt"></i>
+
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+                <!-- BODY -->
+                <div class="card-body d-flex flex-column p-4">
+
+                    <!-- TITLE -->
+                    <h5 class="fw-bold mb-2">
+
+                        <a href="{{ course.get_absolute_url }}"
+                           class="text-decoration-none text-dark">
+
+                            {{ course.title }}
+
+                        </a>
+
+                    </h5>
+
+                    <!-- PROGRESS -->
+                    <div class="mb-3">
+
+                        <div class="d-flex justify-content-between mb-1 small">
+
+                            <span class="text-muted">
+                                Learning Progress
+                            </span>
+
+                            <span class="fw-semibold">
+                                {{ course.progress }}%
+                            </span>
+
+                        </div>
+
+                        <div class="progress">
+
+                            <div class="progress-bar
+
+                                {% if course.progress < 30 %}
+                                    bg-danger
+                                {% elif course.progress < 70 %}
+                                    bg-warning
+                                {% else %}
+                                    bg-success
+                                {% endif %}
+
+                            "
+                            style="width:{{ course.progress }}%">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- STATUS -->
+                    {% for allocated_course in allocated_courses %}
+
+                        {% if allocated_course.course_id == course.id %}
+
+                        <div class="status-box mb-3">
+
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+
+                                <span class="fw-semibold">
+                                    Access Status
+                                </span>
+
+                                {% if allocated_course.status == "APPROVED" %}
+
+                                    <span class="badge bg-success">
+                                        Approved
+                                    </span>
+
+                                {% elif allocated_course.status == "PENDING" %}
+
+                                    <span class="badge bg-warning">
+                                        Pending
+                                    </span>
+
+                                {% elif allocated_course.status == "REJECTED" %}
+
+                                    <span class="badge bg-danger">
+                                        Rejected
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+                            <div class="small text-muted">
+
+                                <div class="mb-1">
+
+                                    <i class="bx bx-calendar me-1"></i>
+
+                                    Requested:
+                                    {{ allocated_course.created_on|date:"d M Y h:i A" }}
+
+                                </div>
+
+                                {% if allocated_course.approved_on %}
+
+                                <div>
+
+                                    <i class="bx bx-check-circle me-1 text-success"></i>
+
+                                    Approved:
+                                    {{ allocated_course.approved_on|date:"d M Y h:i A" }}
+
+                                </div>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                    <!-- DETAILS -->
+                    <ul class="list-unstyled course-meta small text-muted mb-3">
+
+                        <li>
+                            <strong>Code</strong>
+                            <span>{{ course.code }}</span>
+                        </li>
+
+                        <li>
+                            <strong>Duration</strong>
+                            <span>{{ course.duration }} hrs</span>
+                        </li>
+
+                        <li>
+                            <strong>Level</strong>
+                            <span>{{ course.level }}</span>
+                        </li>
+
+                    </ul>
+
+                    <!-- SUMMARY -->
+                    {% if course.summary %}
+
+                    <p class="text-muted small flex-grow-1">
+
+                        {{ course.summary|truncatewords:18 }}
+
+                    </p>
+
+                    {% endif %}
+
+                    <!-- ACTION -->
+                    <div class="mt-auto">
+
+                        {% if request.user.is_superuser %}
+
+                            <a href="{{ course.get_absolute_url }}"
+                               class="btn btn-primary btn-course w-100">
+
+                                <i class="bx bx-show me-1"></i>
+                                View Course
+
+                            </a>
+
+                        {% else %}
+
+                            {% if course.id in allocated_course_ids %}
+
+                                {% for allocated_course in allocated_courses %}
+
+                                    {% if allocated_course.course_id == course.id %}
+
+                                        {% if allocated_course.status == "APPROVED" %}
+
+                                            <a href="{{ course.get_absolute_url }}"
+                                               class="btn btn-success btn-course w-100">
+
+                                                <i class="bx bx-play-circle me-1"></i>
+                                                Start Learning
+
+                                            </a>
+
+                                        {% elif allocated_course.status == "PENDING" %}
+
+                                            <button class="btn btn-warning btn-course w-100"
+                                                    disabled>
+
+                                                <i class="bx bx-time-five me-1"></i>
+                                                Pending Approval
+
+                                            </button>
+
+                                        {% elif allocated_course.status == "REJECTED" %}
+
+                                            <button class="btn btn-danger btn-course w-100"
+                                                    disabled>
+
+                                                <i class="bx bx-x-circle me-1"></i>
+                                                Access Rejected
+
+                                            </button>
+
+                                        {% endif %}
+
+                                    {% endif %}
+
+                                {% endfor %}
+
+                            {% else %}
+
+                                <button type="button"
+                                        class="btn btn-outline-primary btn-course request-btn w-100"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#requestAccessModal{{ course.pk }}">
+
+                                    <i class="bx bx-lock-open-alt me-1"></i>
+                                    Request Access
+
+                                </button>
+
+                            {% endif %}
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <!-- EMPTY -->
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body text-center py-5">
+
+            <i class="bx bx-folder-open fs-1 text-muted"></i>
+
+            <h5 class="mt-3">
+                No Courses Available
+            </h5>
+
+            <p class="text-muted mb-0">
+                There are currently no courses available for this program.
+            </p>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+
+<!-- PAGINATION -->
+{% if courses.has_other_pages %}
+<div class="d-flex justify-content-center mt-5">
+    <nav aria-label="Course pagination">
+        <ul class="pagination pagination-md shadow-sm">
+
+            <!-- PREVIOUS BUTTON -->
+            {% if courses.has_previous %}
+            <li class="page-item">
+                <a class="page-link rounded-start"
+                   href="?page={{ courses.previous_page_number }}">
+                    <i class="bx bx-chevron-left"></i>
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link rounded-start">
+                    <i class="bx bx-chevron-left"></i>
+                </span>
+            </li>
+            {% endif %}
+
+            <!-- PAGE NUMBERS -->
+            {% for num in courses.paginator.page_range %}
+                {% if courses.number == num %}
+                <li class="page-item active">
+                    <span class="page-link fw-bold">
+                        {{ num }}
+                    </span>
+                </li>
+                {% else %}
+                <li class="page-item">
+                    <a class="page-link"
+                       href="?page={{ num }}">
+                        {{ num }}
+                    </a>
+                </li>
+                {% endif %}
+            {% endfor %}
+
+            <!-- NEXT BUTTON -->
+            {% if courses.has_next %}
+            <li class="page-item">
+                <a class="page-link rounded-end"
+                   href="?page={{ courses.next_page_number }}">
+                    <i class="bx bx-chevron-right"></i>
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link rounded-end">
+                    <i class="bx bx-chevron-right"></i>
+                </span>
+            </li>
+            {% endif %}
+
+        </ul>
+    </nav>
+</div>
+{% endif %}
+
+<!-- MODALS -->
+{% for course in courses %}
+
+<div class="modal fade"
+     id="requestAccessModal{{ course.pk }}"
+     tabindex="-1"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content border-0 shadow-lg">
+
+            <div class="modal-header border-0 pb-0">
+
+                <h5 class="modal-title fw-bold">
+
+                    <i class="bx bx-lock-open-alt text-primary me-2"></i>
+                    Request Course Access
+
+                </h5>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <form method="POST"
+                  action="{% url 'request_course_access' course.pk %}">
+
+                {% csrf_token %}
+
+                <div class="modal-body pt-3">
+
+                    <div class="text-center">
+
+                        <div class="mb-3">
+
+                            <i class="bx bx-shield-quarter text-primary"
+                               style="font-size:70px;"></i>
+
+                        </div>
+
+                        <h5 class="fw-bold">
+                            {{ course.title }}
+                        </h5>
+
+                        <p class="text-muted">
+
+                            Your request will be sent to the administrator
+                            for approval.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer border-0">
+
+                    <button type="button"
+                            class="btn btn-light"
+                            data-bs-dismiss="modal">
+
+                        Cancel
+
+                    </button>
+
+                    <button type="submit"
+                            class="btn btn-primary btn-course">
+
+                        <i class="bx bx-send me-1"></i>
+                        Send Request
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+{% endblock %}

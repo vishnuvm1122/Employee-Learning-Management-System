@@ -1,0 +1,544 @@
+{% extends 'includes/base.html' %}
+{% load i18n %}
+
+{% block content %}
+
+{% include 'includes/messages.html' %}
+
+<!-- BREADCRUMB -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1 mb-4">
+
+        <li class="breadcrumb-item">
+            <a href="/">
+                <i class="bx bx-home-alt"></i>
+                {% trans 'Home' %}
+            </a>
+        </li>
+
+        <li class="breadcrumb-item active" aria-current="page">
+            {% trans 'Results Dashboard' %}
+        </li>
+
+    </ol>
+</nav>
+
+<!-- TOP SUMMARY CARDS -->
+<div class="row mb-4">
+
+    <!-- EMPLOYEE CARD -->
+    <div class="col-xl-4 col-md-6 mb-3">
+
+        <div class="card border-0 shadow-lg h-100"
+             style="border-radius:24px;
+                    overflow:hidden;
+                    background:linear-gradient(135deg,#fc466b,#3f5efb);">
+
+            <div class="card-body position-relative p-4 text-white">
+
+                <div style="position:absolute;
+                            top:-20px;
+                            right:-10px;
+                            opacity:0.15;
+                            font-size:100px;">
+
+                    <i class="bx bx-user-circle"></i>
+
+                </div>
+
+                <div class="text-uppercase fw-semibold mb-2"
+                     style="font-size:13px;
+                            letter-spacing:1px;">
+
+                    Total Employees
+
+                </div>
+
+                <h1 class="fw-bold mb-1">
+                    {{ allocation_data|length }}
+                </h1>
+
+                <div class="small">
+                    Active learning participants
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- LMS CARD -->
+    <div class="col-xl-4 col-md-6 mb-3">
+
+        <div class="card border-0 shadow-lg h-100"
+             style="border-radius:24px;
+                    overflow:hidden;
+                    background:linear-gradient(135deg,#00c6ff,#0072ff);">
+
+            <div class="card-body position-relative p-4 text-white">
+
+                <div style="position:absolute;
+                            top:-20px;
+                            right:-10px;
+                            opacity:0.15;
+                            font-size:100px;">
+
+                    <i class="bx bx-book-open"></i>
+
+                </div>
+
+                <div class="text-uppercase fw-semibold mb-2"
+                     style="font-size:13px;
+                            letter-spacing:1px;">
+
+                    Learning Courses
+
+                </div>
+
+                <h1 class="fw-bold mb-1">
+                    LMS
+                </h1>
+
+                <div class="small">
+                    Employee performance analytics
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CERTIFICATE CARD -->
+    <div class="col-xl-4 col-md-6 mb-3">
+
+        <div class="card border-0 shadow-lg h-100"
+             style="border-radius:24px;
+                    overflow:hidden;
+                    background:linear-gradient(135deg,#11998e,#38ef7d);">
+
+            <div class="card-body position-relative p-4 text-white">
+
+                <div style="position:absolute;
+                            top:-20px;
+                            right:-10px;
+                            opacity:0.15;
+                            font-size:100px;">
+
+                    <i class="bx bx-award"></i>
+
+                </div>
+
+                <div class="text-uppercase fw-semibold mb-2"
+                     style="font-size:13px;
+                            letter-spacing:1px;">
+
+                    Certificates
+
+                </div>
+
+                <h1 class="fw-bold mb-1">
+                    70%+
+                </h1>
+
+                <div class="small">
+                    Eligible employees
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ADMIN BUTTON -->
+{% if request.user.is_superuser %}
+
+<div class="d-flex justify-content-end mb-4">
+
+    <a href="/admin/quiz/quiz/"
+       class="btn text-white shadow-lg px-4 py-2"
+       style="border-radius:14px;
+              border:none;
+              background:linear-gradient(135deg,#8e2de2,#ff0080);">
+
+        <i class="bx bx-slider-alt me-1"></i>
+        {% trans 'Advanced Options' %}
+
+    </a>
+
+</div>
+
+{% endif %}
+
+<!-- MAIN CARD -->
+<div class="card border-0 shadow-lg"
+     style="border-radius:26px;
+            overflow:hidden;
+            background:#ffffff;">
+
+    <!-- HEADER -->
+    <div class="position-relative overflow-hidden"
+         style="background:linear-gradient(135deg,#141e30,#243b55,#4b6cb7);
+                padding:35px;">
+
+        <!-- BACKGROUND CIRCLES -->
+        <div style="position:absolute;
+                    width:250px;
+                    height:250px;
+                    border-radius:50%;
+                    background:rgba(255,255,255,0.08);
+                    top:-100px;
+                    right:-70px;">
+        </div>
+
+        <div style="position:absolute;
+                    width:150px;
+                    height:150px;
+                    border-radius:50%;
+                    background:rgba(255,255,255,0.05);
+                    bottom:-60px;
+                    left:-40px;">
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap position-relative">
+
+            <!-- LEFT -->
+            <div>
+
+                <div class="d-inline-flex align-items-center px-3 py-2 mb-3"
+                     style="background:rgba(255,255,255,0.15);
+                            backdrop-filter:blur(10px);
+                            border-radius:50px;
+                            color:white;
+                            font-size:13px;
+                            letter-spacing:1px;
+                            font-weight:600;">
+
+                    <i class="bx bx-trophy me-2"></i>
+                    LMS PERFORMANCE ANALYTICS
+
+                </div>
+
+                <h2 class="fw-bold text-white mb-2">
+
+                    <i class="bx bx-bar-chart-alt-2 me-2"></i>
+                    Employee Learning Results
+
+                </h2>
+
+                <div style="color:rgba(255,255,255,0.85);
+                            font-size:15px;">
+
+                    Smart training insights, certification tracking & progress monitoring
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+            <div class="mt-3 mt-md-0">
+
+                <div class="text-center shadow-lg px-4 py-3"
+                     style="min-width:180px;
+                            border-radius:22px;
+                            background:rgba(255,255,255,0.14);
+                            backdrop-filter:blur(14px);
+                            border:1px solid rgba(255,255,255,0.18);">
+
+                    <div class="text-white mb-1"
+                         style="font-size:13px;
+                                letter-spacing:1px;">
+
+                        TOTAL RECORDS
+
+                    </div>
+
+                    <h1 class="fw-bold text-white mb-0"
+                        style="font-size:40px;">
+
+                        {{ allocation_data|length }}
+
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-responsive">
+
+        <table class="table align-middle text-center mb-0"
+               style="white-space:nowrap;">
+
+            <thead style="background:#0f172a;">
+
+                <tr>
+
+                    <th class="text-white py-3">#</th>
+                    <th class="text-white py-3">Employee ID</th>
+                    <th class="text-white py-3">Employee Name</th>
+                    <th class="text-white py-3">Course</th>
+                    <th class="text-white py-3">Best Quiz</th>
+                    <th class="text-white py-3">Quiz Score</th>
+                    <th class="text-white py-3">Video Progress</th>
+                    <th class="text-white py-3">Watch Hours</th>
+                    <th class="text-white py-3">Certificate</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for alloc in allocation_data %}
+                    {% for c in alloc.courses_detail %}
+
+                    <tr style="border-bottom:1px solid #f1f5f9;">
+
+                        <!-- NUMBER -->
+                        <td class="fw-bold">
+                            {{ forloop.parentloop.counter }}.{{ forloop.counter }}
+                        </td>
+
+                        <!-- EMPLOYEE ID -->
+                        <td>
+
+                            <span class="badge px-3 py-2 text-white shadow-sm"
+                                  style="border-radius:30px;
+                                         background:linear-gradient(135deg,#ff512f,#dd2476);">
+
+                                {{ alloc.allocation.employee.username }}
+
+                            </span>
+
+                        </td>
+
+                        <!-- EMPLOYEE NAME -->
+                        <td class="text-start">
+
+                            <div class="fw-bold text-dark">
+                                {{ alloc.allocation.employee.get_full_name }}
+                            </div>
+
+                        </td>
+
+                        <!-- COURSE -->
+                        <td>
+
+                            <span class="badge px-3 py-2 shadow-sm"
+                                  style="border-radius:30px;
+                                         background:#eef4ff;
+                                         color:#1e40af;
+                                         font-size:12px;">
+
+                                {{ c.course.title }}
+
+                            </span>
+
+                        </td>
+
+                        <!-- QUIZ -->
+                        <td>
+
+                            {% if c.best_quiz %}
+
+                                <span class="fw-semibold text-dark">
+
+                                    {{ c.best_quiz.quiz.title }}
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="text-muted">
+                                    No Quiz
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <!-- SCORE -->
+                        <td>
+
+                            {% if c.best_quiz %}
+
+                                {% if c.best_score >= 90 %}
+
+                                    <span class="badge px-3 py-2 text-white"
+                                          style="border-radius:30px;
+                                                 background:linear-gradient(135deg,#11998e,#38ef7d);">
+
+                                        {{ c.best_score }}%
+
+                                    </span>
+
+                                {% elif c.best_score >= 60 %}
+
+                                    <span class="badge px-3 py-2 text-dark"
+                                          style="border-radius:30px;
+                                                 background:linear-gradient(135deg,#f7971e,#ffd200);">
+
+                                        {{ c.best_score }}%
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge px-3 py-2 text-white"
+                                          style="border-radius:30px;
+                                                 background:linear-gradient(135deg,#ff416c,#ff4b2b);">
+
+                                        {{ c.best_score }}%
+
+                                    </span>
+
+                                {% endif %}
+
+                            {% else %}
+
+                                -
+
+                            {% endif %}
+
+                        </td>
+
+                        <!-- VIDEO PROGRESS -->
+                        <td style="min-width:220px;">
+
+                            <div class="d-flex justify-content-between mb-1">
+
+                                <small class="fw-semibold">
+                                    {{ c.progress_percent }}%
+                                </small>
+
+                            </div>
+
+                            <div class="progress"
+                                 style="height:12px;
+                                        border-radius:30px;
+                                        background:#e2e8f0;">
+
+                                {% if c.progress_percent >= 90 %}
+
+                                    <div class="progress-bar"
+                                         style="width:{{ c.progress_percent }}%;
+                                                border-radius:30px;
+                                                background:linear-gradient(135deg,#11998e,#38ef7d);">
+                                    </div>
+
+                                {% elif c.progress_percent >= 60 %}
+
+                                    <div class="progress-bar"
+                                         style="width:{{ c.progress_percent }}%;
+                                                border-radius:30px;
+                                                background:linear-gradient(135deg,#f7971e,#ffd200);">
+                                    </div>
+
+                                {% else %}
+
+                                    <div class="progress-bar"
+                                         style="width:{{ c.progress_percent }}%;
+                                                border-radius:30px;
+                                                background:linear-gradient(135deg,#ff416c,#ff4b2b);">
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+                        </td>
+
+                        <!-- WATCH HOURS -->
+                        <td>
+
+                            <span class="badge px-3 py-2 text-white"
+                                  style="border-radius:30px;
+                                         background:linear-gradient(135deg,#4776e6,#8e54e9);">
+
+                                {{ c.watched_hours }} hrs
+
+                            </span>
+
+                        </td>
+
+                        <!-- CERTIFICATE -->
+                        <td>
+
+                            {% if c.best_score >= 70 and c.progress_percent >= 70 %}
+
+                                <a href="{% url 'download_certificate' alloc.allocation.employee.id c.course.id %}"
+                                   class="btn btn-sm text-white shadow-sm px-3 py-2"
+                                   style="border:none;
+                                          border-radius:12px;
+                                          background:linear-gradient(135deg,#00b09b,#96c93d);">
+
+                                    <i class="bx bx-download me-1"></i>
+                                    Download
+
+                                </a>
+
+                            {% else %}
+
+                                <span class="badge px-3 py-2"
+                                      style="border-radius:30px;
+                                             background:#f1f5f9;
+                                             color:#64748b;">
+
+                                    Not Eligible
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                {% empty %}
+
+                <tr>
+
+                    <td colspan="9">
+
+                        <div class="text-center py-5">
+
+                            <i class="bx bx-folder-open"
+                               style="font-size:70px;
+                                      color:#cbd5e1;"></i>
+
+                            <h4 class="fw-bold mt-3">
+                                No Results Found
+                            </h4>
+
+                            <p class="text-muted mb-0">
+                                No employee learning records available.
+                            </p>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

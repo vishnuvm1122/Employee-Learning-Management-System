@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Eka LMS - Course Removed</title>
+</head>
+
+<body style="margin:0; padding:0; background:#f4f6fb; font-family: Arial, sans-serif;">
+
+<table width="100%" cellpadding="0" cellspacing="0" style="padding:30px 0;">
+<tr>
+<td align="center">
+
+<!-- MAIN CARD -->
+<table width="650" cellpadding="0" cellspacing="0"
+       style="background:#ffffff; border-radius:12px; overflow:hidden;">
+
+<!-- HEADER -->
+<tr>
+<td style="background-color:#c62828; padding:30px; text-align:center;">
+
+    <h1 style="margin:0; font-size:26px; color:#ffffff;">
+        🎓 Eka LMS
+    </h1>
+
+    <p style="margin-top:8px; font-size:14px; color:#ffcdd2;">
+        Powered by <strong style="color:#ffffff;">TalentLearn</strong>
+    </p>
+
+</td>
+</tr>
+
+<!-- BODY -->
+<tr>
+<td style="padding:30px; color:#333;">
+
+<h2 style="margin-bottom:15px; font-size:22px; color:#c62828;">
+    ❌ Course Removed
+</h2>
+
+<p style="font-size:15px; color:#555; margin-bottom:25px; line-height:1.6;">
+    Your assigned course(s) have been removed. Please find the details below:
+</p>
+
+<!-- USER DETAILS -->
+<div style="margin-bottom:20px;">
+    <div style="font-weight:bold; margin-bottom:8px; color:#c62828; font-size:16px;">
+        👤 User Information
+    </div>
+
+    <div style="background:#ffebee; padding:15px; border-radius:8px; font-size:15px; line-height:1.8;">
+        <div><strong>Name:</strong> {{ user.get_full_name }}</div>
+        <div><strong>Username:</strong> {{ user.username }}</div>
+        <div><strong>Email:</strong> {{ user.email|default:"N/A" }}</div>
+    </div>
+</div>
+
+<!-- REMOVED COURSES -->
+<div style="margin-bottom:20px;">
+    <div style="font-weight:bold; margin-bottom:8px; color:#c62828; font-size:16px;">
+        📘 Removed Courses
+    </div>
+
+    <div style="background:#fff5f5; padding:15px; border-radius:8px;">
+        {% for course in courses %}
+            <div style="margin-bottom:6px;">• {{ course.title }}</div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- DETAILS -->
+<div style="margin-top:20px; font-size:14px; color:#555;">
+    <div><strong>Removed By:</strong> {{ removed_by.get_full_name }}</div>
+    <div><strong>Removed At:</strong> {{ now|date:"M d, Y | h:i A" }}</div>
+</div>
+
+<p style="margin-top:30px; font-size:14px; color:#555;">
+    If you believe this was done in error, please contact your administrator.
+</p>
+
+<p style="margin-top:15px; font-size:14px;">
+    Regards,<br>
+    <strong style="color:#c62828;">Eka LMS Team</strong>
+</p>
+
+</td>
+</tr>
+
+<!-- FOOTER -->
+<tr>
+<td style="background:#f1f4f8; padding:15px; text-align:center; font-size:12px; color:#777;">
+    © Eka LMS | Powered by TalentLearn <br>
+    ⚠️ This is an automated email. Please do not reply.
+</td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>

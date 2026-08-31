@@ -1,0 +1,86 @@
+{% load i18n %}
+
+{% if messages %}
+<div class="position-fixed top-0 start-50 translate-middle-x mt-3 w-90-mobile w-md-50 toast-container-zIndex">
+  <div class="d-flex flex-column gap-2">
+
+    {% for message in messages %}
+
+      {% if message.tags == "success" %}
+        <div class="alert alert-success alert-dismissible fade show shadow border-0 rounded-3 d-flex align-items-center p-3 alert-transition">
+          <i class="bx bx-check-circle fs-4 me-2"></i>
+          <div class="pe-3 flex-grow-1 text-break">{{ message }}</div>
+          <button type="button" class="btn-close m-0 top-50 translate-middle-y end-0 me-2" data-bs-dismiss="alert" aria-label="{% trans 'Close' %}"></button>
+        </div>
+
+      {% elif message.tags == "error" %}
+        <div class="alert alert-danger alert-dismissible fade show shadow border-0 rounded-3 d-flex align-items-center p-3 alert-transition">
+          <i class="bx bx-error-circle fs-4 me-2"></i>
+          <div class="pe-3 flex-grow-1 text-break">{{ message }}</div>
+          <button type="button" class="btn-close m-0 top-50 translate-middle-y end-0 me-2" data-bs-dismiss="alert" aria-label="{% trans 'Close' %}"></button>
+        </div>
+
+      {% elif message.tags == "warning" %}
+        <div class="alert alert-warning alert-dismissible fade show shadow border-0 rounded-3 d-flex align-items-center p-3 alert-transition">
+          <i class="bx bx-error fs-4 me-2"></i>
+          <div class="pe-3 flex-grow-1 text-break">{{ message }}</div>
+          <button type="button" class="btn-close m-0 top-50 translate-middle-y end-0 me-2" data-bs-dismiss="alert" aria-label="{% trans 'Close' %}"></button>
+        </div>
+
+      {% elif message.tags == "info" %}
+        <div class="alert alert-info alert-dismissible fade show shadow border-0 rounded-3 d-flex align-items-center p-3 alert-transition">
+          <i class="bx bx-info-circle fs-4 me-2"></i>
+          <div class="pe-3 flex-grow-1 text-break">{{ message }}</div>
+          <button type="button" class="btn-close m-0 top-50 translate-middle-y end-0 me-2" data-bs-dismiss="alert" aria-label="{% trans 'Close' %}"></button>
+        </div>
+
+      {% else %}
+        <div class="alert alert-secondary alert-dismissible fade show shadow border-0 rounded-3 d-flex align-items-center p-3 alert-transition">
+          <i class="bx bx-bell fs-4 me-2"></i>
+          <div class="pe-3 flex-grow-1 text-break">{{ message }}</div>
+          <button type="button" class="btn-close m-0 top-50 translate-middle-y end-0 me-2" data-bs-dismiss="alert" aria-label="{% trans 'Close' %}"></button>
+        </div>
+      {% endif %}
+
+    {% endfor %}
+
+  </div>
+</div>
+
+<style>
+  .toast-container-zIndex {
+    z-index: 1090;
+  }
+  .alert-transition {
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  @media (max-width: 767.98px) {
+    .w-90-mobile {
+      width: 92% !important;
+    }
+  }
+  @media (min-width: 768px) {
+    .w-md-50 {
+      width: 45% !important;
+    }
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const alerts = document.querySelectorAll('.alert');
+
+  alerts.forEach((alertEl, index) => {
+    setTimeout(() => {
+      alertEl.style.opacity = 1;
+
+      setTimeout(() => {
+        bootstrap.Alert.getOrCreateInstance(alertEl).close();
+      }, 3000 + index * 150);
+
+    }, index * 150);
+  });
+});
+</script>
+
+{% endif %}

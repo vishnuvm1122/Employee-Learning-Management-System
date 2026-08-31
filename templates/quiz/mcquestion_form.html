@@ -1,0 +1,114 @@
+{% extends 'includes/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<!-- Messages -->
+{% include 'includes/messages.html' %}
+
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb bg-white border rounded p-2">
+        <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'programs' %}">{% trans 'Programs' %}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'program_detail' course.program.id %}">{{ course.program }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ course.get_absolute_url }}">{{ course }}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'quiz_index' course.id %}">{% trans 'Quizzes' %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'MC Question Form' %}</li>
+    </ol>
+</nav>
+
+<!-- Page Title -->
+<div class="mb-4 d-flex justify-content-between align-items-center">
+    <div>
+        <h3 class="fw-bold text-dark"><i class="bx bx-book-content me-2"></i>{% trans 'Add Multiple Choice Question' %}</h3>
+        <p class="text-muted">Quiz: <span class="badge bg-light text-dark border">{{ quiz_obj|truncatechars:30 }}</span></p>
+    </div>
+
+    <!-- Question Count Badge -->
+    <div>
+        <span class="badge bg-light text-dark border shadow-sm">
+            {{ quiz_questions_count }} {% trans 'question(s) added' %}
+        </span>
+    </div>
+</div>
+
+<!-- Non-form errors -->
+{% if formset.non_form_errors %}
+<div class="alert alert-danger shadow-sm">
+    <ul class="mb-0">
+        {% for e in formset.non_form_errors %}
+        <li>{{ e }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<!-- Form Start -->
+<form action="" method="POST" novalidate>
+    {% csrf_token %}
+
+    <div class="row g-4">
+        <!-- Question Panel -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm rounded-4 border-0">
+                <div class="card-header bg-white border-bottom">
+                    <h5 class="mb-0"><i class="bx bx-pencil me-2"></i>{% trans 'Question Details' %}</h5>
+                </div>
+                <div class="card-body bg-white mt-3">
+                    <div hidden>{{ form.quiz }}</div>
+                    {{ form.content|as_crispy_field }}
+                    {{ form.explanation|as_crispy_field }}
+                    {% if form.choice_order %}
+                        {{ form.choice_order|as_crispy_field }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Choices Panel -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm rounded-4 border-0">
+                <div class="card-header bg-white border-bottom">
+                    <h5 class="mb-0"><i class="bx bx-list-check me-2"></i>{% trans 'Choices' %}</h5>
+                </div>
+                <div class="card-body bg-white mt-3">
+                    {{ formset.management_form }}
+                    {% for fs in formset %}
+                    <div class="mb-3 p-3 border rounded-3 bg-white shadow-sm">
+                        <div class="row g-2 align-items-center">
+                            <div class="col-auto">
+                                {{ fs.correct|as_crispy_field }}
+                            </div>
+                            <div class="col">
+                                {{ fs.choice_text|as_crispy_field }}
+                            </div>
+                            <div class="col-auto">
+                                {{ fs.DELETE|as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons Right Below Panels -->
+    <div class="row mt-4">
+        <div class="col d-flex justify-content-end gap-2 flex-wrap">
+
+            <button type="submit" class="btn btn-primary btn-lg">
+                <i class="bx bx-save me-1"></i>{% trans 'Complete' %}
+            </button>
+            <button type="submit" name="another" class="btn btn-outline-primary btn-lg">
+                <i class="bx bx-plus-circle me-1"></i>{% trans 'Save & Add Another' %}
+            </button>
+ 
+        </div>
+    </div>
+</form>
+<!-- Form End -->
+
+{% endblock content %}

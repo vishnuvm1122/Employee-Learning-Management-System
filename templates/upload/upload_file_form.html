@@ -1,0 +1,94 @@
+{% extends 'includes/base.html' %}
+{% load i18n crispy_forms_tags static %}
+
+{% block title %}
+  {{ title }} | {% trans 'Learning Management System' %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1 mb-4">
+      <li class="breadcrumb-item">
+        <a href="/"><i class="bx bx-home-alt"></i> {% trans 'Home' %}</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="{% url 'programs' %}">{% trans 'Programs' %}</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="{% url 'program_detail' course.program.id %}">
+          {{ course.program }}
+        </a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="{% url 'course_details' course.pk %}">
+          {{ course }}
+        </a>
+      </li>
+      <li class="breadcrumb-item active">
+        {% trans 'Upload File' %}
+      </li>
+    </ol>
+  </nav>
+
+  {% include 'includes/messages.html' %}
+
+  <!-- Page Title -->
+  <div class="mb-4">
+    <h4 class="fw-semibold">
+      <i class="bx bx-upload text-primary me-2"></i>
+      {% trans 'Upload File for' %} {{ course|truncatechars:25 }}
+    </h4>
+  </div>
+
+  <!-- Form Section -->
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <div class="card shadow-sm border-0">
+        
+        <!-- Header -->
+        <div class="card-header bg-light">
+          <h6 class="mb-0">{% trans 'File Upload Form' %}</h6>
+        </div>
+
+        <!-- Body -->
+        <div class="card-body">
+
+          <form method="POST" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+
+            <div class="row g-3">
+              {{ form|crispy }}
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-flex justify-content-between mt-4">
+
+              <a href="{% url 'course_details' course.pk %}"
+                 class="btn btn-outline-secondary">
+                <i class="bx bx-arrow-back me-1"></i>
+                {% trans 'Cancel' %}
+              </a>
+
+              <button type="submit" class="btn btn-primary">
+                <i class="bx bx-upload me-1"></i>
+                {% trans 'Upload' %}
+              </button>
+
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

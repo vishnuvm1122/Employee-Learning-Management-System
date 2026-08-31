@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}LMS{% endblock %}</title>
+
+    <!-- ==========================
+           FAVICON
+    =========================== -->
+    <link rel="icon" href="{% static 'assets/img/favicon/favicon.ico' %}" />
+
+    <!-- ==========================
+           CSS FILES
+    =========================== -->
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="{% static 'assets/vendor/fonts/iconify-icons.css' %}" />
+
+    <!-- Core -->
+    <link rel="stylesheet" href="{% static 'assets/vendor/css/core.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/demo.css' %}" />
+
+    <!-- Vendor -->
+    <link rel="stylesheet" href="{% static 'assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css' %}" />
+
+    <!-- Optional (REMOVE if not used) -->
+    <!-- <link rel="stylesheet" href="{% static 'assets/vendor/libs/apex-charts/apex-charts.css' %}" /> -->
+    <!-- <link rel="stylesheet" href="{% static 'player/build/ableplayer.min.css' %}" /> -->
+
+    <!-- 🔹 Page CSS -->
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+    <!-- ==========================
+           PAGE CONTENT
+    =========================== -->
+    {% block content %}
+    {% endblock %}
+
+
+    <!-- ==========================
+           JS FILES (BOTTOM ✅)
+    =========================== -->
+
+    <!-- jQuery -->
+    <script src="{% static 'assets/vendor/libs/jquery/jquery.js' %}"></script>
+
+    <!-- Bootstrap -->
+    <script src="{% static 'assets/vendor/libs/popper/popper.js' %}"></script>
+    <script src="{% static 'assets/vendor/js/bootstrap.js' %}"></script>
+
+    <!-- Plugins -->
+    <script src="{% static 'jquery/js.cookie.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+
+    <!-- Optional (REMOVE if not used) -->
+    <!-- <script src="{% static 'assets/vendor/libs/apex-charts/apexcharts.js' %}"></script> -->
+    <!-- <script src="{% static 'player/build/ableplayer.min.js' %}"></script> -->
+
+    <!-- Core JS -->
+    <script src="{% static 'assets/vendor/js/helpers.js' %}"></script>
+    <script src="{% static 'assets/vendor/js/menu.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+    <!-- Optional -->
+    <!-- <script src="{% static 'assets/js/dashboards-analytics.js' %}"></script> -->
+
+    <!-- 🔹 Page JS -->
+    {% block extra_js %}{% endblock %}
+
+</body>
+</html>

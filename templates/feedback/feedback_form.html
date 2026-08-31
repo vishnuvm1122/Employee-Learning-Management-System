@@ -1,0 +1,63 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+
+{% block title %}Feedback | LMS{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h3 class="mb-4 text-primary"> Submit Feedback</h3>
+
+    {% include 'includes/messages.html' %}
+
+    {% if assigned_courses %}
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Course Dropdown -->
+        <div class="mb-3">
+            <label for="course" class="form-label">Select Course</label>
+            <select name="course" id="course" class="form-select" onchange="this.form.submit()">
+                <option value="">-- Choose a course --</option>
+                {% for c in assigned_courses %}
+                    <option value="{{ c.id }}" {% if selected_course and c.id == selected_course.id %}selected{% endif %}>
+                        {{ c.title }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        {% if form %}
+            <!-- Feedback Fields -->
+            <div class="mb-3">
+                <label class="form-label">Rating</label>
+                <div class="d-flex flex-column">
+                    {% for radio in form.rating %}
+                        <div class="form-check">
+                            {{ radio.tag }}
+                            <label class="form-check-label">{{ radio.choice_label }}</label>
+                        </div>
+                    {% endfor %}
+                    {% for error in form.rating.errors %}
+                        <div class="text-danger small">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                {{ form.comment.label_tag }}
+                {{ form.comment }}
+                {% for error in form.comment.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <button type="submit" class="btn btn-success">Submit Feedback</button>
+        {% endif %}
+    </form>
+    {% else %}
+        <div class="alert alert-warning">
+             You have no courses allocated for feedback.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
