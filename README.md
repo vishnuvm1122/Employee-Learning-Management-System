@@ -1283,13 +1283,7 @@ Add the organization's license information here.
 
 Example:
 
-```text
-Copyright © Hailstone Innovations Pvt Ltd.
 
-All rights reserved unless otherwise specified.
-```
-
----
 
 # 📞 Support
 
