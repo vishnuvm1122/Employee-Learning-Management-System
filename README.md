@@ -1,993 +1,1173 @@
 # 🎓 Employee Learning Management System (LMS)
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
-  <img src="https://img.shields.io/badge/Django-Framework-092E20?style=for-the-badge&logo=django&logoColor=white" alt="Django">
-  <img src="https://img.shields.io/badge/MySQL-Database-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
-  <img src="https://img.shields.io/badge/Bootstrap-Frontend-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap">
-  <img src="https://img.shields.io/badge/JavaScript-Frontend-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
-  <img src="https://img.shields.io/badge/Linux-OS-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux">
-  <img src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
-</p>
+<div align="center">
 
-<p align="center">
-  <strong>🚀 Secure • Scalable • Organized • Employee-Focused</strong>
-</p>
+![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Django](https://img.shields.io/badge/Django-4.0+-092E20?style=for-the-badge&logo=django&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8.0+-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.x-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Active%20Development-brightgreen?style=for-the-badge)
 
-<p align="center">
-  A web-based Employee Learning Management System built with
-  <strong>Python, Django, MySQL, HTML5, CSS3, JavaScript, and Bootstrap</strong>.
-</p>
+**🚀 Secure • 📚 Scalable • 🎯 Organized • 👨‍💼 Employee-Focused**
+
+A comprehensive web-based Employee Learning Management System built with Python, Django, MySQL, Bootstrap, and JavaScript for managing employee training, courses, and learning activities.
+
+[🚀 Quick Start](#-quick-start) • [📚 Features](#-features) • [🏗️ Architecture](#-architecture) • [📖 Documentation](#-documentation)
+
+</div>
 
 ---
 
-## 📌 Table of Contents
+## 📋 Table of Contents
 
 - [🌟 Overview](#-overview)
-- [✨ Key Features](#-key-features)
-- [🏗️ System Architecture](#️-system-architecture)
+- [✨ Features](#-features)
+- [🏗️ System Architecture](#-system-architecture)
 - [🛠️ Technology Stack](#️-technology-stack)
 - [📁 Project Structure](#-project-structure)
-- [🚀 Installation](#-installation)
-- [🗄️ MySQL Setup](#️-mysql-setup)
-- [⚙️ Django Configuration](#️-django-configuration)
-- [📧 Email Configuration](#-email-configuration)
-- [🔐 Authentication](#-authentication)
-- [🛡️ Security Monitoring](#️-security-monitoring)
-- [📚 Course Management](#-course-management)
-- [🎯 Course Allocation](#-course-allocation)
-- [📊 Learning Management](#-learning-management)
-- [🔔 Notifications & Reminders](#-notifications--reminders)
-- [📱 Android Application Support](#-android-application-support)
+- [🚀 Quick Start](#-quick-start)
+- [📖 Detailed Installation](#-detailed-installation)
+- [⚙️ Configuration](#-configuration)
 - [🧪 Testing](#-testing)
-- [🔒 Production Security Checklist](#-production-security-checklist)
-- [🚀 Production Architecture](#-production-architecture)
-- [💾 Database Backup](#-database-backup)
-- [🔄 Production Updates](#-production-updates)
+- [📊 Database](#-database)
+- [🔐 Security](#-security)
 - [🩺 Troubleshooting](#-troubleshooting)
-- [📋 Useful Django Commands](#-useful-django-commands)
+- [📝 Useful Commands](#-useful-commands)
 - [🎯 Project Objectives](#-project-objectives)
 - [🌟 Future Enhancements](#-future-enhancements)
-- [📈 Project Status](#-project-status)
-- [👨‍💻 Development](#-development)
-- [⚠️ Security Notice](#️-security-notice)
 - [📄 License](#-license)
-- [🔗 Project Links](#-project-links)
+- [🔗 Links](#-links)
 
 ---
 
 ## 🌟 Overview
 
-The **Employee Learning Management System (LMS)** is a centralized platform
-designed to manage employee training, course allocation, learning activities,
-notifications, email communication, and authentication-related monitoring.
+The **Employee Learning Management System** is a centralized, secure platform designed to:
 
-The platform provides administrators with tools to manage employees, courses,
-learning progress, system notifications, email services, security activity,
-and Android application releases.
+✅ Manage employee accounts and authentication  
+✅ Create and organize training courses  
+✅ Allocate courses to employees  
+✅ Track learning progress and completion  
+✅ Send automated notifications and reminders  
+✅ Monitor security activities and suspicious logins  
+✅ Manage email communications  
+✅ Support mobile app integration (Android)  
 
-### 👨‍💼 Administration
-
-Administrators can:
-
-- 👤 Create and manage employee accounts
-- 🔐 Manage authentication and access
-- 📚 Create and manage training courses
-- 🎯 Allocate courses to employees
-- 📊 Monitor learning progress and completion
-- 📧 Configure email services
-- 🔔 Manage application notifications
-- 📅 Configure daily and weekly reminders
-- 🛡️ Monitor login and logout activity
-- 💻 Track configured device and session information
-- 🌐 Record configured login IP information
-- 🚨 Detect configured suspicious login activity
-- 🔑 Support password recovery
-- 📱 Manage Android application versions
-- 📦 Manage APK releases and downloads
+**Perfect for:** Corporate training departments, HR teams, and organizations seeking centralized learning management.
 
 ---
 
-## ✨ Key Features
+## ✨ Features
 
-| Feature | Description |
-|---|---|
-| 👤 **User Management** | Create, edit, activate, deactivate, and manage employee accounts |
-| 🔐 **Authentication** | Login, logout, session handling, and access control |
-| 🔑 **Password Reset** | Forgot-password and password-reset workflow |
-| 📚 **Course Management** | Create and manage employee training courses |
-| 🎯 **Course Allocation** | Assign courses to employees |
-| 📊 **Progress Tracking** | Monitor learning progress and completion |
-| 📧 **Email Settings** | Configure SMTP and application email services |
-| 🔔 **Notifications** | Application and email notifications |
-| 📅 **Daily Reminders** | Automated daily learning reminders |
-| 📆 **Weekly Reminders** | Automated weekly learning reminders |
-| 🛡️ **Security Monitoring** | Monitor authentication-related activity |
-| 💻 **Device Tracking** | Record configured device and browser information |
-| 🌐 **IP Tracking** | Record configured login IP information |
-| 🚨 **Suspicious Login Detection** | Detect configured potentially suspicious authentication activity |
-| 📱 **Android Integration** | Application version and release management |
-| 📦 **APK Management** | Manage APK files, releases, version information, and downloads |
-| 👨‍💼 **Admin Dashboard** | Centralized administrative management |
-| 🗄️ **MySQL Database** | Relational database storage |
+### 👤 User Management
+- ✅ Create, edit, and manage employee accounts
+- ✅ Activate/deactivate user accounts
+- ✅ Role-based access control
+- ✅ User profile management
+
+### 🔐 Authentication & Security
+- ✅ Secure login/logout
+- ✅ Session management
+- ✅ Password reset workflow
+- ✅ Two-factor authentication support
+- ✅ Security monitoring
+- ✅ Suspicious login detection
+- ✅ Device & browser tracking
+- ✅ IP address logging
+
+### 📚 Course Management
+- ✅ Create and organize training courses
+- ✅ Add course descriptions and materials
+- ✅ Set course prerequisites
+- ✅ Manage course content
+- ✅ Track course versions
+
+### 🎯 Course Allocation
+- ✅ Assign courses to employees
+- ✅ Batch course allocation
+- ✅ Set assignment deadlines
+- ✅ Track allocation status
+
+### 📊 Learning Progress
+- ✅ Real-time progress tracking
+- ✅ Completion status monitoring
+- ✅ Learning analytics dashboard
+- ✅ Performance reports
+- ✅ Quiz management
+- ✅ Result tracking
+
+### 📧 Email & Notifications
+- ✅ SMTP email configuration
+- ✅ Automated password reset emails
+- ✅ Course allocation notifications
+- ✅ Daily learning reminders
+- ✅ Weekly summary emails
+- ✅ Suspicious login alerts
+- ✅ In-app notifications
+
+### 📅 Reminders & Scheduling
+- ✅ Daily reminder emails
+- ✅ Weekly summary notifications
+- ✅ Deadline reminders
+- ✅ Scheduled task automation
+
+### 📱 Android Integration
+- ✅ App version management
+- ✅ APK release management
+- ✅ Force update capabilities
+- ✅ Download tracking
+
+### 👨‍💼 Admin Dashboard
+- ✅ Centralized management interface
+- ✅ Quick statistics overview
+- ✅ Activity logs
+- ✅ System monitoring
+- ✅ User engagement metrics
 
 ---
 
 ## 🏗️ System Architecture
 
-```text
-                              🌐 USER
-                                │
-                                ▼
-                     ┌─────────────────────┐
-                     │    🌍 WEB BROWSER   │
-                     │ HTML5 • CSS3 • JS   │
-                     │     Bootstrap       │
-                     └──────────┬──────────┘
-                                │
-                                ▼
-                     ┌─────────────────────┐
-                     │     🐍 DJANGO       │
-                     │      BACKEND        │
-                     └──────────┬──────────┘
-                                │
-              ┌─────────────────┼─────────────────┐
-              │                 │                 │
-              ▼                 ▼                 ▼
-       👤 USER MANAGEMENT   📚 LMS           🛡️ SECURITY
-              │                 │                 │
-              ▼                 ▼                 ▼
-       🔐 Authentication   📖 Courses       🔐 Login Monitoring
-       👥 User Accounts    🎯 Allocation    💻 Device Tracking
-       🔑 Permissions      📊 Progress      🌐 IP Tracking
-                                              🚨 Suspicious Login
-              │                 │                 │
-              └─────────────────┼─────────────────┘
-                                │
-                  ┌─────────────┴─────────────┐
-                  │                           │
-                  ▼                           ▼
-          ┌───────────────┐           ┌────────────────┐
-          │ 🗄️ MySQL      │           │ 📧 SMTP Server │
-          │   Database    │           │    Email       │
-          └───────────────┘           └────────────────┘
-                  │                           │
-                  ▼                           ▼
-          Application Data             🔔 Notifications
-          Learning Data                🔑 Password Reset
-          Security Logs                📅 Reminders
-🛠️ Technology Stack
-🐍 Backend
-Python 3.x
-Django
-Django ORM
-Django Authentication
-🎨 Frontend
-HTML5
-CSS3
-JavaScript
-Bootstrap
-🗄️ Database
-MySQL
-📧 Email
-SMTP
-Django Email Backend
-🐙 Version Control
-Git
-GitHub
-🐧 Operating System
-Ubuntu / Linux recommended
-📁 Project Structure
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     🌐 END USERS                                │
+│              (Employees, Admins, Managers)                      │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+                   ┌─────────▼──────────┐
+                   │  🌍 WEB BROWSER    │
+                   │ HTML5 • CSS3 • JS  │
+                   │    Bootstrap       │
+                   └─────────┬──────────┘
+                             │
+              ┌──────────────▼──────────────┐
+              │  🔒 HTTPS / SSL              │
+              └──────────────┬──────────────┘
+                             │
+            ┌────────────────▼────────────────┐
+            │   🐍 DJANGO WEB FRAMEWORK       │
+            │  (Backend Application Server)   │
+            └─┬────────────┬─────────┬────────┘
+              │            │         │
+        ┌─────▼─┐    ┌────▼───┐ ┌──▼────┐
+        │ 👤    │    │ 📚     │ │ 🛡️    │
+        │ USER  │    │ COURSE │ │SECURITY
+        │ MGMT  │    │ MGMT   │ │MONITOR
+        └───────┘    └────────┘ └───────┘
+              │            │         │
+        ┌─────┴────────────┴─────────┴──────┐
+        │                                    │
+    ┌───▼────────┐                  ┌──────▼────┐
+    │ 🗄️ MySQL   │                  │ 📧 SMTP   │
+    │ Database   │                  │ Server    │
+    │            │                  │           │
+    │ • Users    │                  │Notifications
+    │ • Courses  │                  │Emails
+    │ • Progress │                  │Alerts
+    │ • Security │                  │Reminders
+    └────────────┘                  └───────────┘
+```
 
-ℹ️ Replace <django_project> and <django_app> with the actual names
-used by your source repository.
+---
 
+## 🛠️ Technology Stack
+
+| Category | Technology |
+|----------|-----------|
+| **Backend** | Python 3.x, Django 4.0+ |
+| **Database** | MySQL 8.0+ |
+| **Frontend** | HTML5, CSS3, JavaScript (ES6+) |
+| **CSS Framework** | Bootstrap 5.x |
+| **ORM** | Django ORM |
+| **Authentication** | Django Authentication |
+| **Email** | Django Email Backend (SMTP) |
+| **Version Control** | Git, GitHub |
+| **OS** | Linux (Ubuntu 20.04+ recommended) |
+
+---
+
+## 📁 Project Structure
+
+```
 Employee-Learning-Management-System/
 │
-├── manage.py
+├── 📄 manage.py                          # Django management script
+├── 📄 requirements.txt                   # Python dependencies
+├── 📄 README.md                          # This file
+├── 📄 db.sqlite3                         # Development database
+├── 📄 backup-db.py                       # Database backup script
 │
-├── <django_project>/
+├── 🗂️ config/                            # Django project settings
 │   ├── __init__.py
-│   ├── settings.py
-│   ├── urls.py
-│   ├── asgi.py
-│   └── wsgi.py
+│   ├── settings.py                       # Main settings
+│   ├── urls.py                           # URL routing
+│   ├── asgi.py                           # ASGI configuration
+│   └── wsgi.py                           # WSGI configuration
 │
-├── <django_app>/
-│   ├── __init__.py
-│   ├── admin.py
-│   ├── apps.py
+├── 🗂️ accounts/                          # User management app
+│   ├── models.py
+│   ├── views.py
 │   ├── forms.py
+│   ├── urls.py
+│   ├── admin.py
+│   └── templates/
+│
+├── 🗂️ course/                            # Course management app
+│   ├── models.py
+│   ├── views.py
+│   ├── forms.py
+│   ├── urls.py
+│   └── templates/
+│
+├── 🗂️ courseallocations/                 # Course allocation app
 │   ├── models.py
 │   ├── views.py
 │   ├── urls.py
-│   ├── signals.py
-│   │
-│   ├── migrations/
-│   │   └── ...
-│   │
 │   └── templates/
-│       └── ...
 │
-├── templates/
+├── 🗂️ core/                              # Core utilities
+│   ├── views.py
+│   ├── urls.py
+│   ├── models.py
+│   └── templates/
+│
+├── 🗂️ notifications/                     # Notifications app
+│   ├── models.py
+│   ├── views.py
+│   └── urls.py
+│
+├── 🗂️ emailsettings/                     # Email configuration
+│   ├── models.py
+│   ├── views.py
+│   └── forms.py
+│
+├── 🗂️ feedback/                          # Feedback management
+│   ├── models.py
+│   ├── views.py
+│   └── urls.py
+│
+├── 🗂️ quiz/                              # Quiz management
+│   ├── models.py
+│   ├── views.py
+│   └── urls.py
+│
+├── 🗂️ results/                           # Result tracking
+│   ├── models.py
+│   ├── views.py
+│   └── urls.py
+│
+├── 🗂️ search/                            # Search functionality
+│   ├── views.py
+│   └── urls.py
+│
+├── 🗂️ android/                           # Android app management
+│   ├── models.py
+│   ├── views.py
+│   └── urls.py
+│
+├── 🗂️ templates/                         # HTML templates
 │   ├── base.html
+│   ├── index.html
+│   ├── dashboard.html
 │   └── ...
 │
-├── static/
+├── 🗂️ static/                            # Static files
 │   ├── css/
+│   │   └── style.css
 │   ├── js/
+│   │   └── script.js
 │   └── images/
 │
-├── media/
+├── 🗂️ media/                             # User uploads
+│   ├── documents/
+│   ├── apk/
+│   └── images/
 │
-├── requirements.txt
-├── .gitignore
-├── .env.example
-├── README.md
-└── INSTALL.md
-🚀 Installation
-1️⃣ Clone the Repository
+└── 🗂️ locale/                            # Internationalization
+    └── ...
+```
+
+---
+
+## 🚀 Quick Start
+
+### ⚡ 5-Minute Setup
+
+```bash
+# 1️⃣ Clone the repository
 git clone https://github.com/vishnuvm1122/Employee-Learning-Management-System.git
 cd Employee-Learning-Management-System
-2️⃣ Check Python
-python3 --version
 
-Recommended:
-
-Python 3.x
-
-If Python is not installed:
-
-sudo apt update
-sudo apt install python3 python3-pip python3-venv -y
-3️⃣ Create a Virtual Environment
+# 2️⃣ Create virtual environment
 python3 -m venv venv
-
-Activate it:
-
 source venv/bin/activate
 
-You should see something similar to:
-
-(venv) user@computer:~/Employee-Learning-Management-System$
-4️⃣ Upgrade pip
-python -m pip install --upgrade pip
-5️⃣ Install Project Dependencies
-
-If requirements.txt exists:
-
+# 3️⃣ Install dependencies
 pip install -r requirements.txt
 
-Verify Django:
+# 4️⃣ Run migrations
+python manage.py migrate
 
-python -m django --version
-🗄️ MySQL Setup
-6️⃣ Install MySQL
+# 5️⃣ Create superuser
+python manage.py createsuperuser
 
-On Ubuntu:
+# 6️⃣ Start development server
+python manage.py runserver
 
+# 7️⃣ Access application
+# Open: http://127.0.0.1:8000/
+# Admin: http://127.0.0.1:8000/admin/
+```
+
+---
+
+## 📖 Detailed Installation
+
+### Prerequisites
+
+Before installation, ensure you have:
+
+- ✅ Ubuntu 20.04+ or Linux system (Windows with WSL supported)
+- ✅ Python 3.8 or higher
+- ✅ pip (Python package manager)
+- ✅ MySQL 8.0 or higher
+- ✅ Git
+- ✅ 500MB disk space minimum
+
+### Step 1️⃣: Verify System Requirements
+
+```bash
+# Check Python version
+python3 --version
+# Expected output: Python 3.8+
+
+# Check pip
+pip3 --version
+
+# Check MySQL
+mysql --version
+# Expected output: mysql Ver 8.0+
+```
+
+**📦 Install Python (if needed):**
+```bash
 sudo apt update
-sudo apt install mysql-server mysql-client -y
+sudo apt install python3 python3-pip python3-venv python3-dev -y
+```
 
-Check MySQL:
+**📦 Install MySQL (if needed):**
+```bash
+sudo apt update
+sudo apt install mysql-server mysql-client libmysqlclient-dev -y
+```
 
+### Step 2️⃣: Clone Repository
+
+```bash
+# Clone the repository
+git clone https://github.com/vishnuvm1122/Employee-Learning-Management-System.git
+
+# Navigate to project
+cd Employee-Learning-Management-System
+
+# Verify you're in the right directory
+ls -la
+# You should see: manage.py, requirements.txt, config/, etc.
+```
+
+### Step 3️⃣: Create Virtual Environment
+
+```bash
+# Create virtual environment
+python3 -m venv venv
+
+# Activate it
+source venv/bin/activate
+
+# You should see (venv) in your terminal prompt
+# Example: (venv) user@computer:~/Employee-Learning-Management-System$
+
+# Verify activation
+which python
+# Should show: /path/to/venv/bin/python
+```
+
+### Step 4️⃣: Install Dependencies
+
+```bash
+# Upgrade pip first
+python -m pip install --upgrade pip
+
+# Install from requirements.txt
+pip install -r requirements.txt
+
+# Verify Django installation
+python -m django --version
+# Expected output: 4.0+
+
+# Verify other key packages
+pip list | grep -E "Django|mysqlclient|Django-MySQL"
+```
+
+**📋 Expected Packages:**
+```
+Django>=4.0
+mysqlclient>=2.1.0
+pillow>=9.0.0
+requests>=2.27.0
+python-decouple>=3.6
+```
+
+### Step 5️⃣: MySQL Database Setup
+
+```bash
+# Start MySQL service
+sudo systemctl start mysql
+sudo systemctl enable mysql
+
+# Verify MySQL is running
 sudo systemctl status mysql
 
-Start MySQL if required:
+# Connect to MySQL
+sudo mysql -u root
 
-sudo systemctl start mysql
+# In MySQL console, run these commands:
+```
 
-Enable MySQL at boot:
-
-sudo systemctl enable mysql
-7️⃣ Create the Database
-
-Open MySQL:
-
-sudo mysql
-
-Create the database:
-
-CREATE DATABASE lmsmgmt
-CHARACTER SET utf8mb4
+**SQL Commands:**
+```sql
+-- Create database
+CREATE DATABASE lmsmgmt 
+CHARACTER SET utf8mb4 
 COLLATE utf8mb4_unicode_ci;
 
-Create a dedicated database user:
+-- Create dedicated database user
+CREATE USER 'lmsuser'@'localhost' 
+IDENTIFIED BY 'strong_password_here_123';
 
-CREATE USER 'lmsuser'@'localhost'
-IDENTIFIED BY 'CHANGE_THIS_PASSWORD';
+-- Grant all permissions
+GRANT ALL PRIVILEGES ON lmsmgmt.* 
+TO 'lmsuser'@'localhost';
 
-Grant permissions:
-
-GRANT ALL PRIVILEGES ON lmsmgmt.* TO 'lmsuser'@'localhost';
-
-Apply privileges:
-
+-- Apply changes
 FLUSH PRIVILEGES;
 
-Exit:
+-- Verify
+SHOW DATABASES;
+SHOW GRANTS FOR 'lmsuser'@'localhost';
 
+-- Exit
 EXIT;
+```
 
-⚠️ Replace CHANGE_THIS_PASSWORD with a strong, unique password.
-Never publish real credentials in GitHub.
+**⚠️ Important:** Replace `strong_password_here_123` with a strong password!
 
-⚙️ Django Configuration
-8️⃣ Configure the Database
+### Step 6️⃣: Configure Django Settings
 
-Configure the database in settings.py, or preferably load the values
-from environment variables.
+```bash
+# Navigate to settings file
+nano config/settings.py
+```
 
-Example:
-
+**Add/Update Database Configuration:**
+```python
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "lmsmgmt",
-        "USER": "lmsuser",
-        "PASSWORD": "CHANGE_THIS_PASSWORD",
-        "HOST": "127.0.0.1",
-        "PORT": "3306",
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'lmsmgmt',
+        'USER': 'lmsuser',
+        'PASSWORD': 'strong_password_here_123',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        }
     }
 }
+```
 
-🔐 For production, do not hard-code database passwords in source code.
+**Configure Email (Optional):**
+```python
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # or your email provider
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'your-email@gmail.com'
+EMAIL_HOST_PASSWORD = 'your-app-password'
+DEFAULT_FROM_EMAIL = 'your-email@gmail.com'
+```
 
-9️⃣ Environment Variables
+**Configure Allowed Hosts:**
+```python
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'yourdomain.com']
+```
 
-Create a local .env file if the project uses environment variables:
+### Step 7️⃣: Environment Variables (Recommended)
 
+```bash
+# Create .env file
 touch .env
 
-Example:
+# Edit it
+nano .env
+```
 
-SECRET_KEY=your-secret-key
+**Add to .env:**
+```
+SECRET_KEY=your-secret-key-here
 DEBUG=False
+ALLOWED_HOSTS=localhost,127.0.0.1
 
 DATABASE_NAME=lmsmgmt
 DATABASE_USER=lmsuser
-DATABASE_PASSWORD=your-database-password
+DATABASE_PASSWORD=strong_password_here_123
 DATABASE_HOST=127.0.0.1
 DATABASE_PORT=3306
 
-EMAIL_HOST=smtp.example.com
+EMAIL_HOST=smtp.gmail.com
 EMAIL_PORT=587
-EMAIL_HOST_USER=your-email@example.com
-EMAIL_HOST_PASSWORD=your-email-password
 EMAIL_USE_TLS=True
-EMAIL_USE_SSL=False
-DEFAULT_FROM_EMAIL=your-email@example.com
-🚫 Never commit .env
+EMAIL_HOST_USER=your-email@gmail.com
+EMAIL_HOST_PASSWORD=your-app-password
+DEFAULT_FROM_EMAIL=your-email@gmail.com
+```
 
-Recommended .gitignore entries:
+**Update settings.py to use environment variables:**
+```python
+from decouple import config
 
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost').split(',')
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': config('DATABASE_NAME'),
+        'USER': config('DATABASE_USER'),
+        'PASSWORD': config('DATABASE_PASSWORD'),
+        'HOST': config('DATABASE_HOST'),
+        'PORT': config('DATABASE_PORT'),
+    }
+}
+```
+
+**Add to .gitignore:**
+```
 .env
 *.pyc
 __pycache__/
 venv/
 .venv/
+*.sqlite3
+db.sqlite3
 media/
 staticfiles/
+.DS_Store
 *.log
-🗃️ Database Migration
-🔟 Run Migrations
+.idea/
+.vscode/
+```
 
-Create migrations when required:
+### Step 8️⃣: Run Migrations
 
-python manage.py makemigrations
-
-Apply migrations:
-
-python manage.py migrate
-
-Check migration status:
-
-python manage.py showmigrations
-👨‍💼 Create Administrator
-1️⃣1️⃣ Create a Superuser
-python manage.py createsuperuser
-
-Enter:
-
-Username
-Email
-Password
-
-🔐 Use a strong administrator password.
-
-🎨 Static & Media Files
-1️⃣2️⃣ Collect Static Files
-
-For production:
-
-python manage.py collectstatic
-
-Verify the following settings:
-
-STATIC_URL
-STATIC_ROOT
-MEDIA_URL
-MEDIA_ROOT
-▶️ Run the Application
-1️⃣3️⃣ Start Development Server
-python manage.py runserver
-
-Open:
-
-http://127.0.0.1:8000/
-🌐 Run on a Local Network
-
-To allow another device on the local network to connect:
-
-python manage.py runserver 0.0.0.0:8000
-
-Then open:
-
-http://SERVER-IP:8000/
-
-⚠️ Django's development server is for development/testing and should not
-be used as the production web server.
-
-🔑 Admin Panel
-
-Open:
-
-http://127.0.0.1:8000/admin/
-
-Log in using the Django superuser account.
-
-📧 Email Configuration
-
-The LMS can use SMTP for:
-
-🔑 Password reset emails
-🚨 Suspicious login alerts
-📚 Course allocation notifications
-🔔 User notifications
-📅 Daily reminders
-📆 Weekly reminders
-📢 System notifications
-
-Example:
-
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-
-EMAIL_HOST = "smtp.example.com"
-EMAIL_PORT = 587
-
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-
-EMAIL_HOST_USER = "your-email@example.com"
-EMAIL_HOST_PASSWORD = "your-password"
-
-DEFAULT_FROM_EMAIL = "your-email@example.com"
-
-🔐 Store SMTP credentials in environment variables or a secure secret
-management system in production.
-
-🔐 Authentication
-🔑 Password Reset Workflow
-👤 User
-   │
-   ▼
-🔑 Forgot Password
-   │
-   ▼
-📧 Enter Email
-   │
-   ▼
-🔐 Django Authentication
-   │
-   ▼
-📨 Password Reset Email
-   │
-   ▼
-🔗 Reset Link
-   │
-   ▼
-🔑 Create New Password
-   │
-   ▼
-✅ Login
-🛡️ Security Monitoring
-
-The LMS includes security-related functionality for monitoring
-authentication activity.
-
-Depending on the project configuration, tracked information may include:
-
-🌐 IP address
-💻 Device information
-🌍 Browser information
-🖥️ Operating system
-🧾 User-Agent
-🔐 Session information
-🕐 Login time
-🕐 Logout time
-
-Configured security conditions can be used to identify potentially
-suspicious login activity.
-
-🔒 Security and employee data collection should follow applicable
-organizational policies, privacy requirements, and access-control rules.
-
-🚨 Suspicious Login Notification
-
-Typical workflow:
-
-🔐 Login
-   │
-   ▼
-📋 Capture Login Information
-   │
-   ▼
-🛡️ Security Check
-   │
-   ├──────────────────┐
-   │                  │
-   ▼                  ▼
-✅ Normal          🚨 Suspicious
-   │                  │
-   ▼                  ▼
-Continue          Log Activity
-                      │
-                      ▼
-                  📧 Email Alert
-📚 Course Management
-
-Administrators can manage employee training courses.
-
-Typical workflow:
-
-👨‍💼 Administrator
-        │
-        ▼
-📚 Create Course
-        │
-        ▼
-📝 Add Course Information
-        │
-        ▼
-💾 Save Course
-        │
-        ▼
-🎯 Allocate Course
-        │
-        ▼
-👤 Employee
-        │
-        ▼
-📖 Learning
-        │
-        ▼
-📊 Progress
-        │
-        ▼
-🏆 Completion
-🎯 Course Allocation
-
-Course allocation connects employees with their assigned training.
-
-👤 Employee + 📚 Course
-          │
-          ▼
-   🎯 Course Allocation
-          │
-          ▼
-   👨‍💻 Employee Dashboard
-          │
-          ▼
-     📖 Assigned Course
-          │
-          ▼
-        📊 Learning
-📊 Learning Management
-
-Employees can access assigned learning content and track their learning
-activities.
-
-Possible learning information includes:
-
-📚 Assigned courses
-▶️ Learning content
-📈 Progress
-⏳ Pending activities
-✅ Completed activities
-🏆 Course completion
-🔔 Notifications & Reminders
-
-The system can provide notifications for important events.
-
-Examples:
-
-📚 Course allocation
-📧 Email notifications
-🔑 Password reset
-🚨 Suspicious login alerts
-📅 Daily reminders
-📆 Weekly reminders
-⚙️ System notifications
-📅 Daily Reminder
-👤 Employee
-     │
-     ▼
-📖 Pending Learning Activity
-     │
-     ▼
-📧 Daily Reminder
-📆 Weekly Reminder
-👤 Employee
-     │
-     ▼
-📊 Learning Status
-     │
-     ▼
-📧 Weekly Reminder
-
-ℹ️ Scheduler configuration should be verified against the actual project
-implementation before production deployment.
-
-📱 Android Application Support
-
-Where Android integration is enabled, the backend can support application
-version management.
-
-Possible version information includes:
-
-🏷️ Version name
-🔢 Version code
-📦 APK file
-📏 APK size
-📝 Release notes
-🟢 Active version
-🔄 Force update
-📥 Download count
-📱 Android Version Workflow
-📱 Android App
-      │
-      ▼
-🔢 Installed Version
-      │
-      ▼
-🐍 Django Backend
-      │
-      ▼
-🔍 Version Comparison
-      │
-   ┌──┴──────┐
-   │         │
-   ▼         ▼
-🟢 Latest   🔄 Update
-   │         │
-   ▼         ▼
-Continue   📦 Download Update
-🧪 Testing
-
-Run Django's system check:
-
+```bash
+# Check project
 python manage.py check
 
-Run the test suite:
+# Create new migrations (if models changed)
+python manage.py makemigrations
 
+# Apply migrations
+python manage.py migrate
+
+# Check migration status
+python manage.py showmigrations
+```
+
+**Expected Output:**
+```
+Operations to perform:
+  Apply all migrations: accounts, admin, auth, core, course, ...
+Running migrations:
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_user_add_last_login_and_created... OK
+  ...
+```
+
+### Step 9️⃣: Create Admin User
+
+```bash
+# Create superuser (administrator)
+python manage.py createsuperuser
+
+# You'll be prompted for:
+# Username: admin
+# Email: admin@example.com
+# Password: (enter secure password)
+# Password (again): (confirm)
+
+# Superuser created successfully.
+```
+
+**💡 Use a strong password:** Mix uppercase, lowercase, numbers, and symbols.
+
+### Step 🔟: Collect Static Files
+
+```bash
+# Create staticfiles directory
+mkdir -p staticfiles
+
+# Collect static files (for production)
+python manage.py collectstatic --noinput
+
+# Verify
+ls -la staticfiles/
+```
+
+### Step 1️⃣1️⃣: Run Development Server
+
+```bash
+# Start the server
+python manage.py runserver
+
+# You should see:
+# Starting development server at http://127.0.0.1:8000/
+# Quit the server with CONTROL-C.
+```
+
+**🌐 Access the Application:**
+- **Main App:** http://127.0.0.1:8000/
+- **Admin Panel:** http://127.0.0.1:8000/admin/
+- **Login with:** Username/Email and password you just created
+
+### Step 1️⃣2️⃣: Access on Local Network (Optional)
+
+```bash
+# Allow other devices to connect
+python manage.py runserver 0.0.0.0:8000
+
+# Find your IP address
+hostname -I
+
+# Other devices can access at: http://YOUR-IP:8000/
+```
+
+---
+
+## ⚙️ Configuration
+
+### Email Configuration
+
+**Gmail Setup Example:**
+1. Enable 2-factor authentication on your Gmail account
+2. Generate an App Password: https://myaccount.google.com/apppasswords
+3. Use the generated password in .env
+
+```
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER=your-email@gmail.com
+EMAIL_HOST_PASSWORD=xxxx xxxx xxxx xxxx
+```
+
+**Microsoft Exchange:**
+```
+EMAIL_HOST=smtp.office365.com
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER=your-email@company.com
+EMAIL_HOST_PASSWORD=your-password
+```
+
+### Security Settings
+
+**Production Checklist:**
+```python
+# settings.py
+
+# Security
+DEBUG = False  # Never True in production
+SECRET_KEY = 'your-secret-key'  # Use environment variable
+ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com']
+
+# HTTPS
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_SECURITY_POLICY = {
+    'default-src': ("'self'",),
+}
+
+# Database
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv('DATABASE_NAME'),
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST': os.getenv('DATABASE_HOST'),
+        'PORT': os.getenv('DATABASE_PORT'),
+    }
+}
+```
+
+---
+
+## 🧪 Testing
+
+### Run System Check
+
+```bash
+python manage.py check
+```
+
+### Run Test Suite
+
+```bash
+# Run all tests
 python manage.py test
-👤 User Management
- Create employee
- Edit employee
- Activate/deactivate employee
- Verify permissions
-🔐 Authentication
- Login
- Logout
- Invalid login
- Password reset
- Session handling
-📚 LMS
- Create course
- Edit course
- Allocate course
- Access assigned course
- Verify progress
-📧 Email
- Password reset email
- Course notification
- Suspicious login email
- Daily reminder
- Weekly reminder
-🛡️ Security
- Login activity
- Logout activity
- Device information
- IP information
- Suspicious login detection
-🔒 Production Security Checklist
 
-Before deploying to production:
+# Run tests for specific app
+python manage.py test accounts
 
- DEBUG=False
- SECRET_KEY protected
- Database password protected
- SMTP password protected
- .env excluded from GitHub
- HTTPS enabled
- ALLOWED_HOSTS configured
- CSRF configuration reviewed
- Secure cookies enabled
- Static files configured
- Media files configured
- Database backup configured
- Administrator password secured
- Dependencies reviewed and updated
- Application tested
- Email functionality tested
- Login monitoring tested
- Error logging configured
- Server firewall configured
- Production web server configured
- Database access restricted
- Backup restoration tested
-🔐 Security Best Practices
-🚫 Never commit passwords.
-🚫 Never commit .env files.
-🔑 Never expose the Django SECRET_KEY.
-🔒 Use HTTPS in production.
-🛡️ Use strong administrator passwords.
-🔄 Keep dependencies updated.
-💾 Configure regular database backups.
-👨‍💼 Restrict administrative access.
-📋 Review application logs regularly.
-🔐 Protect employee and authentication data.
-🌐 Configure ALLOWED_HOSTS correctly.
-🍪 Enable secure cookie settings in production.
-🧪 Test security controls before deployment.
-📜 Follow organizational privacy and security requirements.
-🚀 Production Architecture
-                         🌐 INTERNET
-                              │
-                              ▼
-                         🔒 HTTPS
-                              │
-                              ▼
-                  ┌────────────────────┐
-                  │   Nginx / Apache   │
-                  │ Reverse Proxy      │
-                  └─────────┬──────────┘
-                            │
-                            ▼
-                  ┌────────────────────┐
-                  │ Django / WSGI      │
-                  │ Application        │
-                  └─────────┬──────────┘
-                            │
-              ┌─────────────┼─────────────┐
-              │             │             │
-              ▼             ▼             ▼
-        🗄️ MySQL        📧 SMTP       📱 Android
-         Database        Server          Client
-              │
-              ▼
-       💾 Application Data
-       📚 Learning Data
-       🛡️ Security Logs
-💾 Database Backup
+# Run with verbose output
+python manage.py test -v 2
 
-Create a MySQL backup:
+# Run specific test
+python manage.py test accounts.tests.UserModelTest
+```
 
+### Test Critical Paths
+
+- [ ] User registration and login
+- [ ] Course creation and allocation
+- [ ] Progress tracking
+- [ ] Email notifications
+- [ ] Admin dashboard
+- [ ] Password reset workflow
+- [ ] Security monitoring
+
+---
+
+## 📊 Database
+
+### Create Backup
+
+```bash
+# Backup database
 mysqldump -u lmsuser -p lmsmgmt > lmsmgmt_backup.sql
 
-Restore the backup:
+# Or use Python script
+python backup-db.py
+```
 
+### Restore Backup
+
+```bash
+# Restore database
 mysql -u lmsuser -p lmsmgmt < lmsmgmt_backup.sql
 
-💡 Store database backups securely and periodically test the restoration
-process.
+# Verify
+mysql -u lmsuser -p
+> USE lmsmgmt;
+> SHOW TABLES;
+```
 
-🔄 Production Updates
+### Database Schema
 
-Activate the virtual environment:
+```sql
+-- Key tables
+SHOW TABLES;
 
+-- User table
+DESC auth_user;
+
+-- Course table
+DESC course_course;
+
+-- Progress tracking
+DESC courseallocations_courseallocation;
+
+-- Security logs
+DESC accounts_loginattempt;
+```
+
+---
+
+## 🔐 Security
+
+### Authentication Methods
+
+```python
+# Django's built-in authentication
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def dashboard(request):
+    return render(request, 'dashboard.html')
+```
+
+### Password Security
+
+```python
+# Use Django's password validators
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 8,
+        }
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+```
+
+### CSRF Protection
+
+```html
+<!-- Always include CSRF token in forms -->
+<form method="POST">
+    {% csrf_token %}
+    <!-- form fields -->
+</form>
+```
+
+### SQL Injection Prevention
+
+```python
+# ✅ SAFE - Using ORM
+user = User.objects.get(username=username)
+
+# ❌ UNSAFE - Raw SQL (Don't use!)
+# User.objects.raw(f"SELECT * FROM auth_user WHERE username = '{username}'")
+```
+
+---
+
+## 🩺 Troubleshooting
+
+### Error: No module named 'django'
+
+```bash
+# Activate virtual environment
 source venv/bin/activate
 
-Install/update dependencies:
-
+# Install dependencies
 pip install -r requirements.txt
 
-Apply migrations:
+# Verify
+python -c "import django; print(django.get_version())"
+```
 
-python manage.py migrate
+### Error: MySQL connection error
 
-Collect static files:
-
-python manage.py collectstatic
-
-Restart the production application/service according to your deployment
-configuration.
-
-⚠️ Always test migrations and application changes before applying them to
-a production system.
-
-🩺 Troubleshooting
-❌ No module named django
-source venv/bin/activate
-pip install -r requirements.txt
-🐬 MySQL Connection Error
-
-Check MySQL:
-
+```bash
+# Check MySQL is running
 sudo systemctl status mysql
 
-Verify:
+# Start if stopped
+sudo systemctl start mysql
 
-Database name
-Database username
-Database password
-Database host
-Database port
-MySQL service status
-🗃️ Missing Database Tables
+# Verify credentials
+mysql -u lmsuser -p -h 127.0.0.1
+# Password: (enter your password)
 
-Run:
+# Check in settings.py:
+# - DATABASE_NAME matches
+# - DATABASE_USER matches
+# - DATABASE_PASSWORD matches
+# - DATABASE_HOST is correct
+# - DATABASE_PORT is correct (default 3306)
+```
 
+### Error: Static files not loading
+
+```bash
+# Collect static files
+python manage.py collectstatic --noinput
+
+# Check STATIC settings in settings.py
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Verify directory
+ls -la staticfiles/
+```
+
+### Error: Email not sending
+
+```bash
+# Test email configuration
+python manage.py shell
+>>> from django.core.mail import send_mail
+>>> send_mail('Test', 'Message', 'from@example.com', ['to@example.com'])
+1  # Should return 1 if successful
+
+# Check settings:
+# - EMAIL_HOST
+# - EMAIL_PORT
+# - EMAIL_HOST_USER
+# - EMAIL_HOST_PASSWORD
+# - EMAIL_USE_TLS
+```
+
+### Error: Permission denied
+
+```bash
+# Fix permissions
+chmod +x manage.py
+chmod 755 staticfiles/
+chmod 755 media/
+
+# Set correct owner
+sudo chown -R $USER:$USER .
+```
+
+---
+
+## 📝 Useful Commands
+
+### Django Management Commands
+
+```bash
+# 🟢 Activate environment
+source venv/bin/activate
+
+# ▶️ Start development server
+python manage.py runserver
+
+# ▶️ Run on specific IP and port
+python manage.py runserver 0.0.0.0:8000
+
+# 🔍 Check project configuration
+python manage.py check
+
+# 🏗️ Create new migrations
 python manage.py makemigrations
+
+# 🗃️ Apply migrations
 python manage.py migrate
-🎨 Static Files Not Loading
 
-Run:
+# 📋 Show migration status
+python manage.py showmigrations
 
+# ↩️ Revert migrations
+python manage.py migrate app_name 0001
+
+# 👨‍💼 Create administrator
+python manage.py createsuperuser
+
+# 🎨 Collect static files
 python manage.py collectstatic
 
-Then verify:
+# 🧪 Run tests
+python manage.py test
 
-STATIC_URL
-STATIC_ROOT
-MEDIA_URL
-MEDIA_ROOT
-📧 Email Not Sending
+# 🐚 Open Django shell
+python manage.py shell
 
-Verify:
+# 📊 Database shell
+python manage.py dbshell
 
-SMTP host
-SMTP port
-SMTP username
-SMTP password
-TLS/SSL configuration
-Firewall rules
-SMTP provider configuration
-Sender address configuration
+# 🔄 Run background tasks
+python manage.py celery worker  # if Celery is installed
+```
 
-Also check:
+### Useful Bash Commands
 
-📬 Spam/junk folder
-📝 Django logs
-🖥️ Application logs
-🔥 Firewall configuration
-📋 Useful Django Commands
-Purpose	Command
-🟢 Activate environment	source venv/bin/activate
-▶️ Start server	python manage.py runserver
-🔍 Check project	python manage.py check
-🏗️ Create migrations	python manage.py makemigrations
-🗃️ Apply migrations	python manage.py migrate
-📋 Show migrations	python manage.py showmigrations
-👨‍💼 Create admin	python manage.py createsuperuser
-🎨 Collect static	python manage.py collectstatic
-🧪 Run tests	python manage.py test
-🐚 Open shell	python manage.py shell
-🎯 Project Objectives
+```bash
+# 🔵 Virtual Environment
+source venv/bin/activate          # Activate
+deactivate                        # Deactivate
+python -m pip list               # List packages
 
-The main objectives of this LMS are:
+# 📦 Pip
+pip install -r requirements.txt   # Install all
+pip install package_name         # Install specific
+pip install --upgrade package    # Update
+pip freeze > requirements.txt     # Update requirements
 
-👤 Centralize employee management
-🔐 Provide secure authentication
-📚 Manage employee training courses
-🎯 Simplify course allocation
-📊 Monitor learning progress
-📧 Automate email communication
-🔔 Provide notifications and reminders
-🚨 Monitor configured suspicious authentication activity
-💻 Track configured login and device activity
-📱 Support mobile application integration
-📈 Improve employee training visibility
-🛡️ Improve application security
-🌟 Future Enhancements
+# 🗂️ Project Files
+ls -la                            # List files
+find . -name "*.pyc" -delete     # Remove Python cache
+find . -name "__pycache__" -type d -exec rm -rf {} +
 
-Potential future improvements include:
+# 🔍 Search
+grep -r "search_term" .          # Search in files
+find . -name "*.py" -type f      # Find Python files
 
-🤖 AI-powered learning recommendations
-💬 AI learning assistant
-🧠 AI chatbot
-📝 Online examinations
-❓ Quiz management
-📄 Assignment management
-🏆 Certificate generation
-📊 Advanced analytics
-🎮 Gamification
-📹 Live classes
-🔔 Push notifications
-🌍 Multi-language support
-📱 Advanced mobile application
-📈 Advanced management reports
-🤖 Automated learning recommendations
-📊 Learning analytics dashboard
-🧩 Additional LMS integrations
-📈 Project Status
+# 🛠️ Database
+mysql -u lmsuser -p              # Connect to MySQL
+mysqldump -u user -p db > backup.sql  # Backup DB
+```
 
-🚧 Status: Active Development
+---
 
-The platform is designed as an extensible Employee Learning Management System
-combining:
+## 🎯 Project Objectives
 
-👤 User Management
-        +
-🔐 Authentication
-        +
-📚 Course Management
-        +
-🎯 Course Allocation
-        +
-📊 Learning Progress
-        +
-📧 Email Management
-        +
-🔔 Notifications
-        +
-🛡️ Security Monitoring
-        +
-📱 Mobile Integration
-        =
-🎓 Employee Learning Management System
-👨‍💻 Development
+✅ **Centralize** employee management and training  
+✅ **Simplify** course allocation and tracking  
+✅ **Automate** notifications and reminders  
+✅ **Monitor** learning progress and completion  
+✅ **Secure** employee and authentication data  
+✅ **Integrate** mobile application support  
+✅ **Improve** organizational training visibility  
+✅ **Support** scalable learning platform  
 
-The project is designed to be maintained using:
+---
 
-🐍 Python
-🌐 Django
-🐬 MySQL
-🎨 HTML5 / CSS3
-⚡ JavaScript
-🧩 Bootstrap
-🐙 Git / GitHub
-🐧 Linux
-⚠️ Security Notice
+## 🌟 Future Enhancements
 
-This project handles authentication, employee information, email
-configuration, and security-related activity.
+- 🤖 AI-powered learning recommendations
+- 💬 AI learning assistant/chatbot
+- 📝 Online examinations module
+- ❓ Advanced quiz management
+- 📄 Assignment management system
+- 🏆 Certificate generation
+- 📊 Advanced analytics dashboard
+- 🎮 Gamification features
+- 📹 Live class support
+- 🔔 Push notifications (iOS/Android)
+- 🌍 Multi-language support
+- 📱 Advanced mobile app
+- 📈 Comprehensive reporting suite
+- 🧩 LMS integrations (Blackboard, Canvas, etc.)
 
-For production deployments:
+---
 
-🔐 Never commit passwords.
-🚫 Never commit .env files.
-🔑 Never expose the Django SECRET_KEY.
-🔒 Use HTTPS.
-🛡️ Use strong administrator passwords.
-🔄 Keep dependencies updated.
-💾 Configure database backups.
-👨‍💼 Restrict administrative access.
-📋 Review application logs regularly.
-🔐 Protect employee and authentication information.
-📜 Follow applicable organizational security and privacy requirements.
+## 🩺 Production Deployment
 
-⚠️ Only perform security testing against systems, applications, and
-accounts that you own or have explicit authorization to test.
+### Using Gunicorn & Nginx
 
-📄 License
+**Install Gunicorn:**
+```bash
+pip install gunicorn
+```
 
-Add the organization's actual license information here.
+**Create Gunicorn service:**
+```bash
+sudo nano /etc/systemd/system/lms.service
+```
+
+**Add:**
+```ini
+[Unit]
+Description=LMS Django Application
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/path/to/Employee-Learning-Management-System
+ExecStart=/path/to/venv/bin/gunicorn config.wsgi:application --bind 127.0.0.1:8000
+
+[Install]
+WantedBy=multi-user.target
+```
+
+**Enable and start:**
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable lms
+sudo systemctl start lms
+```
+
+**Configure Nginx reverse proxy:**
+```nginx
+server {
+    listen 80;
+    server_name yourdomain.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+
+    location /static/ {
+        alias /path/to/staticfiles/;
+    }
+
+    location /media/ {
+        alias /path/to/media/;
+    }
+}
+```
+
+---
+
+## 📄 License
+
+[Add your license information here - MIT, GPL, Apache, etc.]
 
 Example:
-
+```
 MIT License
 
-ℹ️ Replace the example above with the license that actually applies to
-this project.
+Copyright (c) 2024 Vishnu VM
 
-🔗 Project Links
-🐙 GitHub Repository
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction...
+```
 
-https://github.com/vishnuvm1122/Employee-Learning-Management-System.git
+---
 
-💼 LinkedIn
+## 🔗 Links
 
-https://www.linkedin.com/in/vishnuvm1997/
+- 🐙 **GitHub:** [vishnuvm1122/Employee-Learning-Management-System](https://github.com/vishnuvm1122/Employee-Learning-Management-System)
+- 💼 **LinkedIn:** [vishnuvm1997](https://www.linkedin.com/in/vishnuvm1997/)
+- 📧 **Email:** [your-email@example.com]
+- 🌐 **Website:** [your-website.com]
 
-<p align="center"> <strong>🎓 Employee Learning Management System</strong> <br><br> 🔐 Secure • 📚 Organized • 🚀 Scalable • 👨‍💼 Employee-Focused <br><br> Built with 🐍 <strong>Python</strong> & 🌐 <strong>Django</strong> </p> '''
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## 📞 Support
+
+For issues, questions, or suggestions:
+
+- 📝 **Issues:** [GitHub Issues](https://github.com/vishnuvm1122/Employee-Learning-Management-System/issues)
+- 💬 **Discussions:** [GitHub Discussions](https://github.com/vishnuvm1122/Employee-Learning-Management-System/discussions)
+- 📧 **Email:** [your-email@example.com]
+
+---
+
+<div align="center">
+
+**Built with ❤️ by Vishnu VM**
+
+⭐ If this project helped you, please consider giving it a star!
+
+</div>
+
+---
+
+**Last Updated:** September 1, 2024  
+**Version:** 1.0.0  
+**Status:** Active Development ✅
