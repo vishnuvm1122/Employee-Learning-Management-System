@@ -1,1739 +1,1503 @@
 ================================================================================
-EKA LEARNING MANAGEMENT SYSTEM
-PROJECT README
-==============
+                    EMPLOYEE LEARNING MANAGEMENT SYSTEM
+                               README
+================================================================================
 
-Project Name   : EKA Learning Management System (LMS)
-Project Type   : Web-Based Learning Management System
-Backend        : Python / Django
-Frontend       : HTML5 / CSS3 / JavaScript / Bootstrap
-Database       : MySQL
-Authentication : Django Authentication System
-Email          : SMTP / Configurable Email Settings
-Version Control: Git / GitHub
-Mobile Support : Android Application Integration
-================================================
+PROJECT NAME
+------------
+Employee Learning Management System (LMS)
 
+PROJECT TYPE
+------------
+Web-Based Employee Learning and Course Management Platform
+
+BACKEND
+-------
+Python
+Django
+
+FRONTEND
+--------
+HTML5
+CSS3
+JavaScript
+Bootstrap
+
+DATABASE
+--------
+MySQL
+
+VERSION CONTROL
+---------------
+Git / GitHub
+
+================================================================================
 1. PROJECT OVERVIEW
-   ================================================================================
+================================================================================
 
-EKA Learning Management System is a web-based application developed to
-manage users, courses, learning activities, course allocations, notifications,
-email communication, authentication, security monitoring, and administrative
-operations from a centralized platform.
+The Employee Learning Management System is a centralized web-based platform
+designed to manage employee learning, training courses, course allocation,
+user accounts, authentication, notifications, email communication, security
+monitoring, and administrative activities.
 
-The system is designed to provide a structured learning environment where
-administrators can create and manage users, create courses, allocate courses
-to users, monitor learning activities, configure system emails, manage
-notifications, and monitor authentication/security activities.
+The system allows administrators to create and manage employees, create
+training courses, allocate courses to employees, monitor learning activities,
+configure email services, send notifications and reminders, and maintain
+security-related login activity.
 
-The platform supports different types of users and provides access according
-to the permissions and role assigned to each user.
+The main purpose of this application is to provide an organized and secure
+environment for managing employee training and learning activities.
 
-The main objective of the project is to provide a centralized and secure
-platform for managing the complete learning process.
+The overall learning workflow is:
 
-The major workflow is:
+    Employee Creation
+          |
+          v
+    User Authentication
+          |
+          v
+    Employee Login
+          |
+          v
+    Course Allocation
+          |
+          v
+    Assigned Course
+          |
+          v
+    Learning Content
+          |
+          v
+    Progress Tracking
+          |
+          v
+    Course Completion
+          |
+          v
+    Reports / Monitoring
 
-```
-User Creation
-      |
-      v
-User Authentication
-      |
-      v
-User Login
-      |
-      v
-Course Allocation
-      |
-      v
-Course Access
-      |
-      v
-Learning Activities
-      |
-      v
-Progress Tracking
-      |
-      v
-Notifications / Reminders
-      |
-      v
-Course Completion
-      |
-      v
-Reports / Monitoring
-```
 
 ================================================================================
 2. MAIN FEATURES
-================
+================================================================================
 
-The LMS contains the following major modules:
+The application provides a complete set of LMS management features.
 
-```
-1. User Management
-2. User Creation
-3. User Authentication
-4. Login Management
-5. Logout Management
-6. Device and Session Tracking
-7. Suspicious Login Detection
-8. Security Notifications
-9. Password Reset
-```
+Major features include:
 
-10. Email Settings
-11. Email Notifications
-12. Daily Reminders
-13. Weekly Reminders
-14. Course Management
-15. Course Creation
-16. Course Allocation
-17. Learning Management
-18. Learning Progress
-19. Notifications
-20. Admin Management
-21. System Settings
-22. Dashboard
-23. Reports and Monitoring
-24. Android Application Integration
-25. Android APK Version Management
-26. API / Backend Integration
-27. Database Management
-28. Responsive Web Interface
-29. Security and Access Control
+    * Employee/User Creation
+    * User Management
+    * User Login
+    * User Logout
+    * Role and Permission Management
+    * Login Activity Tracking
+    * Logout Activity Tracking
+    * Device and Session Tracking
+    * IP Address Tracking
+    * User-Agent Tracking
+    * Suspicious Login Detection
+    * Suspicious Login Email Notification
+    * Forgot Password
+    * Password Reset
+    * Email Settings
+    * SMTP Configuration
+    * Email Notifications
+    * Daily Reminder Emails
+    * Weekly Reminder Emails
+    * Course Creation
+    * Course Management
+    * Course Allocation
+    * Employee Course Access
+    * Learning Content Management
+    * Learning Progress Tracking
+    * Notification Management
+    * Administrative Dashboard
+    * System Settings
+    * Reports and Monitoring
+    * Android Application Integration
+    * APK Version Management
+    * APK Download Management
+    * Responsive Web Interface
+    * MySQL Database Integration
+
 
 ================================================================================
-3. USER MANAGEMENT
-==================
+3. USER / EMPLOYEE MANAGEMENT
+================================================================================
 
-The User Management module allows administrators to manage users from the
-central administration system.
+The User Management module provides administrators with centralized control
+over employee accounts.
 
-## USER CREATION
+FUNCTIONALITY
+-------------
 
-Administrators can create new users and maintain their account information.
+    * Create new employee/user accounts
+    * Edit employee information
+    * View employee information
+    * Activate user accounts
+    * Deactivate user accounts
+    * Manage user access
+    * Assign roles
+    * Manage permissions
+    * Maintain account status
+    * Monitor employee activity
 
-User management includes:
+USER CREATION WORKFLOW
+---------------------
 
-```
-- Create new users
-- Edit existing users
-- View user information
-- Activate users
-- Deactivate users
-- Manage user access
-- Assign user roles
-- Manage permissions
-- Maintain user account information
-```
+    Administrator
+         |
+         v
+    User Management
+         |
+         v
+    Create Employee
+         |
+         v
+    Enter Employee Details
+         |
+         v
+    Validate Information
+         |
+         v
+    Save User
+         |
+         v
+    Employee Account Created
 
-The user creation process is designed to make onboarding easier and provide
-administrators with centralized control over LMS users.
-
-## USER ACCOUNT MANAGEMENT
-
-Administrators can manage user accounts throughout their lifecycle.
-
-Typical operations include:
-
-```
-CREATE
-   |
-   v
-ACTIVATE
-   |
-   v
-ASSIGN ROLE / PERMISSION
-   |
-   v
-ALLOCATE COURSE
-   |
-   v
-MONITOR ACTIVITY
-   |
-   v
-DEACTIVATE WHEN REQUIRED
-```
 
 ================================================================================
-4. USER ROLES AND ACCESS CONTROL
-================================
-
-The application supports role-based access control.
-
-Different users can have different permissions depending on their role.
-
-Possible roles include:
-
-```
-- Administrator
-- Instructor / Trainer
-- Learner / Student
-- Other organization-specific roles
-```
-
-Administrators have access to management functions.
-
-Learners primarily have access to their assigned learning content.
-
-Role-based access prevents unauthorized users from accessing administrative
-functions.
-
+4. USER AUTHENTICATION
 ================================================================================
-5. USER AUTHENTICATION
-======================
 
-The authentication module manages user access to the LMS.
-
-Supported functionality includes:
-
-```
-- Login
-- Logout
-- Password authentication
-- Password reset
-- Session management
-- Authentication validation
-- Access control
-- Login activity tracking
-- Security monitoring
-```
-
-The authentication process is based on Django's authentication framework.
-
-## LOGIN WORKFLOW
-
-```
-User
- |
- v
-Login Page
- |
- v
-Enter Username / Password
- |
- v
-Authentication Validation
- |
- +------------+
- |            |
-FAIL         SUCCESS
- |            |
- v            v
-Error       Create Session
-              |
-              v
-          Login Log
-              |
-              v
-          Dashboard
-```
-
-================================================================================
-6. LOGIN AND LOGOUT TRACKING
-============================
-
-The system maintains login and logout activity information for monitoring and
-security purposes.
-
-LOGIN INFORMATION MAY INCLUDE:
-
-```
-- User
-- Login date
-- Login time
-- IP address
-- Device information
-- Browser information
-- Operating system information
-- User-agent information
-- Session information
-- Location-related information where configured
-```
-
-LOGOUT INFORMATION MAY INCLUDE:
-
-```
-- User
-- Logout date
-- Logout time
-- Session information
-- Device/session information
-```
-
-This functionality provides an audit trail of user authentication activity.
-
-================================================================================
-7. DEVICE AND SESSION TRACKING
-==============================
-
-The LMS includes device/session monitoring functionality.
-
-The system can identify information about the device used to access the
+The system uses Django-based authentication to control access to the
 application.
+
+Authentication functionality includes:
+
+    * Login
+    * Logout
+    * Password authentication
+    * Session management
+    * Password reset
+    * Access control
+    * Authentication activity logging
+
+LOGIN PROCESS
+-------------
+
+    User
+      |
+      v
+    Login Page
+      |
+      v
+    Username / Password
+      |
+      v
+    Authentication
+      |
+      +----------------------+
+      |                      |
+    Failed                 Successful
+      |                      |
+      v                      v
+    Error                 Session Created
+                             |
+                             v
+                         Login Recorded
+                             |
+                             v
+                         Dashboard
+
+
+================================================================================
+5. LOGIN AND LOGOUT ACTIVITY
+================================================================================
+
+The system records authentication activity to support security monitoring
+and auditing.
+
+LOGIN ACTIVITY MAY INCLUDE
+--------------------------
+
+    * User
+    * Date
+    * Time
+    * IP address
+    * Device information
+    * Browser information
+    * Operating system
+    * User-agent
+    * Session information
+
+LOGOUT ACTIVITY MAY INCLUDE
+---------------------------
+
+    * User
+    * Logout date
+    * Logout time
+    * Session information
+    * Device information
+
+This provides an audit trail of user authentication activity.
+
+
+================================================================================
+6. DEVICE AND SESSION TRACKING
+================================================================================
+
+The system can collect information about the device and browser used by a
+user during authentication.
+
+Possible information includes:
+
+    * Desktop / Laptop
+    * Mobile
+    * Tablet
+    * Browser
+    * Operating System
+    * User-Agent
+    * IP Address
+    * Session information
+
+This information can be used to identify unusual access and support security
+monitoring.
+
+
+================================================================================
+7. SUSPICIOUS LOGIN DETECTION
+================================================================================
+
+The LMS includes functionality for detecting potentially suspicious login
+activity.
+
+Security checks may use information such as:
+
+    * New device
+    * New IP address
+    * Unusual login activity
+    * Device changes
+    * Other configured security conditions
+
+When suspicious activity is detected, the system can notify the affected
+user through email.
+
+SUSPICIOUS LOGIN FLOW
+---------------------
+
+    Login
+      |
+      v
+    Capture IP / Device / User-Agent
+      |
+      v
+    Security Check
+      |
+      +------------------+
+      |                  |
+    Normal           Suspicious
+      |                  |
+      v                  v
+    Continue        Create Security Event
+                         |
+                         v
+                   Email Notification
+                         |
+                         v
+                    Activity Log
+
+
+================================================================================
+8. PASSWORD RESET
+================================================================================
+
+Users can recover their account when they forget their password.
+
+PASSWORD RESET PROCESS
+----------------------
+
+    1. Open Forgot Password.
+    2. Enter registered email address.
+    3. System validates the account.
+    4. Password reset email is generated.
+    5. User receives the email.
+    6. User opens the reset link.
+    7. User creates a new password.
+    8. User logs in using the new password.
+
+Password reset email templates can be customized according to the
+organization's requirements.
+
+
+================================================================================
+9. EMAIL SETTINGS
+================================================================================
+
+The application provides centralized email settings for managing outgoing
+emails.
+
+Email configuration can include:
+
+    * SMTP Host
+    * SMTP Port
+    * SMTP Username
+    * SMTP Password
+    * TLS
+    * SSL
+    * Sender Email
+    * Sender Name
+    * Default From Email
+
+Centralized email settings make it possible to manage application email
+configuration without modifying every email-related module.
+
+
+EMAIL FLOW
+----------
+
+    LMS Event
+       |
+       v
+    Email Configuration
+       |
+       v
+    SMTP Server
+       |
+       v
+    Recipient
+
+
+================================================================================
+10. EMAIL NOTIFICATIONS
+================================================================================
+
+The system supports automated email notifications for important events.
 
 Examples include:
 
-```
-- Desktop
-- Laptop
-- Mobile
-- Tablet
-- Browser
-- Operating system
-- User-agent
-- IP address
-```
+    * New account notification
+    * Password reset
+    * Suspicious login alert
+    * Course allocation notification
+    * Course-related notification
+    * Reminder email
+    * Administrative notification
+    * System notification
 
-This information can be stored with authentication activity for security
-monitoring and auditing.
 
 ================================================================================
-8. SUSPICIOUS LOGIN DETECTION
-=============================
+11. DAILY AND WEEKLY REMINDERS
+================================================================================
 
-The system provides security monitoring for suspicious login activity.
+The application supports scheduled reminder emails.
 
-The purpose of this feature is to identify potentially unusual authentication
-events.
+Daily reminders can be used to notify employees about pending learning
+activities.
 
-Possible indicators include:
+Weekly reminders can be used to provide periodic training reminders.
 
-```
-- Login from a new device
-- Login from an unfamiliar IP address
-- Unexpected device changes
-- Multiple unusual authentication attempts
-- Other configured login-security conditions
-```
+Possible reminder information includes:
 
-When suspicious activity is identified, the system can generate a security
-notification and send an email to the affected user.
+    * Assigned courses
+    * Pending courses
+    * Incomplete learning activities
+    * Upcoming training activities
+    * Course deadlines
+    * Other configured reminders
 
-## SUSPICIOUS LOGIN WORKFLOW
+The exact schedule can be configured according to organizational needs.
 
-```
-User Login
-    |
-    v
-Capture Login Information
-    |
-    v
-Compare With Previous Activity
-    |
-    v
-Security Check
-    |
- +--+--+
- |     |
-```
-
-Normal  Suspicious
-|       |
-v       v
-Login    Security Event
-|
-v
-Email Notification
-|
-v
-Activity Log
 
 ================================================================================
-9. PASSWORD RESET
-=================
-
-The LMS provides password recovery functionality.
-
-Users who forget their password can request a password reset.
-
-PROCESS:
-
-```
-1. User selects "Forgot Password".
-2. User enters registered email address.
-3. System validates the account.
-4. Password reset email is generated.
-5. User receives the reset email.
-6. User opens the secure reset link.
-7. User creates a new password.
-8. User can log in with the new password.
-```
-
-## PASSWORD RESET EMAIL
-
-The application supports customized password reset email templates.
-
-Email settings can be configured centrally so that password reset messages
-are delivered through the configured SMTP server.
-
+12. COURSE MANAGEMENT
 ================================================================================
-10. EMAIL SETTINGS
-==================
 
-The Email Settings module provides centralized control over application
-email configuration.
-
-Administrators can configure email-related settings without modifying the
-application source code.
-
-Possible configuration values include:
-
-```
-- SMTP Host
-- SMTP Port
-- SMTP Username
-- SMTP Password
-- TLS configuration
-- SSL configuration
-- Sender email address
-- Sender name
-- Default email address
-```
-
-The application can retrieve configured email settings when sending system
-emails.
-
-## EMAIL CONFIGURATION PURPOSE
-
-Centralized email configuration is useful because the organization can
-change SMTP settings without modifying every email-related component.
-
-Example configuration:
-
-```
-SMTP HOST
-   |
-   v
-SMTP PORT
-   |
-   v
-SMTP USERNAME
-   |
-   v
-SMTP PASSWORD
-   |
-   v
-TLS / SSL
-   |
-   v
-DEFAULT FROM EMAIL
-   |
-   v
-APPLICATION EMAIL SERVICE
-```
-
-================================================================================
-11. EMAIL NOTIFICATIONS
-=======================
-
-The system can send email notifications for important events.
-
-Supported notification use cases include:
-
-```
-- New user/account notification
-- Password reset email
-- Suspicious login notification
-- Course allocation notification
-- Course-related notifications
-- Reminder notifications
-- Administrative notifications
-- System notifications
-```
-
-Email templates can be customized according to organizational requirements.
-
-================================================================================
-12. DAILY AND WEEKLY REMINDERS
-==============================
-
-The LMS supports automated reminder functionality.
-
-Reminder emails can be used to inform users about pending activities and
-learning responsibilities.
-
-Examples:
-
-```
-DAILY REMINDER
---------------
-A scheduled task can send reminder emails daily.
-
-WEEKLY REMINDER
----------------
-A scheduled task can send reminder emails weekly.
-```
-
-Possible reminder content includes:
-
-```
-- Pending courses
-- Pending learning activities
-- Course deadlines
-- Incomplete learning activities
-- Other configured reminders
-```
-
-================================================================================
-13. COURSE MANAGEMENT
-=====================
-
-The Course Management module provides functionality for creating and
-maintaining LMS courses.
+The Course Management module provides functionality for managing employee
+training courses.
 
 Administrators or authorized users can:
 
-```
-- Create courses
-- Edit courses
-- View courses
-- Activate courses
-- Deactivate courses
-- Manage course information
-- Manage course content
-- Maintain course status
-```
+    * Create courses
+    * Edit courses
+    * View courses
+    * Activate courses
+    * Deactivate courses
+    * Manage course information
+    * Manage course content
+    * Maintain course status
 
-## COURSE INFORMATION
+
+================================================================================
+13. COURSE CREATION
+================================================================================
+
+Authorized administrators can create new training courses.
 
 A course can contain information such as:
 
-```
-- Course title
-- Course description
-- Course content
-- Course materials
-- Learning objectives
-- Course status
-- Other course-related information
-```
+    * Course title
+    * Course description
+    * Course content
+    * Training material
+    * Learning objectives
+    * Course status
+    * Other course information
+
+COURSE CREATION WORKFLOW
+------------------------
+
+    Administrator
+         |
+         v
+    Course Management
+         |
+         v
+    Create Course
+         |
+         v
+    Enter Course Information
+         |
+         v
+    Save Course
+         |
+         v
+    Course Available
+         |
+         v
+    Allocate Course
+
 
 ================================================================================
-14. COURSE CREATION
-===================
+14. COURSE ALLOCATION
+================================================================================
 
-Authorized users can create new courses through the LMS.
+Course Allocation allows administrators to assign training courses to
+employees.
 
-GENERAL WORKFLOW:
+Allocation functionality includes:
 
-```
-Administrator
-     |
-     v
-Course Management
-     |
-     v
-Create Course
-     |
-     v
-Add Course Information
-     |
-     v
-Save Course
-     |
-     v
-Course Available
-     |
-     v
-Allocate To Users
-```
+    * Allocate course to an employee
+    * Allocate courses to multiple employees
+    * View allocations
+    * Update allocations
+    * Remove allocations
+    * Monitor assigned courses
+    * Provide course access to assigned employees
+
+COURSE ALLOCATION FLOW
+----------------------
+
+    Select Employee
+          |
+          v
+    Select Course
+          |
+          v
+    Create Allocation
+          |
+          v
+    Employee Receives Access
+          |
+          v
+    Course Appears On Dashboard
+          |
+          v
+    Employee Starts Learning
+
 
 ================================================================================
-15. COURSE ALLOCATION
-=====================
-
-Course Allocation is one of the main features of the LMS.
-
-Administrators can allocate courses to users so that learners can access
-their assigned learning content.
-
-Allocation functionality can include:
-
-```
-- Allocate course to individual user
-- Allocate courses to multiple users
-- View allocated courses
-- Manage allocations
-- Update allocations
-- Remove allocations when required
-- Monitor assigned courses
-```
-
-## COURSE ALLOCATION WORKFLOW
-
-```
-Select User
-    |
-    v
-Select Course
-    |
-    v
-Create Allocation
-    |
-    v
-User Receives Course Access
-    |
-    v
-Course Appears In Dashboard
-    |
-    v
-User Starts Learning
-    |
-    v
-Progress Is Recorded
-```
-
+15. EMPLOYEE LEARNING DASHBOARD
 ================================================================================
-16. LEARNER DASHBOARD
-=====================
 
-The learner dashboard provides users with access to their learning
-information.
+The employee dashboard provides a centralized view of learning activities.
 
 Typical dashboard information includes:
 
-```
-- Assigned courses
-- Available courses
-- Course progress
-- Pending learning activities
-- Completed learning activities
-- Notifications
-- Reminders
-- Account information
-```
+    * Assigned courses
+    * Available learning content
+    * Course progress
+    * Pending activities
+    * Completed activities
+    * Notifications
+    * Reminders
+    * Account information
+
 
 ================================================================================
-17. LEARNING MANAGEMENT
-=======================
+16. LEARNING CONTENT
+================================================================================
 
-The LMS provides a centralized environment for managing learning content.
+The platform can be used to provide digital learning resources.
 
-Learning materials may include:
+Supported learning material can include:
 
-```
-- PDF documents
-- Documents
-- Videos
-- Presentations
-- Training materials
-- Assignments
-- Other digital learning resources
-```
+    * PDF documents
+    * Documents
+    * Videos
+    * Presentations
+    * Training resources
+    * Assignments
+    * Other digital learning materials
 
-The system can provide learners with controlled access to materials based on
-their course allocation.
+Access to learning material can be controlled through course allocation.
+
 
 ================================================================================
-18. LEARNING PROGRESS
-=====================
+17. LEARNING PROGRESS
+================================================================================
 
-The application can track learner progress.
+The LMS can track employee learning progress.
 
-Progress information can include:
+Possible progress information includes:
 
-```
-- Course started
-- Course progress
-- Completed content
-- Pending content
-- Course completion
-- Completion percentage
-- Learning activity status
-```
+    * Course started
+    * Course progress
+    * Completed learning material
+    * Pending material
+    * Course completion
+    * Completion percentage
+    * Activity status
 
-This allows administrators and learners to understand the current learning
-status.
+This provides administrators with visibility into employee training progress.
+
 
 ================================================================================
-19. NOTIFICATION SYSTEM
-=======================
+18. NOTIFICATION MANAGEMENT
+================================================================================
 
-The LMS provides notification functionality for communicating important
-events to users.
+The notification system is designed to communicate important information
+to users.
 
-Notification examples:
+Notifications can relate to:
 
-```
-- Course allocated
-- Course updated
-- New learning content
-- Password reset
-- Suspicious login
-- Reminder
-- Administrative message
-- System message
-```
+    * Course allocation
+    * Course updates
+    * New learning content
+    * Password reset
+    * Suspicious login
+    * Reminder
+    * Administrative messages
+    * System events
 
-Notifications can be displayed within the application and, where configured,
-sent through email.
 
 ================================================================================
-20. ADMINISTRATION PANEL
-========================
+19. ADMIN DASHBOARD
+================================================================================
 
-The administration system provides centralized control over the LMS.
+The administrator dashboard provides centralized management of the LMS.
 
 Administrators can manage:
 
-```
-USER MANAGEMENT
----------------
-- Users
-- Roles
-- Permissions
-- User status
+    USER MANAGEMENT
+    ---------------
+    * Employees
+    * User accounts
+    * Roles
+    * Permissions
+    * Account status
 
-COURSE MANAGEMENT
------------------
-- Courses
-- Course content
-- Course allocation
+    COURSE MANAGEMENT
+    -----------------
+    * Courses
+    * Course content
+    * Course allocations
 
-COMMUNICATION
--------------
-- Email settings
-- Email notifications
-- Reminder settings
-- Notifications
+    EMAIL MANAGEMENT
+    ----------------
+    * SMTP configuration
+    * Email settings
+    * Email notifications
 
-SECURITY
---------
-- Login activity
-- Logout activity
-- Device/session information
-- Suspicious login activity
+    SECURITY MANAGEMENT
+    -------------------
+    * Login activity
+    * Logout activity
+    * Device activity
+    * Suspicious login activity
 
-SYSTEM
-------
-- System settings
-- Application configuration
-- Android application versions
-```
+    SYSTEM MANAGEMENT
+    -----------------
+    * System settings
+    * Application settings
+    * Android application versions
 
-================================================================================
-21. SYSTEM SETTINGS
-===================
-
-The system includes centralized settings for application configuration.
-
-Possible system settings include:
-
-```
-- Email configuration
-- Notification configuration
-- User settings
-- Course settings
-- Security settings
-- Application settings
-- Android application settings
-```
 
 ================================================================================
-22. DASHBOARD AND STATISTICS
-============================
+20. SYSTEM SETTINGS
+================================================================================
 
-The dashboard can provide administrators with a quick overview of the
-application.
+The system provides centralized configuration options.
 
-Possible statistics include:
+Administrators can manage configurable application settings including:
 
-```
-- Total users
-- Active users
-- Total courses
-- Allocated courses
-- Completed courses
-- Pending courses
-- Recent login activity
-- Security activity
-- Notification activity
-```
+    * Email configuration
+    * Notification settings
+    * User settings
+    * Course settings
+    * Security settings
+    * Application settings
+    * Android application settings
+
 
 ================================================================================
-23. REPORTING AND MONITORING
-============================
+21. REPORTING AND MONITORING
+================================================================================
 
-The LMS can be used to monitor operational and learning activities.
+The application can be used for operational and learning monitoring.
 
 Possible reports include:
 
-```
 USER REPORTS
 ------------
-- User list
-- Active users
-- Inactive users
+
+    * Employee list
+    * Active users
+    * Inactive users
 
 COURSE REPORTS
 --------------
-- Course list
-- Course allocations
-- Course status
+
+    * Course list
+    * Course allocations
+    * Course status
 
 LEARNING REPORTS
 ----------------
-- Course progress
-- Completion status
-- Pending activities
+
+    * Course progress
+    * Completion status
+    * Pending courses
+    * Learning activity status
 
 SECURITY REPORTS
 ----------------
-- Login activity
-- Logout activity
-- Device activity
-- Suspicious login events
-```
+
+    * Login activity
+    * Logout activity
+    * Device activity
+    * Suspicious login events
+
 
 ================================================================================
-24. ANDROID APPLICATION INTEGRATION
-===================================
+22. ANDROID APPLICATION SUPPORT
+================================================================================
 
-The LMS backend supports integration with an Android application.
+The LMS backend can support an Android client application.
 
-The Android application can communicate with the LMS backend for LMS-related
-functionality.
+Possible Android functionality includes:
 
-Possible mobile functionality includes:
+    * User authentication
+    * LMS access
+    * Course access
+    * Learning material access
+    * Notifications
+    * Application version checking
+    * APK updates
+    * APK downloads
 
-```
-- User authentication
-- LMS access
-- Course access
-- Learning materials
-- Notifications
-- Application version checking
-- APK updates
-```
 
 ================================================================================
-25. ANDROID APK MANAGEMENT
-==========================
+23. ANDROID APK VERSION MANAGEMENT
+================================================================================
 
-The administration system includes Android application version management.
+The system can manage Android application releases.
 
-The application version management functionality can maintain:
+Version information can include:
 
-```
-- Version name
-- Version code
-- APK file
-- APK file size
-- Release notes
-- Active version
-- Force update setting
-- Download count
-```
+    * Version name
+    * Version code
+    * APK file
+    * APK size
+    * Release notes
+    * Active version
+    * Force update option
+    * Download count
 
-## VERSION CHECKING
+VERSION CHECKING
+----------------
 
-The LMS can provide a version-check endpoint for Android clients.
+    Android Application
+            |
+            v
+    Send Installed Version
+            |
+            v
+    LMS Backend
+            |
+            v
+    Compare Version
+            |
+       +----+----+
+       |         |
+    Current    Update Required
+       |         |
+       v         v
+    Continue   Show Update
+                  |
+                  v
+              Download APK
 
-The Android application can provide its installed version code to the
-backend.
-
-The backend compares:
-
-```
-INSTALLED VERSION
-       |
-       v
-SERVER VERSION
-       |
-       v
-   COMPARISON
-    /       \
-   /         \
-CURRENT     UPDATE
-   |           |
-   v           v
-Continue    Show Update
-              |
-              v
-          Download APK
-```
 
 ================================================================================
-26. APK DOWNLOAD MANAGEMENT
-===========================
+24. APK DOWNLOAD MANAGEMENT
+================================================================================
 
 The backend can provide APK download functionality.
 
 The system can:
 
-```
-- Identify the active APK
-- Provide APK download
-- Track download count
-- Support force-update functionality
-- Provide release notes
-- Manage application versions
-```
+    * Maintain active APK
+    * Provide APK download
+    * Track download count
+    * Manage application versions
+    * Provide release notes
+    * Support force update functionality
+
 
 ================================================================================
-27. API INTEGRATION
-===================
+25. DATABASE MANAGEMENT
+================================================================================
 
-The LMS backend can provide API endpoints for communication with client
-applications.
+The application uses a relational database for storing LMS information.
 
-API functionality can be used for:
+Database data can include:
 
-```
-- Android application version checking
-- Course information
-- Authentication
-- User-related information
-- Learning data
-- Notifications
-- Other application integrations
-```
+    * User information
+    * Authentication information
+    * Courses
+    * Course allocations
+    * Learning progress
+    * Notifications
+    * Email settings
+    * Login activity
+    * Logout activity
+    * Device/session data
+    * Security events
+    * System settings
+    * Android application versions
+
 
 ================================================================================
-28. DATABASE
-============
-
-The project uses a relational database for storing application data.
-
-The database can contain information related to:
-
-```
-- Users
-- Authentication
-- Courses
-- Course allocations
-- Learning progress
-- Notifications
-- Email settings
-- Login activity
-- Logout activity
-- Device/session information
-- Security events
-- System settings
-- Android application versions
-```
-
-## DATABASE MIGRATIONS
+26. DJANGO MIGRATIONS
+================================================================================
 
 Django migrations are used to manage database schema changes.
 
 Typical commands:
 
-```
-python manage.py makemigrations
+    python manage.py makemigrations
 
-python manage.py migrate
-```
+    python manage.py migrate
 
-================================================================================
-29. TECHNOLOGY STACK
-====================
-
-## BACKEND
-
-```
-Python
-Django
-Django ORM
-Django Authentication
-```
-
-## FRONTEND
-
-```
-HTML5
-CSS3
-JavaScript
-Bootstrap
-```
-
-## DATABASE
-
-```
-MySQL
-```
-
-## EMAIL
-
-```
-SMTP
-Django Email Backend
-```
-
-## MOBILE
-
-```
-Android
-REST/API integration where applicable
-```
-
-## VERSION CONTROL
-
-```
-Git
-GitHub
-```
-
-## SERVER / DEPLOYMENT
-
-```
-Linux
-Apache / Nginx depending on deployment configuration
-WSGI / ASGI
-```
 
 ================================================================================
-30. PROJECT STRUCTURE
-=====================
+27. PROJECT TECHNOLOGY
+================================================================================
 
-A typical project structure may look like:
+BACKEND
+-------
 
-```
-lmsmgmt/
-|
-+-- manage.py
-|
-+-- project/
-|     |
-|     +-- settings.py
-|     +-- urls.py
-|     +-- wsgi.py
-|     +-- asgi.py
-|
-+-- users/
-|     +-- models.py
-|     +-- views.py
-|     +-- forms.py
-|     +-- urls.py
-|     +-- templates/
-|
-+-- courses/
-|     +-- models.py
-|     +-- views.py
-|     +-- forms.py
-|     +-- urls.py
-|
-+-- notifications/
-|
-+-- email settings/
-|
-+-- templates/
-|
-+-- static/
-|
-+-- media/
-|
-+-- requirements.txt
-|
-+-- .gitignore
-|
-+-- README.txt
-```
+    Python
+    Django
+    Django ORM
+    Django Authentication
 
-The exact application names and directory structure may differ depending on
-the final implementation.
+
+FRONTEND
+--------
+
+    HTML5
+    CSS3
+    JavaScript
+    Bootstrap
+
+
+DATABASE
+--------
+
+    MySQL
+
+
+EMAIL
+-----
+
+    SMTP
+    Django Email Backend
+
+
+MOBILE
+------
+
+    Android
+    Backend/API integration
+
+
+VERSION CONTROL
+---------------
+
+    Git
+    GitHub
+
+
+SERVER
+------
+
+    Linux
+    Apache / Nginx
+    WSGI / ASGI where applicable
+
 
 ================================================================================
-31. INSTALLATION
-================
+28. PROJECT STRUCTURE
+================================================================================
 
-## REQUIREMENTS
+A typical Django project structure is:
 
-Recommended environment:
+    lmsmgmt/
+    |
+    +-- manage.py
+    |
+    +-- project/
+    |     +-- settings.py
+    |     +-- urls.py
+    |     +-- wsgi.py
+    |     +-- asgi.py
+    |
+    +-- users/
+    |     +-- models.py
+    |     +-- views.py
+    |     +-- forms.py
+    |     +-- urls.py
+    |     +-- templates/
+    |
+    +-- courses/
+    |     +-- models.py
+    |     +-- views.py
+    |     +-- forms.py
+    |     +-- urls.py
+    |
+    +-- notifications/
+    |
+    +-- templates/
+    |
+    +-- static/
+    |
+    +-- media/
+    |
+    +-- requirements.txt
+    |
+    +-- .gitignore
+    |
+    +-- README.txt
 
-```
-Python 3.x
-Django
-MySQL
-pip
-virtualenv
-Git
-```
+The exact application names and directory structure depend on the
+implementation in the repository.
 
-## STEP 1 - CLONE PROJECT
 
-```
-git clone <YOUR-GITHUB-REPOSITORY>
+================================================================================
+29. INSTALLATION
+================================================================================
 
-cd lmsmgmt
-```
+STEP 1 - CLONE THE REPOSITORY
+-----------------------------
 
-## STEP 2 - CREATE VIRTUAL ENVIRONMENT
+    git clone <YOUR-GITHUB-REPOSITORY-URL>
 
-Linux:
+    cd <PROJECT-DIRECTORY>
 
-```
-python3 -m venv venv
-```
 
-## STEP 3 - ACTIVATE VIRTUAL ENVIRONMENT
+STEP 2 - CREATE VIRTUAL ENVIRONMENT
+-----------------------------------
 
-Linux/macOS:
+Linux / macOS:
 
-```
-source venv/bin/activate
-```
+    python3 -m venv venv
+
+
+STEP 3 - ACTIVATE VIRTUAL ENVIRONMENT
+-------------------------------------
+
+Linux / macOS:
+
+    source venv/bin/activate
 
 Windows:
 
-```
-venv\Scripts\activate
-```
+    venv\Scripts\activate
 
-## STEP 4 - INSTALL DEPENDENCIES
 
-```
-pip install -r requirements.txt
-```
+STEP 4 - INSTALL DEPENDENCIES
+-----------------------------
 
-## STEP 5 - CONFIGURE DATABASE
+    pip install -r requirements.txt
 
-Configure MySQL database settings in the Django configuration.
 
-Required database information:
+STEP 5 - CONFIGURE DATABASE
+---------------------------
 
-```
-Database Name
-Database User
-Database Password
-Database Host
-Database Port
-```
+Configure the MySQL database in the Django settings.
 
-## STEP 6 - RUN MIGRATIONS
+Required values normally include:
 
-```
-python manage.py makemigrations
+    DATABASE NAME
+    DATABASE USER
+    DATABASE PASSWORD
+    DATABASE HOST
+    DATABASE PORT
 
-python manage.py migrate
-```
 
-## STEP 7 - CREATE SUPERUSER
+STEP 6 - RUN MIGRATIONS
+-----------------------
 
-```
-python manage.py createsuperuser
-```
+    python manage.py makemigrations
 
-## STEP 8 - RUN DEVELOPMENT SERVER
+    python manage.py migrate
 
-```
-python manage.py runserver
-```
 
-The application can then be opened using the local development server.
+STEP 7 - CREATE ADMINISTRATOR
+-----------------------------
+
+    python manage.py createsuperuser
+
+
+STEP 8 - RUN THE SERVER
+-----------------------
+
+    python manage.py runserver
+
+
+The application can then be opened using the development server address
+shown by Django.
+
 
 ================================================================================
-32. ENVIRONMENT VARIABLES
-=========================
+30. ENVIRONMENT VARIABLES
+================================================================================
 
-Sensitive information should not be stored directly in the source code.
+Sensitive credentials should not be stored directly in source code.
 
 Recommended environment variables include:
 
-```
-SECRET_KEY=
-DEBUG=
+    SECRET_KEY=
+    DEBUG=
 
-DATABASE_NAME=
-DATABASE_USER=
-DATABASE_PASSWORD=
-DATABASE_HOST=
-DATABASE_PORT=
+    DATABASE_NAME=
+    DATABASE_USER=
+    DATABASE_PASSWORD=
+    DATABASE_HOST=
+    DATABASE_PORT=
 
-EMAIL_HOST=
-EMAIL_PORT=
-EMAIL_HOST_USER=
-EMAIL_HOST_PASSWORD=
-EMAIL_USE_TLS=
-EMAIL_USE_SSL=
-DEFAULT_FROM_EMAIL=
-```
+    EMAIL_HOST=
+    EMAIL_PORT=
+    EMAIL_HOST_USER=
+    EMAIL_HOST_PASSWORD=
+    EMAIL_USE_TLS=
+    EMAIL_USE_SSL=
+    DEFAULT_FROM_EMAIL=
 
-Do not upload real passwords, API keys, SMTP credentials, database
-credentials, or other secrets to GitHub.
+The .env file should never be committed to a public GitHub repository.
+
 
 ================================================================================
-33. EMAIL CONFIGURATION
-=======================
+31. EMAIL CONFIGURATION EXAMPLE
+================================================================================
 
 Example SMTP configuration:
 
-```
-EMAIL_BACKEND =
-    "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
-EMAIL_HOST = "smtp.example.com"
+    EMAIL_HOST = "smtp.example.com"
 
-EMAIL_PORT = 587
+    EMAIL_PORT = 587
 
-EMAIL_USE_TLS = True
+    EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = "your-email@example.com"
+    EMAIL_HOST_USER = "your-email@example.com"
 
-EMAIL_HOST_PASSWORD = "your-password"
+    EMAIL_HOST_PASSWORD = "your-password"
 
-DEFAULT_FROM_EMAIL = "your-email@example.com"
-```
+    DEFAULT_FROM_EMAIL = "your-email@example.com"
 
-For production systems, credentials should be stored using environment
-variables or another secure secrets-management solution.
+For production, store email credentials securely using environment
+variables or a secrets-management system.
+
 
 ================================================================================
-34. SECURITY FEATURES
-=====================
+32. SECURITY
+================================================================================
 
-Security is an important part of the LMS architecture.
+Security functionality is an important part of the application.
 
-The system includes or supports:
+Security-related features include:
 
-```
-- Django authentication
-- Password hashing
-- Role-based access control
-- Permission management
-- CSRF protection
-- Session management
-- Login tracking
-- Logout tracking
-- Device tracking
-- IP tracking
-- User-agent tracking
-- Suspicious login detection
-- Email security notifications
-- Input validation
-- Database validation
-- Secure password reset
-```
+    * Django authentication
+    * Secure password hashing
+    * Role-based access control
+    * Permission management
+    * Session management
+    * CSRF protection
+    * Login monitoring
+    * Logout monitoring
+    * IP tracking
+    * Device tracking
+    * User-agent tracking
+    * Suspicious login detection
+    * Security email notifications
+    * Password reset
+    * Input validation
+    * Database validation
+
 
 ================================================================================
-35. SECURITY BEST PRACTICES
-===========================
+33. PRODUCTION SECURITY CHECKLIST
+================================================================================
 
-Before production deployment:
+Before deploying to production:
 
-```
-1. Set DEBUG=False.
-2. Use HTTPS.
-3. Protect SECRET_KEY.
-4. Protect database credentials.
-5. Protect SMTP credentials.
-6. Configure ALLOWED_HOSTS correctly.
-7. Use secure cookies.
-8. Configure CSRF protection.
-9. Keep dependencies updated.
-```
+    [ ] Set DEBUG=False
+    [ ] Configure ALLOWED_HOSTS
+    [ ] Enable HTTPS
+    [ ] Protect SECRET_KEY
+    [ ] Protect database credentials
+    [ ] Protect SMTP credentials
+    [ ] Configure secure cookies
+    [ ] Configure CSRF protection
+    [ ] Restrict administrator access
+    [ ] Configure database backups
+    [ ] Keep dependencies updated
+    [ ] Monitor login activity
+    [ ] Protect uploaded files
+    [ ] Do not commit .env
+    [ ] Do not commit passwords
+    [ ] Do not commit private keys
+    [ ] Review server logs
 
-10. Restrict administrator access.
-11. Configure database backups.
-12. Monitor authentication activity.
-13. Do not commit .env files.
-14. Do not commit passwords or private keys.
-15. Review uploaded files and media permissions.
 
 ================================================================================
-36. GIT / GITHUB
-================
+34. TESTING
+================================================================================
 
-Initialize Git:
+The following areas should be tested before production release.
 
-```
-git init
-```
+USER TESTING
+------------
 
-Add project files:
+    * Employee creation
+    * Employee editing
+    * User activation/deactivation
+    * Login
+    * Logout
+    * Password reset
+    * Role permissions
 
-```
-git add .
-```
 
-Commit:
+COURSE TESTING
+--------------
 
-```
-git commit -m "Initial LMS project"
-```
+    * Course creation
+    * Course editing
+    * Course activation/deactivation
+    * Course allocation
+    * Course access
+    * Course completion
 
-Connect GitHub repository:
 
-```
-git remote add origin <YOUR-GITHUB-REPOSITORY>
-```
+EMAIL TESTING
+-------------
 
-Push project:
+    * Password reset email
+    * New user email
+    * Course allocation email
+    * Suspicious login email
+    * Daily reminder
+    * Weekly reminder
 
-```
-git branch -M main
 
-git push -u origin main
-```
+SECURITY TESTING
+----------------
+
+    * Authentication
+    * Authorization
+    * Role permissions
+    * Session handling
+    * Suspicious login detection
+    * CSRF protection
+    * Input validation
+
+
+ANDROID TESTING
+---------------
+
+    * Version checking
+    * APK download
+    * Update notification
+    * Force update
+    * Download tracking
+
 
 ================================================================================
-37. .GITIGNORE
-==============
+35. COMPLETE ADMIN WORKFLOW
+================================================================================
 
-The following files/directories should normally not be committed:
+    Administrator Login
+            |
+            v
+    Admin Dashboard
+            |
+            +-------------------+
+            |                   |
+            v                   v
+    User Management       Course Management
+            |                   |
+            v                   v
+    Create Employee       Create Course
+            |                   |
+            +---------+---------+
+                      |
+                      v
+               Course Allocation
+                      |
+                      v
+                Employee Access
+                      |
+                      v
+                  Learning
+                      |
+                      v
+               Progress Tracking
+                      |
+                      v
+                 Completion
+                      |
+                      v
+                Reports
 
-```
-venv/
-__pycache__/
-*.pyc
-.env
-db.sqlite3
-media/
-staticfiles/
-```
-
-Additional environment-specific files should also be excluded where
-appropriate.
 
 ================================================================================
-38. TESTING
-===========
+36. COMPLETE SECURITY WORKFLOW
+================================================================================
 
-The application should be tested module by module.
+    User Login
+        |
+        v
+    Authentication
+        |
+        v
+    Capture Login Information
+        |
+        +-------------------------------+
+        |                               |
+        v                               v
+    IP Address                    Device Information
+        |                               |
+        +---------------+---------------+
+                        |
+                        v
+                 Security Check
+                        |
+                  +-----+-----+
+                  |           |
+                Normal     Suspicious
+                  |           |
+                  v           v
+               Continue   Log Event
+                              |
+                              v
+                         Email Alert
 
-## USER TESTING
-
-```
-- Create user
-- Edit user
-- Activate/deactivate user
-- Login
-- Logout
-- Password reset
-```
-
-## COURSE TESTING
-
-```
-- Create course
-- Edit course
-- Activate/deactivate course
-- Allocate course
-- Remove allocation
-- Access allocated course
-```
-
-## EMAIL TESTING
-
-```
-- Password reset email
-- New user email
-- Course allocation email
-- Suspicious login email
-- Reminder email
-```
-
-## SECURITY TESTING
-
-```
-- Authentication
-- Authorization
-- Role permissions
-- Session handling
-- Suspicious login detection
-- CSRF protection
-- Input validation
-```
-
-## ANDROID TESTING
-
-```
-- Version checking
-- APK download
-- Update notification
-- Force update
-- Download count
-```
 
 ================================================================================
-39. ADMINISTRATOR WORKFLOW
-==========================
+37. COMPLETE EMAIL WORKFLOW
+================================================================================
 
-The typical administrator workflow is:
+    SYSTEM EVENT
+         |
+         +-------------------------+
+         |                         |
+         v                         v
+    User Event               Course Event
+         |                         |
+         v                         v
+    Email Service             Email Service
+         |                         |
+         +------------+------------+
+                      |
+                      v
+                SMTP Settings
+                      |
+                      v
+                Email Delivery
 
-```
-Login
-  |
-  v
-Admin Dashboard
-  |
-  +---------------------+
-  |                     |
-  v                     v
-User Management      Course Management
-  |                     |
-  v                     v
-Create Users          Create Courses
-  |                     |
-  +----------+----------+
-             |
-             v
-      Course Allocation
-             |
-             v
-      User Course Access
-             |
-             v
-      Learning Monitoring
-             |
-             v
-         Reports
-```
 
 ================================================================================
-40. COMPLETE LMS WORKFLOW
-=========================
+38. GITHUB REPOSITORY
+================================================================================
 
-The complete system workflow can be summarized as:
+The project can be maintained using Git and GitHub.
 
-```
-ADMIN
-  |
-  v
-Create User
-  |
-  v
-Configure User Role
-  |
-  v
-Create Course
-  |
-  v
-Allocate Course
-  |
-  v
-User Receives Access
-  |
-  v
-User Login
-  |
-  v
-Login Activity Recorded
-  |
-  v
-Security Check
-  |
-  +----------------------+
-  |                      |
-Normal               Suspicious
-  |                      |
-  v                      v
-Dashboard           Security Email
-  |
-  v
-Assigned Course
-  |
-  v
-Learning Content
-  |
-  v
-Progress Tracking
-  |
-  v
-Completion
-  |
-  v
-Reports / Monitoring
-```
+INITIALIZE GIT
+--------------
+
+    git init
+
+
+ADD FILES
+---------
+
+    git add .
+
+
+CREATE COMMIT
+-------------
+
+    git commit -m "Initial Employee LMS implementation"
+
+
+ADD REMOTE
+----------
+
+    git remote add origin <YOUR-GITHUB-REPOSITORY-URL>
+
+
+SET MAIN BRANCH
+---------------
+
+    git branch -M main
+
+
+PUSH PROJECT
+------------
+
+    git push -u origin main
+
 
 ================================================================================
-41. EMAIL EVENT WORKFLOW
-========================
+39. RECOMMENDED .GITIGNORE
+================================================================================
 
-Different LMS events can trigger email communication.
+The following files should normally be excluded from GitHub:
 
-```
-USER CREATED
-    |
-    v
-Account Notification
+    venv/
+    __pycache__/
+    *.pyc
+    .env
+    db.sqlite3
+    media/
+    staticfiles/
 
-PASSWORD RESET REQUEST
-    |
-    v
-Password Reset Email
+Do not upload:
 
-COURSE ALLOCATED
-    |
-    v
-Course Allocation Email
+    * Database passwords
+    * SMTP passwords
+    * API keys
+    * Secret keys
+    * Private certificates
+    * Private SSH keys
 
-SUSPICIOUS LOGIN
-    |
-    v
-Security Notification Email
-
-SCHEDULED REMINDER
-    |
-    v
-Daily / Weekly Reminder Email
-```
 
 ================================================================================
-42. ADMINISTRATIVE RESPONSIBILITIES
-===================================
+40. DEPLOYMENT
+================================================================================
 
-The administrator is responsible for:
+For production deployment, the application can be hosted on a Linux server.
 
-```
-- Creating users
-- Maintaining user accounts
-- Managing roles
-- Creating courses
-- Managing course content
-- Allocating courses
-- Monitoring learner progress
-- Configuring email settings
-- Monitoring login/logout activity
-- Reviewing suspicious login events
-- Managing notifications
-- Managing system settings
-- Managing application versions
-- Monitoring system activity
-```
+Typical production components include:
+
+    * Linux
+    * Python
+    * Django
+    * MySQL
+    * Virtual Environment
+    * Gunicorn/uWSGI where applicable
+    * Apache or Nginx
+    * HTTPS / SSL
+    * Static file configuration
+    * Media file configuration
+    * SMTP server
+    * Scheduled tasks
+    * Database backups
+
+
+PRODUCTION FLOW
+---------------
+
+    Internet
+       |
+       v
+    HTTPS
+       |
+       v
+    Apache / Nginx
+       |
+       v
+    Django Application
+       |
+       +----------------+
+       |                |
+       v                v
+    MySQL             SMTP
+    Database          Server
+
 
 ================================================================================
-43. DATA FLOW
-=============
-
-## USER DATA FLOW
-
-```
-User
-  |
-  v
-Authentication
-  |
-  v
-User Database
-  |
-  v
-Session
-  |
-  v
-Dashboard
-```
-
-## COURSE DATA FLOW
-
-```
-Admin
-  |
-  v
-Course Creation
-  |
-  v
-Course Database
-  |
-  v
-Course Allocation
-  |
-  v
-User Dashboard
-```
-
-## EMAIL DATA FLOW
-
-```
-LMS Event
-   |
-   v
-Email Service
-   |
-   v
-SMTP Configuration
-   |
-   v
-Recipient Email
-```
-
-## SECURITY DATA FLOW
-
-```
-Login
-  |
-  v
-IP / Device / User-Agent
-  |
-  v
-Security Validation
-  |
-  v
-Activity Log
-  |
-  +----------------+
-  |                |
-Normal         Suspicious
-                   |
-                   v
-             Email Alert
-```
-
+41. MAINTENANCE
 ================================================================================
-44. DEPLOYMENT
-==============
-
-For production deployment, the following components can be configured:
-
-```
-- Linux server
-- Python virtual environment
-- Django
-- MySQL
-- Gunicorn/uWSGI where applicable
-- Apache or Nginx
-- HTTPS / SSL certificate
-- Static file configuration
-- Media file configuration
-- SMTP configuration
-- Scheduled tasks
-- Database backup
-```
-
-## PRODUCTION CHECKLIST
-
-```
-[ ] DEBUG=False
-[ ] SECRET_KEY protected
-[ ] Database configured
-[ ] Database migrations completed
-[ ] Static files configured
-[ ] Media files configured
-[ ] HTTPS enabled
-[ ] Domain configured
-[ ] Email configured
-[ ] Scheduled reminders configured
-[ ] Backup configured
-[ ] Admin account secured
-[ ] Logging configured
-[ ] Dependencies updated
-```
-
-================================================================================
-45. MAINTENANCE
-===============
 
 Regular maintenance should include:
 
-```
-- Database backup
-- Security updates
-- Dependency updates
-- Log monitoring
-- Disk-space monitoring
-- Email delivery monitoring
-- Database performance monitoring
-- User activity monitoring
-- Security-event monitoring
-```
+    * Database backups
+    * Security updates
+    * Dependency updates
+    * Application log monitoring
+    * Database monitoring
+    * Email delivery monitoring
+    * Disk-space monitoring
+    * Login activity monitoring
+    * Suspicious activity review
+    * Server maintenance
+
 
 ================================================================================
-46. FUTURE ENHANCEMENTS
-=======================
+42. FUTURE ENHANCEMENTS
+================================================================================
 
-Potential future improvements include:
+Possible future improvements include:
 
-```
-- AI-powered course recommendations
-- AI learning assistant
-- AI chatbot
-- Online examinations
-- Quiz management
-- Assignment management
-- Certificate generation
-- Attendance management
-- Live classes
-- Video conferencing
-- Advanced analytics
-- Learning analytics
-- Gamification
-- Push notifications
-- Mobile application enhancements
-- Multi-language support
-- Advanced reporting
-- Automated certificates
-- Advanced security analytics
-```
+    * AI-powered learning recommendations
+    * AI learning assistant
+    * AI chatbot
+    * Online examinations
+    * Quiz management
+    * Assignment management
+    * Certificate generation
+    * Attendance management
+    * Live classes
+    * Video conferencing
+    * Advanced learning analytics
+    * Gamification
+    * Push notifications
+    * Advanced reporting
+    * Mobile application enhancements
+    * Multi-language support
+    * Automated certificates
+    * Advanced security analytics
+
 
 ================================================================================
-47. PROJECT OBJECTIVES
-======================
+43. PROJECT OBJECTIVES
+================================================================================
 
-The main objectives of EKA LMS are:
+The main objectives of the Employee Learning Management System are:
 
-```
-1. Centralize learning management.
-2. Simplify user creation and management.
-3. Provide secure user authentication.
-4. Manage courses efficiently.
-5. Allocate courses to users.
-6. Track learner progress.
-7. Automate email communication.
-8. Provide password recovery.
-9. Monitor login and logout activity.
-```
+    1. Centralize employee learning management.
+    2. Simplify employee/user creation.
+    3. Provide secure authentication.
+    4. Manage training courses.
+    5. Allocate courses to employees.
+    6. Track learning progress.
+    7. Automate email communication.
+    8. Provide password recovery.
+    9. Track login and logout activities.
+   10. Detect suspicious login activity.
+   11. Send security notifications.
+   12. Provide daily and weekly reminders.
+   13. Provide administrative monitoring.
+   14. Support mobile application integration.
+   15. Provide a scalable platform for future development.
 
-10. Detect suspicious login activity.
-11. Provide security notifications.
-12. Support scheduled reminders.
-13. Provide administrative monitoring.
-14. Support Android application integration.
-15. Provide scalable architecture for future development.
 
 ================================================================================
-48. PROJECT BENEFITS
-====================
+44. PROJECT BENEFITS
+================================================================================
 
-The LMS provides the following benefits:
+The LMS provides:
 
-```
-- Centralized user management
-- Centralized course management
-- Easy course allocation
-- Improved learner accessibility
-- Automated communication
-- Improved security monitoring
-- Login activity visibility
-- Suspicious login alerts
-- Password recovery
-- Automated reminders
-- Administrative control
-- Learning progress monitoring
-- Mobile application support
-- Scalable architecture
-```
+    * Centralized employee management
+    * Centralized course management
+    * Easy course allocation
+    * Automated email communication
+    * Automated reminders
+    * Secure authentication
+    * Security monitoring
+    * Suspicious login alerts
+    * Password recovery
+    * Learning progress monitoring
+    * Administrative control
+    * Reporting and monitoring
+    * Android application support
+    * Scalable architecture
+
 
 ================================================================================
-49. PROJECT STATUS
-==================
+45. PROJECT STATUS
+================================================================================
 
-The project is under active development and improvement.
+The Employee Learning Management System is an actively developed application.
 
-Implemented functionality includes major LMS management capabilities such
-as authentication, user management, course management, course allocation,
-email configuration, notifications, security monitoring, and application
-integration.
+The project includes core LMS functionality covering:
 
-Individual modules may continue to receive testing, bug fixes, performance
-improvements, security improvements, and additional functionality during
-development.
+    * User management
+    * Authentication
+    * Course management
+    * Course allocation
+    * Email configuration
+    * Email notifications
+    * Password recovery
+    * Reminder functionality
+    * Login/logout monitoring
+    * Security monitoring
+    * Learning management
+    * Android application support
+
+Additional testing, security review, performance optimization, UI
+improvements, and new features can be added as development continues.
+
 
 ================================================================================
-50. COPYRIGHT / LICENSE
-=======================
+46. LICENSE
+================================================================================
 
-This project is developed for organizational and educational use.
+This project is intended for organizational and educational use.
 
-Copyright:
-EKA Learning Management System
-
-The appropriate license and usage terms should be added according to the
+Copyright and licensing information should be added according to the
 organization's requirements.
 
+
 ================================================================================
-END OF README
-=============
+47. DEVELOPMENT SUMMARY
+================================================================================
+
+The Employee Learning Management System combines employee management,
+learning management, course allocation, communication, authentication, and
+security monitoring into one centralized platform.
+
+The major system components are:
+
+    USER MANAGEMENT
+           +
+    AUTHENTICATION
+           +
+    COURSE MANAGEMENT
+           +
+    COURSE ALLOCATION
+           +
+    LEARNING MANAGEMENT
+           +
+    EMAIL MANAGEMENT
+           +
+    NOTIFICATIONS
+           +
+    SECURITY MONITORING
+           +
+    REPORTING
+           +
+    MOBILE INTEGRATION
+           =
+    COMPLETE EMPLOYEE LMS
+
+
+================================================================================
+                           END OF README
+================================================================================
+
