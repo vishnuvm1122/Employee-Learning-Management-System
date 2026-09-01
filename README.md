@@ -221,7 +221,7 @@ Recommended:
 
 ```text
 Python 3.x
-```
+```hail
 
 If Python is not installed:
 
@@ -864,87 +864,6 @@ Test the following before production:
 * [ ] IP information
 * [ ] Suspicious login detection
 
----
-
-# 🐙 GitHub Setup
-
-Initialize Git:
-
-```bash
-git init
-```
-
-Add files:
-
-```bash
-git add .
-```
-
-Commit:
-
-```bash
-git commit -m "Initial LMS implementation"
-```
-
-Set main branch:
-
-```bash
-git branch -M main
-```
-
-Add GitHub repository:
-
-```bash
-git remote add origin <YOUR-GITHUB-REPOSITORY-URL>
-```
-
-Push:
-
-```bash
-git push -u origin main
-```
-
----
-
-# 🚫 Recommended `.gitignore`
-
-```gitignore
-# Python
-__pycache__/
-*.py[cod]
-*.pyo
-
-# Virtual Environment
-venv/
-.venv/
-env/
-
-# Environment
-.env
-
-# Django
-db.sqlite3
-staticfiles/
-
-# User uploads
-media/
-
-# IDE
-.vscode/
-.idea/
-
-# OS
-.DS_Store
-
-# Logs
-*.log
-
-# Secrets
-*.pem
-*.key
-```
-
----
 
 # 🔒 Production Security Checklist
 
@@ -1016,14 +935,6 @@ mysql -u lmsuser -p lmsmgmt < lmsmgmt_backup.sql
 Store backups securely.
 
 ---
-
-# 🔄 Updating the Application
-
-Pull the latest code:
-
-```bash
-git pull origin main
-```
 
 Activate the environment:
 
@@ -1293,7 +1204,8 @@ questions, contact the project administrator/development team.
 ---
 
 <p align="center">
-
+gitclone https://github.com/vishnuvm1122/Employee-Learning-Management-System.git
+linkdin : https://www.linkedin.com/in/vishnuvm1997/
 ### 🎓 Employee Learning Management System
 
 **Secure • Organized • Scalable • Employee-Focused**
