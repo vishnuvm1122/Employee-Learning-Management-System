@@ -20,13 +20,13 @@ A comprehensive web-based Employee Learning Management System built with Python,
 
 ---
 
-## 📺 Demo Video
+## 📺 Demo
 
 <div align="center">
 
-[![Employee LMS Demo](https://img.shields.io/badge/▶️%20Watch%20Demo-Video%20Walkthrough-blue?style=for-the-badge)](Screencast%202026-09-01%2012%3A01%3A52.mp4)
+![Employee LMS Demo GIF](lms-demo.gif)
 
-**[View Demo Video](Screencast%202026-09-01%2012%3A01%3A52.mp4)** - See the Employee LMS in action
+**See the Employee LMS in action** - Interactive walkthrough of key features
 
 </div>
 
@@ -143,7 +143,7 @@ The **Employee Learning Management System** is a centralized, secure platform de
 ## 🏗️ System Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
+┌──────────────────────────────────────────────────────────────────┐
 │                     🌐 END USERS                                │
 │              (Employees, Admins, Managers)                      │
 └────────────────────────────┬────────────────────────────────────┘
