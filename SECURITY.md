@@ -6,7 +6,7 @@ please follow the reporting process below.
 
 ## Reporting a Vulnerability
 If you discover a vulnerability, please do NOT open a public issue. Instead:
-1. Email: your-email@example.com
+1. Email: vishnuedappal1122@gmail.com
 2. Subject: [Security] <short description>
 3. Include: steps to reproduce, affected versions, potential impact, and contact info.
 

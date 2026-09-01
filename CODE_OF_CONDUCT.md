@@ -26,7 +26,7 @@ or severe violations may result in a temporary or permanent ban from the project
 
 ## Reporting
 If you are subject to or witness unacceptable behavior, please report it to
-the project maintainers at: your-email@example.com. All reports will be handled
+the project maintainers at: vishnuedappal1122@gmail.com. All reports will be handled
 confidentially.
 
 ## License & Attribution

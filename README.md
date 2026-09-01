@@ -131,10 +131,10 @@ The **Employee Learning Management System** is a centralized, secure platform de
 ## 🏗️ System Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
+┌─────────────────────────────────────────────────────────────────��[...]
 │                     🌐 END USERS                                │
 │              (Employees, Admins, Managers)                      │
-└────────────────────────────┬────────────────────────────────────┘
+└────────────────────────────┬────────────────────────────────────��[...]
                              │
                    ┌─────────▼──────────┐
                    │  🌍 WEB BROWSER    │
@@ -1131,7 +1131,7 @@ in the Software without restriction...
 
 - 🐙 **GitHub:** [vishnuvm1122/Employee-Learning-Management-System](https://github.com/vishnuvm1122/Employee-Learning-Management-System)
 - 💼 **LinkedIn:** [vishnuvm1997](https://www.linkedin.com/in/vishnuvm1997/)
-- 📧 **Email:** [your-email@example.com]
+- 📧 **Email:** [vishnuedappal1122@gmail.com](mailto:vishnuedappal1122@gmail.com)
 - 🌐 **Website:** [your-website.com]
 
 ---
@@ -1154,7 +1154,7 @@ For issues, questions, or suggestions:
 
 - 📝 **Issues:** [GitHub Issues](https://github.com/vishnuvm1122/Employee-Learning-Management-System/issues)
 - 💬 **Discussions:** [GitHub Discussions](https://github.com/vishnuvm1122/Employee-Learning-Management-System/discussions)
-- 📧 **Email:** [your-email@example.com]
+- 📧 **Email:** [vishnuedappal1122@gmail.com](mailto:vishnuedappal1122@gmail.com)
 
 ---
 
